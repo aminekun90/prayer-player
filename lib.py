@@ -4,7 +4,7 @@ import requests
 from soco import discover, SoCo
 for zone in discover():
     print(zone.player_name)
-    # print(zone.get_current_track_info()['uri'])
+    print(zone.get_current_track_info()['uri'])
 
 
 def sonos_playing(sonos: SoCo, uri: str):
@@ -14,7 +14,8 @@ def sonos_playing(sonos: SoCo, uri: str):
 
 if __name__ == '__main__':
     sonos = SoCo('192.168.0.12')  # Pass in the IP of your Sonos speaker
-    uri = 'x-sonos-vli:RINCON_542A1B56B08601400:2,spotify:000664ebb4b29cca5abdcdc65391923c'
+
+    uri = 'http://88.126.184.174:14656/share/OptHmgaBchsY6Iqq/azan1.mp3'
 
     # You could use the discover function instead, if you don't know the IP
     # Set headers and parameters
@@ -55,13 +56,15 @@ if __name__ == '__main__':
                             'time': time,
                             'prayer': key
                         }
+                        print(found_prayer)
+                        break
             if len(found_prayer):
                 print(found_prayer)
                 # Pass in a URI to a media file to have it streamed through the Sonos
                 # speaker
                 if not sonos_playing(sonos, uri):
                     sonos.play_uri(uri)
-
+                    sonos.volume = 7
                     track = sonos.get_current_track_info()
 
                     print(track['title'])
@@ -70,7 +73,7 @@ if __name__ == '__main__':
                     # Play a stopped or paused track
                     sonos.play()
             print('waiting for next time ...')
-            time.sleep(60)
+            time.sleep(30)
     except KeyboardInterrupt:
         pass
     finally:
