@@ -62,7 +62,7 @@ def call_api_and_play(sonos, uri):
                 # speaker
                 if not sonos_playing(sonos, uri):
                     sonos.play_uri(uri)
-                    sonos.volume = 15
+                    sonos.volume = 20
                     track = sonos.get_current_track_info()
 
                     print(track['title'])
