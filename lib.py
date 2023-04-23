@@ -77,7 +77,7 @@ def call_api_and_play(sonos,uri):
         pass
     except Exception as e:
         print('Retrying ...because of',e)
-        # call_api_and_play(sonos,uri)
+        call_api_and_play(sonos,uri)
     finally:
         print('Stopping the fetching script...')
         if sonos_playing(sonos, uri):
