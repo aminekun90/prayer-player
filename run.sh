@@ -1,2 +1,2 @@
 source venv/bin/activate
-nohup python lib.py &
+screen -S prayer_fetcher -dm python lib.py

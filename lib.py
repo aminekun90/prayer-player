@@ -11,11 +11,10 @@ def sonos_playing(sonos: SoCo, uri: str):
     current_uri = sonos.get_current_track_info()['uri']
     return sonos.get_current_transport_info()['current_transport_state'] == 'PLAYING' and uri == current_uri
 
-def call_api_and_play(sonos,uri):
-    try:
-        while True:
-            with open('nohup.out', 'w'):
-                    print(f'{current_time} Removing logs ...')
+
+def call_api_and_play(sonos, uri):
+    while True:
+        try:
             # Get current year
             now = datetime.datetime.now()
             current_year = now.year
@@ -40,10 +39,12 @@ def call_api_and_play(sonos,uri):
                 gregorian_date = item['date']['gregorian']['date']
                 if gregorian_date == today_date:
                     timings = item['timings']
+                    timings = {key: value for key, value in timings.items() if key in ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha']}
+
+                    
             found_prayer = {}
             if len(timings) > 0:
-                timings = {key: value for key, value in timings.items(
-                ) if key in ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha']}
+                print(f"Today timing : {timings}")
                 for key, value in timings.items():
                     hours_minutes = f"{value.split(' ')[0]}:00"
                     if hours_minutes == current_time:
@@ -67,22 +68,22 @@ def call_api_and_play(sonos,uri):
                     sonos.seek('00:00:00')
                     # Play a stopped or paused track
                     sonos.play()
-                    with open('nohup.out', 'w'):
-                        print(f'{current_time} Removing logs ...')
-                    print(f'Played {found_prayer} at {current_time}')   
+                    print(f'Played {found_prayer} at {current_time}')
 
             print(f'{current_time} waiting for next time ...')
             time.sleep(1)
-    except KeyboardInterrupt:
-        pass
-    except Exception as e:
-        print('Retrying ...because of',e)
-        call_api_and_play(sonos,uri)
-    finally:
-        print('Stopping the fetching script...')
-        if sonos_playing(sonos, uri):
-            print("Stopping current playing")
-            sonos.stop()
+        except KeyboardInterrupt:
+            print('Stopping the fetching script...')
+            if sonos_playing(sonos, uri):
+                print("Stopping current playing")
+                sonos.stop()
+            break
+        except Exception as e:
+            print(f'Exception occurred: {e}. Retrying...')
+        
+            
+
+
     
 if __name__ == '__main__':
     sonos = SoCo('192.168.0.12')  # Pass in the IP of your Sonos speaker
