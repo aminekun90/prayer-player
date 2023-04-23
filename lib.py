@@ -11,49 +11,51 @@ def sonos_playing(sonos: SoCo, uri: str):
     current_uri = sonos.get_current_track_info()['uri']
     return sonos.get_current_transport_info()['current_transport_state'] == 'PLAYING' and uri == current_uri
 
+def get_todays_timings(now:datetime):
+    today_date = datetime.date.today().strftime("%d-%m-%Y")
+    current_year = now.year
+    current_month = now.month
+    
+    headers = {'User-Agent': 'Mozilla/5.0'}
+    params = {
+        'address': 'Nantes, France',
+        'method': '12'
+    }
+    # Make a GET request with headers and parameters
+    response = requests.get(
+        f"http://api.aladhan.com/v1/calendarByAddress/{current_year}/{current_month}", headers=headers, params=params)
+
+    # Print the response
+    data = response.json()
+    current_time = now.strftime("%H:%M:%S")
+    timings = {}
+    for item in data['data']:
+        gregorian_date = item['date']['gregorian']['date']
+        if gregorian_date == today_date:
+            timings = item['timings']
+            timings = {key: value for key, value in timings.items() if key in ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha']}
+
+            
+    found_prayer = {}
+    if len(timings) > 0:
+        print(f"Today timing : {timings}")
+        for key, value in timings.items():
+            hours_minutes = f"{value.split(' ')[0]}:00"
+            if hours_minutes == current_time:
+                found_prayer = {
+                    'time': hours_minutes,
+                    'prayer': key
+                }
+                print(found_prayer)
+                break
+    return found_prayer
 
 def call_api_and_play(sonos, uri):
     while True:
         try:
-            # Get current year
             now = datetime.datetime.now()
-            current_year = now.year
-            current_month = now.month
-            today_date = datetime.date.today().strftime("%d-%m-%Y")
-            headers = {'User-Agent': 'Mozilla/5.0'}
-            params = {
-                'latitude': '47.2184',
-                'longitude': '1.5536',
-                'method': '3'
-            }
-
-            # Make a GET request with headers and parameters
-            response = requests.get(
-                f"http://api.aladhan.com/v1/calendar/{current_year}/{current_month}", headers=headers, params=params)
-
-            # Print the response
-            data = response.json()
             current_time = now.strftime("%H:%M:%S")
-            timings = {}
-            for item in data['data']:
-                gregorian_date = item['date']['gregorian']['date']
-                if gregorian_date == today_date:
-                    timings = item['timings']
-                    timings = {key: value for key, value in timings.items() if key in ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha']}
-
-                    
-            found_prayer = {}
-            if len(timings) > 0:
-                print(f"Today timing : {timings}")
-                for key, value in timings.items():
-                    hours_minutes = f"{value.split(' ')[0]}:00"
-                    if hours_minutes == current_time:
-                        found_prayer = {
-                            'time': time,
-                            'prayer': key
-                        }
-                        print(found_prayer)
-                        break
+            found_prayer = get_todays_timings(now)
             if len(found_prayer):
                 print(found_prayer)
                 # Pass in a URI to a media file to have it streamed through the Sonos
