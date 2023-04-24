@@ -4,6 +4,7 @@ import threading
 import logging
 import os
 import socket
+import subprocess
 class DirectoryServer:
     def __init__(self, port, directory):
         web_dir = os.path.abspath(directory)
@@ -11,18 +12,7 @@ class DirectoryServer:
         self.port = port
         self.directory = directory
         self.handler = http.server.SimpleHTTPRequestHandler
-        if os.name == 'nt':  # for windows
-            logging.info('Windows detected !')
-            # using socket to test in windows
-            self.ips = socket.gethostbyname_ex(socket.gethostname())[2]
-        elif os.name == 'posix':  # For mac os
-            host_name = socket.gethostname()
-            host_ip = socket.gethostbyname(host_name)
-            self.ips = [host_ip]
-        else:  # for linux
-            process = Popen(['hostname', '-I'], stdout=PIPE)
-            out, err = process.communicate()
-            self.ips = out.decode('utf-8').split()
+        self.ips = self.get_ip_address()
         logging.info(f"From localNetwork{self.ips}")
     def start(self):
         self.httpd = socketserver.TCPServer(("", self.port), self.handler)
@@ -31,6 +21,19 @@ class DirectoryServer:
         logging.info("Serving directory '{}' at http://localhost:{}/".format(self.directory, self.port))
         self.thread.start()
 
-
+    def get_ip_address(self):
+        if os.name == "nt":
+            hostname = socket.gethostname()
+            ip_address = socket.gethostbyname(hostname)
+        else:
+            process = subprocess.Popen(["ifconfig"], stdout=subprocess.PIPE)
+            output = process.communicate()[0]
+            output = output.decode("utf-8")
+            ip_address = ""
+            for line in output.split("\n"):
+                if "inet " in line and "127.0.0.1" not in line:
+                    ip_address = line.split()[1]
+                    break
+        return ip_address
     def stop(self):
         self.httpd.shutdown()

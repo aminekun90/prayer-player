@@ -22,7 +22,7 @@ class SonosDevice:
             self.sonos = SoCo(ip)
         self.server = DirectoryServer(config['port'], config['dirToServe'])
         self.server.start()
-        self.from_network = f"http://{self.server.ips[0]}:{self.config['port']}"
+        self.from_network = f"http://{self.server.ips}:{self.config['port']}"
         logging.info(f"From network access {self.from_network}")
         self.sonos_devices_in_network = discover()
         for sonos in self.sonos_devices_in_network:
