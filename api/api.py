@@ -79,8 +79,8 @@ class Api:
                     logging.info(f'Found prayer at {current_time} trying to play or waiting for next time ...')
                     # Pass in a URI to a media file to have it streamed through the Sonos
                     # speaker
-                    if not self.sonos_device.sonos_playing(self.config.playlist.uri):
-                        self.sonos_device.play(self.config.playlist.uri)
+                    if not self.sonos_device.sonos_playing(self.config['playlist']['uri']):
+                        self.sonos_device.play(self.config['playlist']['uri'])
 
                 
                 time.sleep(1)
