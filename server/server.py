@@ -24,7 +24,8 @@ class DirectoryServer:
         self.thread.start()
 
     def get_ip_address(self):
-        if os.name == "nt":
+        ip_address = None
+        if os.name == "nt":# For windows
             hostname = socket.gethostname()
             ip_address = socket.gethostbyname(hostname)
         else:
@@ -38,10 +39,10 @@ class DirectoryServer:
                     if temp_ip_address.startswith("192."):
                         ip_address = temp_ip_address
                         break
-            return ip_address
+        return ip_address
     def get_network_mask(self):
         # Get the list of available network interfaces
-        interfaces = netifaces.interfaces()
+        netifaces.interfaces()
 
         # Get the default interface (usually "en0" on macOS, or "eth0" on Linux)
         default_interface = netifaces.gateways()['default'][netifaces.AF_INET][1]
@@ -49,7 +50,7 @@ class DirectoryServer:
         # Get the IP address and netmask of the default interface
         addrs = netifaces.ifaddresses(default_interface)
         ip_address = addrs[netifaces.AF_INET][0]['addr']
-        netmask = addrs[netifaces.AF_INET][0]['netmask']
+        addrs[netifaces.AF_INET][0]['netmask']
 
         return ip_address
     def stop(self):
