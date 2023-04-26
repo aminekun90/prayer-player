@@ -31,7 +31,7 @@ class Api:
         headers = {'User-Agent': 'Mozilla/5.0'}
         params = {
             'address': self.config['api']['accurateAdress'],
-            'method': self.config['calculationMethods'][12]['id']
+            'method': self.config['calculationMethods'][11]['id']
         }
         # Make a GET request only when today changes using headers and parameters
         if self.last_fetched < datetime.date.today():
