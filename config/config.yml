@@ -36,6 +36,7 @@ calculationMethods:
 api:
   byCalendarByAdressURL: "http://api.aladhan.com/v1/calendarByAddress"
   accurateAdress: "Nantes, France"
+  selectedMethod: 11
 playlist:
   port: 8000
   dirToServe: "server/audio"

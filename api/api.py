@@ -12,7 +12,7 @@ class Api:
     def __init__(self):
         self.last_fetched = datetime.date.today() - datetime.timedelta(days = 1)
         config_file_path = os.path.abspath('config/config.yml')
-        print(config_file_path)
+        print("App started check log file in logs/app.log")
         with open(config_file_path, 'r') as f:
             self.config = yaml.safe_load(f)
         config = {
@@ -31,7 +31,7 @@ class Api:
         headers = {'User-Agent': 'Mozilla/5.0'}
         params = {
             'address': self.config['api']['accurateAdress'],
-            'method': self.config['calculationMethods'][11]['id']
+            'method': self.config['calculationMethods'][self.config['api']['selectedMethod']]['id']
         }
         # Make a GET request only when today changes using headers and parameters
         if self.last_fetched < datetime.date.today():
