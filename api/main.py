@@ -4,7 +4,7 @@ import datetime
 
 import time
 import requests
-from device import SonosDevice
+from sonos_device.device import SonosDevice
 import os
 
 
@@ -86,9 +86,7 @@ class Api:
                 time.sleep(1)
             except KeyboardInterrupt:
                 logging.info('Stopping the fetching script...')
-                if self.sonos_device.sonos_playing(self.config['playlist']['url']):
-                    logging.info("Stopping current playing")
-                    self.sonos_device.stop()
+                self.sonos_device.stop()
                 break
             except Exception as e:
                 logging.error(f'Exception occurred: {e}. Retrying...')

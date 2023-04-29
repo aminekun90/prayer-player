@@ -1,57 +1,56 @@
-import http.server
-import socketserver
-import threading
-import logging
 import os
-import socket
-import subprocess
-import netifaces
-class DirectoryServer:
-    def __init__(self, port, directory):
-        web_dir = os.path.abspath(directory)
-        
-        os.chdir(web_dir)
-        self.port = port
-        self.directory = directory
-        self.handler = http.server.SimpleHTTPRequestHandler
-        self.ips = self.get_network_mask()
-        logging.info(f"From localNetwork {self.ips}")
-    def start(self):
-        self.httpd = socketserver.TCPServer(("", self.port), self.handler)
-        self.thread = threading.Thread(target=self.httpd.serve_forever)
-        self.thread.daemon = True
-        logging.info("Serving directory '{}' at http://localhost:{}/".format(self.directory, self.port))
-        self.thread.start()
+import http.server
 
-    def get_ip_address(self):
-        ip_address = None
-        if os.name == "nt":# For windows
-            hostname = socket.gethostname()
-            ip_address = socket.gethostbyname(hostname)
+from pathlib import Path
+from .routes.main import routes
+from .response.template_handler import TemplateHandler
+from .response.bad_request_handler import BadRequestHandler
+from .response.audio_file_handler import AudioFileHandler
+
+
+class Server(http.server.BaseHTTPRequestHandler):
+
+    def do_HEAD(self):
+        return
+
+    def do_POST(self):
+        return
+
+    def do_GET(self):
+        split_path = os.path.splitext(self.path)
+        request_extension = split_path[1]
+        if request_extension == ".mp3":
+            handler = AudioFileHandler()
+            handler.find(self.path)
+        elif request_extension == "" or request_extension == ".html":
+            if self.path in routes:
+                handler = TemplateHandler()
+                handler.find(routes[self.path])
+            else:
+                handler = BadRequestHandler()
+
         else:
-            process = subprocess.Popen(["ifconfig"], stdout=subprocess.PIPE)
-            output = process.communicate()[0]
-            output = output.decode("utf-8")
-            ip_address = ""
-            for line in output.split("\n"):
-                if "inet " in line and "127.0.0.1" not in line:
-                    temp_ip_address = line.split()[1]
-                    if temp_ip_address.startswith("192."):
-                        ip_address = temp_ip_address
-                        break
-        return ip_address
-    def get_network_mask(self):
-        # Get the list of available network interfaces
-        netifaces.interfaces()
+            handler = BadRequestHandler()
 
-        # Get the default interface (usually "en0" on macOS, or "eth0" on Linux)
-        default_interface = netifaces.gateways()['default'][netifaces.AF_INET][1]
+        self.respond({
+            'handler': handler
+        })
 
-        # Get the IP address and netmask of the default interface
-        addrs = netifaces.ifaddresses(default_interface)
-        ip_address = addrs[netifaces.AF_INET][0]['addr']
-        addrs[netifaces.AF_INET][0]['netmask']
+    def handle_http(self, handler):
+        status_code = handler.get_status()
 
-        return ip_address
-    def stop(self):
-        self.httpd.shutdown()
+        self.send_response(status_code)
+
+        if status_code == 200:
+            content = handler.get_contents()
+            self.send_header('Content-type', handler.get_content_type())
+        else:
+            content = "404 Not Found"
+
+        self.end_headers()
+
+        return content if type(content) is bytes else bytes(content, 'UTF-8')
+
+    def respond(self, opts):
+        response = self.handle_http(opts['handler'])
+        self.wfile.write(response)

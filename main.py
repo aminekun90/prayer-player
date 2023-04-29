@@ -1,6 +1,6 @@
 import logging
 import logging.handlers
-from api import Api
+from api.main import Api
 
 FORMAT = "%(asctime)-15s %(levelname)s:%(message)s"
 
