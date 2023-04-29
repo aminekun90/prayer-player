@@ -91,11 +91,17 @@ class SonosDevice:
         return ip_address   
      
     def sonos_playing(self, uri: str):
+        if not self.sonos:
+            logging.warning("Cannot check if sonos is playing reason: Device not found")
+            return True
         current_uri = self.sonos.get_current_track_info()['uri']
         same_uri = f"{self.from_network}{uri}" == current_uri
         return self.sonos.get_current_transport_info()['current_transport_state'] == 'PLAYING' and same_uri
 
     def play(self, uri):
+        if not self.sonos:
+            logging.warning("Cannot play on Sonos device reason : device not found")
+            return
         self.sonos.play_uri(f"{self.from_network}{uri}")
         self.sonos.volume = self.config['device']['volume']
         track = self.sonos.get_current_track_info()
