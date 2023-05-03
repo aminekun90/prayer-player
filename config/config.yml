@@ -41,5 +41,5 @@ playlist:
   port: 8000
   dirToServe: "server/audio"
   url : "/azan1.mp3"
-  # url : "http://88.126.184.174:14656/share/OptHmgaBchsY6Iqq/azan1.mp3"
+debug: false
 

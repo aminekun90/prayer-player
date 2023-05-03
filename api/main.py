@@ -9,7 +9,8 @@ import os
 
 
 class Api:
-    def __init__(self):
+    def __init__(self,logger=logging.getLogger()):
+        
         self.last_fetched = datetime.date.today() - datetime.timedelta(days = 1)
         config_file_path = os.path.abspath('config/config.yml')
         print("App started check log file in logs/app.log")
@@ -19,7 +20,12 @@ class Api:
             'dirToServe':self.config['playlist']['dirToServe'],
             'port':self.config['playlist']['port'],
             'device':self.config['device']
+
             }
+        if logger:
+                self.logger = logger
+                level = logging.INFO if not self.config['debug'] else logging.DEBUG
+                self.logger.setLevel(level)
         self.sonos_device = SonosDevice(config=config)
         logging.info(self.config)
 

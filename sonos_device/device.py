@@ -25,13 +25,20 @@ class SonosDevice:
             }
         
         self.port = self.config['port']
-        self.ips = self.get_ip_address(with_netface=True)
+        self.host_ip = self.get_ip_address(with_netface=True)
         self.sonos = None
         if ip:
             self.sonos = SoCo(ip)
         
-        self.from_network = f"http://{self.ips}:{self.config['port']}"
+        self.from_network = f"http://{self.host_ip}:{self.config['port']}"
         logging.info(f"From network access {self.from_network}")
+        self.scan_for_sonos()
+        self.start_server()
+
+    def scan_for_sonos(self):
+        if self.sonos:
+            logging.info("Device already found!")
+            return
         self.sonos_devices_in_network = discover()
         if self.sonos_devices_in_network:
             for sonos in self.sonos_devices_in_network:
@@ -42,14 +49,12 @@ class SonosDevice:
                 break
             logging.info(f"Device Created with config {self.config}")
         else:
-            logging.info("No Sonos found !!")
-        self.start_server()
+            logging.info("No Sonos device found !!")
 
     def start_server(self):
-        
         try:
-            self.server = HTTPServer(("localhost", self.port), Server)
-            logging.info(f'Server UP - localhost:{self.port})')
+            self.server = HTTPServer((self.host_ip, self.port), Server)
+            logging.info(f'Server UP - http://{self.host_ip}:{self.port})')
             self.thread = threading.Thread(target=self.server.serve_forever)
             self.thread.daemon = True
             self.thread.start()
@@ -119,4 +124,4 @@ class SonosDevice:
             self.sonos.stop()
         
         self.server.server_close()
-        logging.info( f'Server DOWN - localhost:{self.config["port"]}')
+        logging.info( f'Server DOWN - {self.host_ip}:{self.config["port"]}')
