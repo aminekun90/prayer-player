@@ -101,7 +101,8 @@ class SonosDevice:
             return True
         current_uri = self.sonos.get_current_track_info()['uri']
         same_uri = f"{self.from_network}{uri}" == current_uri
-        return self.sonos.get_current_transport_info()['current_transport_state'] == 'PLAYING' and same_uri
+        playing = self.sonos.get_current_transport_info()['current_transport_state'] == 'PLAYING'
+        return playing and same_uri
 
     def play(self, uri):
         if not self.sonos:
@@ -120,7 +121,7 @@ class SonosDevice:
         self.sonos.play()
 
     def stop(self):
-        if self.sonos and self.sonos.sonos_playing(self.config['playlist']['url']):
+        if self.sonos and self.sonos_playing(self.config['playlist']['url']):
             self.sonos.stop()
         
         self.server.server_close()

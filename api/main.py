@@ -19,8 +19,8 @@ class Api:
         config = {
             'dirToServe':self.config['playlist']['dirToServe'],
             'port':self.config['playlist']['port'],
-            'device':self.config['device']
-
+            'device':self.config['device'],
+            'playlist':self.config['playlist'],
             }
         if logger:
                 self.logger = logger
@@ -68,7 +68,7 @@ class Api:
                         'time': hours_minutes,
                         'prayer': key
                     }
-                    logging.info(found_prayer)
+                    # logging.info(found_prayer)
                     break
         return found_prayer
 
@@ -81,15 +81,16 @@ class Api:
                 current_time = now.strftime("%H:%M:%S")
                 found_prayer = self.get_todays_timings(now)
                 if len(found_prayer):
-                    logging.info(found_prayer)
                     logging.info(f'Found prayer at {current_time} trying to play or waiting for next time ...')
                     # Pass in a URI to a media file to have it streamed through the Sonos
                     # speaker
                     if not self.sonos_device.sonos_playing(self.config['playlist']['url']):
                         self.sonos_device.play(self.config['playlist']['url'])
+                    else:
+                        logging.info(f"already playing : {self.config['playlist']['url']}")
 
                 
-                time.sleep(1)
+                time.sleep(2)
             except KeyboardInterrupt:
                 logging.info('Stopping the fetching script...')
                 self.sonos_device.stop()
