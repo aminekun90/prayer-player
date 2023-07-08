@@ -1,0 +1,49 @@
+#sonos-devices {
+  .prayers{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    margin-bottom: 10px;
+    .prayer{
+      background-color: bisque;
+      border-radius: 10px;
+      height: 60px;
+      width: 100px;
+      margin-right: 5px;
+      padding: 25px;
+      text-align: center;
+      display: inline-block;
+      font-weight: bold;
+      div{
+        display: flex;
+        flex-direction: column;
+      }
+      &.next{
+        background-color: rgb(223, 142, 44);
+      }
+      .name{
+        width: 100px;
+      }
+    }
+  }
+  .device{
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    .name{
+      font-weight: bold;
+    }
+    pre{
+      text-align: left;
+    }
+    .picture{
+      border-radius: 50%;
+      width: 150px;
+    }
+    height: 60;
+    max-width: 200px;
+    height: 200px;
+    padding: 25px;
+    background-color: rgba(127, 255, 212,0.5)
+  }
+}

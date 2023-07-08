@@ -10,6 +10,7 @@ import os
 
 class Api:
     instances = []
+    timings = {}
 
     def __init__(self, logger=None):
         self.__class__.instances.append(self)
@@ -68,14 +69,14 @@ class Api:
             self.last_fetched = date.today()
 
     def extract_timings(self, data, today_date):
-        timings = {}
+        self.timings = {}
         for item in data['data']:
             gregorian_date = item['date']['gregorian']['date']
             if gregorian_date == today_date:
-                timings = item['timings']
-                timings = {key: value for key, value in timings.items(
+                self.timings = item['timings']
+                self.timings = {key: value for key, value in self.timings.items(
                 ) if key in ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha']}
-        return timings
+        return self.timings
 
     def find_current_prayer(self, current_time, timings):
         found_prayer = {}
@@ -123,6 +124,7 @@ class Api:
     def play_media(self, media_url):
         # Pass in a URI to a media file to have it streamed through the Sonos speaker
         self.sonos_device.play(media_url)
+        logging.info("Playing...")
 
     def stop_playback(self):
         self.sonos_device.stop()
