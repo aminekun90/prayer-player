@@ -12,7 +12,7 @@ export class PrayerService {
     console.log("Prayer service initialized");
   }
   async getPrayers() {
-    const prayers = await this.httpService.get(`${CONFIG.apiURL}${CONFIG.getPrayers}`, {
+    const prayers = await this.httpService.get(`${CONFIG.getPrayers}`, {
       headers: {
         'Content-Type': 'application/json'
       }

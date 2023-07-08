@@ -14,7 +14,7 @@ export class SoCoService {
     console.log("Soco service initialized");
   }
   async getSoCoDevices(){
-    const devices = await this.httpService.get(`${CONFIG.apiURL}${CONFIG.getSoCoDevice}`,{
+    const devices = await this.httpService.get(`${CONFIG.getSoCoDevice}`,{
       headers:{
         'Content-Type': 'application/json'
       }
