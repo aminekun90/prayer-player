@@ -9,7 +9,6 @@ export class HttpService {
     try {
       const { protocol, hostname } = window.location;
       CONFIG.apiURL = `${protocol}//${hostname}`+':8000/';
-      console.log(CONFIG.apiURL)
       const response = await axios.get(CONFIG.apiURL+url,axiosOption);
       if([200,201].includes(response.status)){
          return response.data;

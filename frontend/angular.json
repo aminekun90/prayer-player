@@ -18,7 +18,10 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "../backend/flask_app/static",
-            "index": "src/index.html",
+            "index": {
+              "input": "src/index.html",
+              "output": "../templates/index.html"
+          },
             "main": "src/main.ts",
             "baseHref": "/static/" ,
             "polyfills": [
