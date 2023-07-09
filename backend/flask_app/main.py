@@ -23,6 +23,11 @@ def serve_mp3(path):
     return send_from_directory('audio', path)
 
 
+@app.route('/static/<path:path>')
+def get_statics(path):
+    return send_from_directory('static', path)
+
+
 @app.route('/timings')
 def get_timings():
     api_instance: Api = cast(Api, Api.get_instance())
