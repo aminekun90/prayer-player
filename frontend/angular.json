@@ -23,7 +23,6 @@
               "output": "../templates/index.html"
           },
             "main": "src/main.ts",
-            "baseHref": "/static/" ,
             "polyfills": [
               "zone.js"
             ],

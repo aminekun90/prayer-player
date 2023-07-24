@@ -7,7 +7,7 @@ from soco import SoCo
 import threading
 import json
 from typing import cast
-app = Flask(__name__, static_folder='static')
+app = Flask(__name__, static_folder='static', template_folder='templates')
 CORS(app)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
@@ -20,12 +20,14 @@ def index():
 
 @app.route('/<path:path>')
 def serve_mp3(path):
-    return send_from_directory('audio', path)
-
-
-@app.route('/static/<path:path>')
-def get_statics(path):
-    return send_from_directory('static', path)
+    try:
+        return send_from_directory('audio', path)
+    except Exception as e:
+        try:
+            return send_from_directory(app.static_folder or "static", path)
+        except Exception as e:
+            print(e)
+            return "File not found", 404
 
 
 @app.route('/timings')
