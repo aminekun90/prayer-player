@@ -1,4 +1,3 @@
-
 import logging
 from datetime import date, datetime, timedelta
 from yaml import safe_load
@@ -6,17 +5,17 @@ import time
 import requests
 from sonos_device.device import SonosDevice
 import os
+import sched
 
 
 class Api:
     instances = []
-    timings = {}
 
     def __init__(self, logger=None):
+        self.timings = None
         self.__class__.instances.append(self)
         self.last_fetched = date.today() - timedelta(days=1)
         config_file_path = os.path.abspath('config/config.yml')
-        print("App started, check log file in logs/app.log")
         with open(config_file_path, 'r') as f:
             self.config = safe_load(f)
         config = {
@@ -31,86 +30,85 @@ class Api:
         self.sonos_device = SonosDevice(config=config)
         self.logger.info(self.config)
 
+        self.scheduler = sched.scheduler(time.time, time.sleep)
+
     @classmethod
     def get_instance(cls):
-        if not cls.instances:
-            return None
-        else:
-            return cls.instances[0]
+        return cls.instances[0] if cls.instances else None
 
-    def get_todays_timings(self, now: date):
-        today_date = date.today().strftime("%d-%m-%Y")
-        current_year = now.year
-        current_month = now.month
-
+    def get_todays_timings(self):
         headers = {'User-Agent': 'Mozilla/5.0'}
         params = {
-            'address': self.config['api']['accurateAdress'],
+            'city': self.config['api']['city'],
+            'country': self.config['api']['country'],
             'method': self.config['calculationMethods'][self.config['api']['selectedMethod']]['id']
         }
 
         self.fetch_timings_if_needed(
-            headers, params, current_year, current_month)
+            headers, params)
 
         data = self.response.json()
-        current_time = now.strftime("%H:%M:%S")
-        timings = self.extract_timings(data, today_date)
+        timings = self.extract_timings(data)
+        return timings
 
-        found_prayer = self.find_current_prayer(current_time, timings)
-
-        return found_prayer
-
-    def fetch_timings_if_needed(self, headers, params, current_year, current_month):
+    def fetch_timings_if_needed(self, headers, params):
         if self.last_fetched < date.today():
             self.response = requests.get(
-                f"{self.config['api']['byCalendarByAdressURL']}/{current_year}/{current_month}", headers=headers, params=params)
+                f"{self.config['api']['byCityByDate']}", headers=headers, params=params)
             logging.info(
                 f'Day changed from {self.last_fetched} to {date.today()} calling api')
             self.last_fetched = date.today()
 
-    def extract_timings(self, data, today_date):
-        self.timings = {}
-        for item in data['data']:
-            gregorian_date = item['date']['gregorian']['date']
-            if gregorian_date == today_date:
-                self.timings = item['timings']
-                self.timings = {key: value for key, value in self.timings.items(
-                ) if key in ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha']}
-        return self.timings
+    def extract_timings(self, data):
+        raw_timings = data['data']['timings']
+        valid_timings = {}
+        for key, value in raw_timings.items():
+            if key in ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha']:
+                time_str = value.split(' ')[0]
+                time_obj = datetime.strptime(time_str, '%H:%M')
+                # Time is in CEST
+                valid_timings[key] = time_obj.strftime('%H:%M:%S')
+        return valid_timings
 
-    def find_current_prayer(self, current_time, timings):
-        found_prayer = {}
-        if len(timings) > 0:
-            logging.debug(f"Today timing : {timings}")
-            for key, value in timings.items():
-                hours_minutes = f"{value.split(' ')[0]}:00"
-                if hours_minutes == current_time:
-                    found_prayer = {
-                        'time': hours_minutes,
-                        'prayer': key
-                    }
-                    break
-        return found_prayer
-
-    def call_api_and_play(self):
-        logging.info("Calling API and waiting for the correct time to play...")
-
-        while True:
-            try:
+    def schedule_prayers(self,):
+        if self.timings:
+            for prayer, prayer_time in self.timings.items():
                 now = datetime.now()
                 current_time = now.strftime("%H:%M:%S")
-                found_prayer = self.get_todays_timings(now)
+                time_diff = datetime.strptime(
+                    prayer_time, "%H:%M:%S") - datetime.strptime(current_time, "%H:%M:%S")
+                if time_diff.total_seconds() > 0:
+                    self.scheduler.enter(time_diff.total_seconds(
+                    ), 1, self.play_media, (self.config['playlist']['url'], ))
+                    logging.info(f"Scheduled {prayer} at {prayer_time}")
+        else:
+            logging.info('No timings found!!!')
 
-                if found_prayer:
-                    logging.info(
-                        f'Found prayer at {current_time}. Trying to play or waiting for the next time...')
+    def call_api_and_play(self):
+        logging.info("Scheduling API call and prayers...")
+        now = datetime.now()
 
-                    media_url = self.config['playlist']['url']
-                    if not self.sonos_device.sonos_playing(media_url):
-                        self.play_media(media_url)
-                    else:
-                        logging.info(f"Already playing: {media_url}")
+        # Calculate the time until 1 am of the next day
+        next_day = now + timedelta(days=1)
+        next_day_1_am = datetime.combine(
+            next_day, datetime.min.time()) + timedelta(hours=1)
+        time_diff = next_day_1_am - now
 
+        # If the current time is already past 1 am, schedule for the next 1 am
+        if time_diff.total_seconds() <= 0:
+            next_day_1_am += timedelta(days=1)
+            time_diff = next_day_1_am - now
+
+        # Schedule the API call and prayers at 1 am of the next day
+        self.scheduler.enter(time_diff.total_seconds(), 1,
+                             self.get_todays_timings_and_schedule_prayers)
+        if not self.timings:
+            self.timings = self.get_todays_timings()
+        if len(self.scheduler.queue) == 1:
+            self.schedule_prayers()
+        while True:
+            try:
+                self.scheduler.run(blocking=False)
                 time.sleep(2)
 
             except KeyboardInterrupt:
@@ -120,6 +118,22 @@ class Api:
 
             except Exception as e:
                 logging.error(f'Exception occurred: {e}. Retrying...')
+
+    def get_todays_timings_and_schedule_prayers(self):
+        # Get today's timings
+        self.timings = self.get_todays_timings()
+        self.schedule_prayers()
+
+        # Schedule the next API call and prayers for the next day at 1 am
+        now = datetime.now()
+        next_day = now + timedelta(days=1)
+        next_day_1_am = datetime.combine(
+            next_day, datetime.min.time()) + timedelta(hours=1)
+        time_diff = next_day_1_am - now
+
+        self.scheduler.enter(time_diff.total_seconds(), 1,
+                             self.get_todays_timings_and_schedule_prayers)
+        logging.info(f"Scheduled API call and prayers for {next_day_1_am}")
 
     def play_media(self, media_url):
         # Pass in a URI to a media file to have it streamed through the Sonos speaker

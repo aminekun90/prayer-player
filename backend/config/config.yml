@@ -35,7 +35,9 @@ calculationMethods:
     id: 16 # - this is not an official calculation but based on the research done by the Batoul Apps team which uses 18.2 degrees for both Fajr and Isha
 api:
   byCalendarByAdressURL: "http://api.aladhan.com/v1/calendarByAddress"
-  accurateAdress: "Nantes, France"
+  byCityByDate: "http://api.aladhan.com/v1/timingsByCity"
+  city: "Nantes"
+  country: "France"
   selectedMethod: 11
 playlist:
   port: 8000
