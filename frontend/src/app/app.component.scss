@@ -1,42 +1,70 @@
+.container {
+  padding: 10px;
+  width: 600px;
+  align-items: center;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  .app-welcome {
+    font-size: 30px;
+    text-align: center;
+    height: 60px;
+    line-height: 30px;
+    app-clock{
+      font-size: 15px;
+    }
+  }
+  .copyright{
+    font-size: 10px;
+  }
+}
 #sonos-devices {
-  .prayers{
+  padding: 5px;
+  .prayers {
     margin: 0;
     padding: 0;
     list-style: none;
     margin-bottom: 10px;
-    .prayer{
+    .prayer {
       background-color: bisque;
       border-radius: 10px;
       height: 60px;
       width: 100px;
-      margin-right: 5px;
+      margin: 0 5px 5px 0;
       padding: 25px;
       text-align: center;
       display: inline-block;
       font-weight: bold;
-      div{
+      div {
         display: flex;
         flex-direction: column;
       }
-      &.next{
+      &.next {
         background-color: rgb(223, 142, 44);
       }
-      .name{
+      .name {
         width: 100px;
       }
     }
   }
-  .device{
+  .settings {
+    width: 100%;
+    min-height: 60px;
+    background-color: azure;
+    padding: 8px;
+    margin-bottom: 15px;
+  }
+  .device {
     border-radius: 8px;
     cursor: pointer;
     text-align: center;
-    .name{
+    .name {
       font-weight: bold;
     }
-    pre{
+    pre {
       text-align: left;
     }
-    .picture{
+    .picture {
       border-radius: 50%;
       width: 150px;
     }
@@ -44,6 +72,6 @@
     max-width: 200px;
     height: 200px;
     padding: 25px;
-    background-color: rgba(127, 255, 212,0.5)
+    background-color: rgba(127, 255, 212, 0.5);
   }
 }

@@ -1,19 +1,33 @@
-<div>
-  <h3>Welcome to Sonos prayer player <app-clock></app-clock></h3>
+<div class="container">
+  <div class="app-welcome">Welcome to Sonos prayer <app-clock></app-clock></div>
 
   <div id="sonos-devices">
     <div *ngIf="!devices.length">Loading Sonos Players...</div>
     <div *ngIf="!prayers.length">Loading Prayers...</div>
     <ul class="prayers">
       <li *ngFor="let prayer of prayers" class="prayer" [ngClass]="{'next':getCurrentPrayer()===prayer}">
-        <div *ngIf="getCurrentPrayer()===prayer">
-          Next prayer
-        </div>
         <div class="name">{{prayer.getName()}} </div>
         <div class="time">{{prayer.getTime() | date :'H:mm'}}</div>
       </li>
     </ul>
+    <div class="settings" *ngIf="devices.length">
+      Settings
+      <form>
+        <div>
+          <label for="adhan">Track selected:</label>
+          <select name="adhan" id="" title="adhan">
+            <option value="">Adhan 1</option>
+            <option value="">Adhan 2</option>
+          </select>
+        </div>
+        <div>
+          <button type="button" title="save" class="btn" (click)="saveSettings()">
+            save
+          </button>
+        </div>
 
+      </form>
+    </div>
     <div *ngFor="let device of devices" class="device">
       <img src="assets/img/symfonisk.jpg" alt="SONOS-DEVICE" class="picture">
       <div class="name">
@@ -26,5 +40,6 @@
 
     </div>
   </div>
+  <div class="copyright">Sonos player {{version}} By <a href="https://github.com/aminekun90">@aminekun90</a></div>
 </div>
 <router-outlet></router-outlet>

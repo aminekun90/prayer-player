@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { SoCoService } from '@piPlayer/service/soCo/so-co.service';
 import { Device } from '@piPlayer/service/soCo/models/device';
-import { PrayerService } from './service/prayer/prayer.service';
-import { Prayer } from './service/prayer/models/prayer';
+import { PrayerService } from '@piPlayer/service/prayer/prayer.service';
+import { Prayer } from '@piPlayer/service/prayer/models/prayer';
+import { VERSION } from './env';
+
 
 @Component({
   selector: 'app-root',
@@ -14,6 +16,7 @@ export class AppComponent {
   devices: Device[] = [];
   prayers: Prayer[] = [];
   currentTime:Date=new Date();
+  version=VERSION;
 
   constructor(private soCoService: SoCoService, private prayerService: PrayerService) {
     this.setTimeEverySecond()
@@ -32,5 +35,8 @@ export class AppComponent {
     setInterval(() => {
       this.currentTime = new Date();
     }, 1000);
+  }
+  saveSettings(){
+    console.log("Setting saving...");
   }
 }
