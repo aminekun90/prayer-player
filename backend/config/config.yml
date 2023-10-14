@@ -44,4 +44,5 @@ playlist:
   dirToServe: "server/audio"
   url : "/azan1.mp3"
 debug: false
+enableScheduler: false
 

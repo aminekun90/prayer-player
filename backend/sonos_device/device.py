@@ -28,7 +28,8 @@ class SonosDevice:
             self.config = config
         self.sonos = None
         self.port = self.config['port']
-        self.host_ip = self.get_ip_address(with_netface=True)
+        self.host_ip = os.environ.get(
+            'CURRENT_IP') or self.get_ip_address(with_netface=True)
         if ip:
             self.sonos = SoCo(ip)
 
@@ -50,6 +51,7 @@ class SonosDevice:
             logging.info(f"Device Created with config {self.config}")
         else:
             logging.info("No Sonos device found!!")
+            logging.info(self.host_ip)
 
     def get_ip_address_not_net_face(self):
         ip_address = None

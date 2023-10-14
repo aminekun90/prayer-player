@@ -18,6 +18,7 @@ class Api:
         config_file_path = os.path.abspath('config/config.yml')
         with open(config_file_path, 'r') as f:
             self.config = safe_load(f)
+        self.enable_scheduler = self.config['enableScheduler']
         config = {
             'dirToServe': self.config['playlist']['dirToServe'],
             'port': self.config['playlist']['port'],
@@ -71,6 +72,9 @@ class Api:
         return valid_timings
 
     def schedule_prayers(self,):
+        if not self.enable_scheduler:
+            logging.info('Scheduler is disabled')
+            return
         if self.timings:
             for prayer, prayer_time in self.timings.items():
                 now = datetime.now()

@@ -1,0 +1,25 @@
+version: '3'
+services:
+  web:
+    container_name: prayer_player
+    build:
+      context: .
+      dockerfile: docker/DOCKERFILE
+    image: prayer-player
+    networks:
+     - prayerapp
+    ports:
+      - "8000:8000"
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - ./backend/logs:/app/logs/
+    environment:
+      - FLASK_ENV=development 
+networks:
+  prayerapp:
+    driver: host
+    ipam:
+        driver: default
+        config:
+            - subnet: "192.168.0.0/16"
+              gateway: "192.168.0.1"

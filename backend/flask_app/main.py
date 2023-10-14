@@ -92,7 +92,10 @@ def get_devices():
         return jsonify(
             json.dumps(l)
         ) or jsonify(None)
-    return "No device Found !"
+    return jsonify({
+        "success": False,
+        "data": api_instance.sonos_device.host_ip
+    })
 
 
 class FlaskApp():
@@ -103,10 +106,7 @@ class FlaskApp():
         self.thr.daemon = True
         self.thr.start()
 
-    def run_flask(self):
-        socketio.run(app, debug=True, port=8000,
-                     host='0.0.0.0')
-
-    @socketio.event
-    def my_event(self, message):
-        emit('my response', {'data': 'got it!'})
+    def run(self):
+        '''Run flask app'''
+        # '''TODO Delete allow_unsafe_werkzeug=True is not recomanded on prod env'''
+        return app.run(debug=True, port=8000, host='0.0.0.0')
