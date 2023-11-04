@@ -11,6 +11,16 @@ export class PrayerService {
   constructor(private httpService: HttpService) {
     console.log("Prayer service initialized");
   }
+  async getAzanList(){
+    const azanList = await this.httpService.get(`${CONFIG.getAzanList}`, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    if(azanList.status){
+      return azanList.result;
+    }
+  }
   async getPrayers() {
     const prayers = await this.httpService.get(`${CONFIG.getPrayers}`, {
       headers: {

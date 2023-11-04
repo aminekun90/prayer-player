@@ -14,11 +14,16 @@
       Settings
       <form>
         <div>
-          <label for="adhan">Track selected:</label>
-          <select name="adhan" id="" title="adhan">
-            <option value="">Adhan 1</option>
-            <option value="">Adhan 2</option>
+          <label for="adhan">Adhan:</label>
+          <select name="adhan" id="" title="adhan" [(ngModel)]="selectedMp3File" (change)="onMp3FileChange()">
+            <option value="" disabled selected>Select an Adhan</option>
+            <option *ngFor="let mp3File of azanList" [value]="mp3File">{{ mp3File }}</option>
           </select>
+
+          <audio #audioPlayer controls *ngIf="selectedMp3File">
+            <source [src]="'/' + selectedMp3File" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
         </div>
         <div>
           <button type="button" title="save" class="btn" (click)="saveSettings()">

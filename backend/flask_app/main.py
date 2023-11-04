@@ -6,6 +6,7 @@ from api.main import Api
 from soco import SoCo
 import threading
 import json
+import os
 from typing import cast
 app = Flask(__name__, static_folder='static', template_folder='templates')
 CORS(app)
@@ -17,6 +18,19 @@ socketio = SocketIO(app)
 def index():
     return render_template('index.html')
 
+@app.route('/azanList')
+def get_azan_list():
+    return jsonify({"status":True,"result":find_mp3_files(),"message":"success"})
+
+def find_mp3_files():
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    directory_path = os.path.join(current_directory, 'audio')
+    mp3_files = []
+    for root, _, files in os.walk(directory_path):
+        for file in files:
+            if file.lower().endswith('.mp3'):
+                mp3_files.append(os.path.basename(os.path.join(root, file)))
+    return mp3_files
 
 @app.route('/<path:path>')
 def serve_mp3(path):
