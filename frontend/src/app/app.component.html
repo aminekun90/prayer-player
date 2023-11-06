@@ -11,12 +11,31 @@
       </li>
     </ul>
     <div class="settings" *ngIf="devices.length">
-      Settings
-      <form>
-        <div>
+      <h2 class="settings-title">Settings</h2>
+      <form class="settings-form" (submit)="saveSettings()">
+        <div class="form-group">
+          <label for="city">City</label>
+          <input type="text" id="city" [(ngModel)]="city" class="form-control" placeholder="Enter your city">
+        </div>
+        <div class="form-group">
+          <label for="country">Country</label>
+          <input type="text" id="country" [(ngModel)]="country" class="form-control" placeholder="Enter your country">
+        </div>
+        <div class="form-group">
+          <label for="calcMethod">Adhan Calculation Method</label>
+          <select name="calcMethod" id="calcMethod" [(ngModel)]="calcMethod" class="form-control">
+            <option value="" disabled>Select adhan calculation method:</option>
+            <option *ngFor="let method of settings.calculationMethods" [value]="method.id">{{ method.description }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="volume">Volume</label>
+          <input type="range" id="volume" [(ngModel)]="volume" class="form-control" min="0" max="100">
+        </div>
+        <div class="form-group">
           <label for="adhan">Adhan:</label>
-          <select name="adhan" id="" title="adhan" [(ngModel)]="selectedMp3File" (change)="onMp3FileChange()">
-            <option value="" disabled selected>Select an Adhan</option>
+          <select name="adhan" id="adhan" [(ngModel)]="selectedMp3File" class="form-control" (change)="onMp3FileChange()">
+            <option value="" disabled>Select an Adhan</option>
             <option *ngFor="let mp3File of azanList" [value]="mp3File">{{ mp3File }}</option>
           </select>
           <audio #audioPlayer controls *ngIf="selectedMp3File">
@@ -24,14 +43,12 @@
             Your browser does not support the audio element.
           </audio>
         </div>
-        <div>
-          <button type="button" title="save" class="btn" (click)="saveSettings()">
-            save
-          </button>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" >Save</button>
         </div>
-
       </form>
     </div>
+
     <div *ngFor="let device of devices" class="device">
       <img src="assets/img/symfonisk.jpg" alt="SONOS-DEVICE" class="picture">
       <div class="name">

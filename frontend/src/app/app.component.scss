@@ -1,77 +1,179 @@
+$primary-color: #3498db;
+$secondary-color: #2ecc71;
+$background-color: #ecf0f1;
+$border-color: #bdc3c7;
+$accent-color: #e67e22;
+$dark-text-color: #2c3e50;
+$light-text-color: #ecf0f1;
+
 .container {
-  padding: 10px;
+  padding: 20px;
   width: 600px;
-  align-items: center;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
+
   .app-welcome {
-    font-size: 30px;
+    font-size: 32px;
     text-align: center;
-    height: 60px;
-    line-height: 30px;
-    app-clock{
-      font-size: 15px;
+    margin-bottom: 20px;
+    color: $primary-color;
+
+    app-clock {
+      font-size: 16px;
+      color: $accent-color;
     }
   }
-  .copyright{
-    font-size: 10px;
+
+  .copyright {
+    font-size: 12px;
+    color: $dark-text-color;
+    margin-top: 20px;
   }
-}
-#sonos-devices {
-  padding: 5px;
-  .prayers {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    margin-bottom: 10px;
-    .prayer {
-      background-color: bisque;
-      border-radius: 10px;
-      height: 60px;
-      width: 100px;
-      margin: 0 5px 5px 0;
-      padding: 25px;
-      text-align: center;
-      display: inline-block;
-      font-weight: bold;
-      div {
+
+  #sonos-devices {
+    padding: 10px;
+
+    .prayers {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      margin-bottom: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      .prayer {
+        background-color: $primary-color;
+        border-radius: 8px;
+        height: 80px;
+        width: 120px;
+        margin: 10px;
         display: flex;
-        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: $light-text-color;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+
+        &:hover {
+          background-color: darken($primary-color, 10%);
+          transform: translateY(-2px);
+        }
+
+        &.next {
+          background-color: $accent-color;
+
+          &:hover {
+            background-color: darken($accent-color, 10%);
+          }
+        }
+
+        &:nth-child(2n) {
+          margin-right: 0; // Remove right margin for every second item
+        }
+
+        &:nth-child(3) {
+          flex-basis: 100%; // One item in the second row
+        }
+
+        &:nth-last-child(2) {
+          margin-right: 10px; // Restore right margin for the fourth item from the end
+        }
       }
-      &.next {
-        background-color: rgb(223, 142, 44);
+    }
+
+    .settings {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: $background-color;
+      border: 1px solid $border-color;
+      border-radius: 8px;
+      width: 100%;
+
+      .settings-title {
+        font-size: 24px;
+        color: $primary-color;
+        margin-bottom: 15px;
       }
+
+      .form-group {
+        margin-bottom: 20px;
+
+        label {
+          display: block;
+          font-weight: bold;
+          margin-bottom: 5px;
+          color: $dark-text-color;
+        }
+
+        .form-control {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid $border-color;
+          border-radius: 5px;
+          font-size: 16px;
+          color: $dark-text-color;
+
+          &:focus {
+            outline: none;
+            border-color: $primary-color;
+          }
+        }
+
+        select.form-control {
+          height: 40px;
+        }
+
+        input[type="range"].form-control {
+          width: calc(100% - 20px);
+        }
+      }
+
+      .btn {
+        padding: 12px 24px;
+        background-color: $primary-color;
+        color: $light-text-color;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: darken($primary-color, 10%);
+        }
+      }
+    }
+
+    .device {
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      padding: 20px;
+      background-color: $primary-color;
+      color: $light-text-color;
+      margin-bottom: 20px;
+
       .name {
-        width: 100px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      pre {
+        text-align: left;
+        margin-top: 10px;
+        color: $dark-text-color;
+      }
+
+      .picture {
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        margin: 0 auto;
       }
     }
-  }
-  .settings {
-    width: 100%;
-    min-height: 60px;
-    background-color: azure;
-    padding: 8px;
-    margin-bottom: 15px;
-  }
-  .device {
-    border-radius: 8px;
-    cursor: pointer;
-    text-align: center;
-    .name {
-      font-weight: bold;
-    }
-    pre {
-      text-align: left;
-    }
-    .picture {
-      border-radius: 50%;
-      width: 150px;
-    }
-    height: 60;
-    max-width: 200px;
-    height: 200px;
-    padding: 25px;
-    background-color: rgba(127, 255, 212, 0.5);
   }
 }

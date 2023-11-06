@@ -18,7 +18,11 @@ export class AppComponent {
   azanList: string[] = [];
   currentTime:Date=new Date();
   settings:any = {};
+  country:string="";
+  city:string="";
+  volume:number=25;
   selectedMp3File: string = '';
+  calcMethod: string = '';
   @ViewChild('audioPlayer') audioPlayer!: ElementRef;
   version=VERSION;
 
