@@ -19,7 +19,6 @@
             <option value="" disabled selected>Select an Adhan</option>
             <option *ngFor="let mp3File of azanList" [value]="mp3File">{{ mp3File }}</option>
           </select>
-
           <audio #audioPlayer controls *ngIf="selectedMp3File">
             <source [src]="'/' + selectedMp3File" type="audio/mpeg">
             Your browser does not support the audio element.

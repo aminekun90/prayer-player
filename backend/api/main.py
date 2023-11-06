@@ -10,28 +10,30 @@ import sched
 
 class Api:
     instances = []
-
+    
     def __init__(self, logger=None):
+        self.load_config()
+        self.logger = logger or logging.getLogger()
+        level = logging.DEBUG if self.config['debug'] else logging.INFO
+        self.logger.setLevel(level)
         self.timings = None
         self.__class__.instances.append(self)
         self.last_fetched = date.today() - timedelta(days=1)
+        self.enable_scheduler = self.config['enableScheduler']
+        self.logger.info(self.config)
+        self.scheduler = sched.scheduler(time.time, time.sleep)
+        
+    def load_config(self):
         config_file_path = os.path.abspath('config/config.yml')
         with open(config_file_path, 'r') as f:
             self.config = safe_load(f)
-        self.enable_scheduler = self.config['enableScheduler']
         config = {
             'dirToServe': self.config['playlist']['dirToServe'],
             'port': self.config['playlist']['port'],
             'device': self.config['device'],
             'playlist': self.config['playlist'],
         }
-        self.logger = logger or logging.getLogger()
-        level = logging.DEBUG if self.config['debug'] else logging.INFO
-        self.logger.setLevel(level)
         self.sonos_device = SonosDevice(config=config)
-        self.logger.info(self.config)
-
-        self.scheduler = sched.scheduler(time.time, time.sleep)
 
     @classmethod
     def get_instance(cls):
@@ -83,7 +85,7 @@ class Api:
                     prayer_time, "%H:%M:%S") - datetime.strptime(current_time, "%H:%M:%S")
                 if time_diff.total_seconds() > 0:
                     self.scheduler.enter(time_diff.total_seconds(
-                    ), 1, self.play_media, (self.config['playlist']['url'], ))
+                    ), 1, self.play_media, (self.config['playlist']['fileName'], ))
                     logging.info(f"Scheduled {prayer} at {prayer_time}")
         else:
             logging.info('No timings found!!!')
@@ -141,7 +143,7 @@ class Api:
 
     def play_media(self, media_url):
         # Pass in a URI to a media file to have it streamed through the Sonos speaker
-        self.sonos_device.play(media_url)
+        self.sonos_device.play(f"/{media_url}")
         logging.info("Playing...")
 
     def stop_playback(self):

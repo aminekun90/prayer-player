@@ -17,6 +17,7 @@ export class AppComponent {
   prayers: Prayer[] = [];
   azanList: string[] = [];
   currentTime:Date=new Date();
+  settings:any = {};
   selectedMp3File: string = '';
   @ViewChild('audioPlayer') audioPlayer!: ElementRef;
   version=VERSION;
@@ -33,6 +34,7 @@ export class AppComponent {
       this.azanList = list;
       console.log(this.azanList)
     });
+    this.getSettings();
 
   }
   onMp3FileChange() {
@@ -46,12 +48,21 @@ export class AppComponent {
   getCurrentPrayer() {
     return this.prayers.find(p => p.getTime() >= new Date())
   }
+
   setTimeEverySecond() {
     setInterval(() => {
       this.currentTime = new Date();
     }, 1000);
   }
-  saveSettings(){
+
+  async saveSettings(){
     console.log("Setting saving...");
+    await this.prayerService.saveSetting({azan:this.selectedMp3File})
+  }
+  async getSettings(){
+    console.log("Setting loading...");
+    this.settings = await this.prayerService.getSettings()
+    this.selectedMp3File = this.settings?.playlist?.fileName;
+    console.log(this.settings);
   }
 }

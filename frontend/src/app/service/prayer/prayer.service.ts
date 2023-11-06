@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../http/http.service';
-import { CONFIG } from '@piPlayer/service/types/types';
+import { CONFIG, Settings } from '@piPlayer/service/types/types';
 import { Prayer } from '@piPlayer/service/prayer/models/prayer';
 
 @Injectable({
@@ -40,5 +40,25 @@ export class PrayerService {
       return finalPrayers.sort((a, b) => a.getTime().getTime() - b.getTime().getTime());;
     }
     return [];
+  }
+  async getSettings(){
+    const settingsResp = await this.httpService.get(`${CONFIG.getSettings}`, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    if(settingsResp.status){
+      return settingsResp.result;
+    }
+  }
+  async saveSetting(settings: Settings) {
+    const response = await this.httpService.post(CONFIG.saveSettings, settings, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    if (response) {
+      console.log("settings saved", response);
+    }
   }
 }

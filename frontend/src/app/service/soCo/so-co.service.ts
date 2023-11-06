@@ -10,17 +10,17 @@ import { CONFIG } from '@piPlayer/service/types/types';
 })
 export class SoCoService {
 
-  constructor(private httpService:HttpService) {
+  constructor(private httpService: HttpService) {
     console.log("Soco service initialized");
   }
-  async getSoCoDevices(){
-    const devices = await this.httpService.get(`${CONFIG.getSoCoDevice}`,{
-      headers:{
+  async getSoCoDevices() {
+    const devices = await this.httpService.get(`${CONFIG.getSoCoDevice}`, {
+      headers: {
         'Content-Type': 'application/json'
       }
     });
-    if(devices){
-      return (JSON.parse(devices ) as Array<any>).map(device=>Device.fromJson(device));
+    if (devices) {
+      return (JSON.parse(devices) as Array<any>).map(device => Device.fromJson(device));
     }
     return [];
   }

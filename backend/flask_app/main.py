@@ -1,5 +1,6 @@
 import logging
-from flask import Flask, render_template, send_from_directory, jsonify
+from yaml import safe_load, safe_dump
+from flask import Flask, render_template, send_from_directory, jsonify, request
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 from api.main import Api
@@ -22,6 +23,28 @@ def index():
 def get_azan_list():
     return jsonify({"status":True,"result":find_mp3_files(),"message":"success"})
 
+@app.route('/getSettings')
+def get_settings():
+    path = os.path.abspath('config/config.yml')
+    with open(path, 'r') as f:
+        config = safe_load(f)
+    return jsonify({"status":True,"result":config,"message":"success"})
+
+@app.route("/saveSettings",methods=['POST'])
+def save_settings():
+    data = request.get_json()
+    path = os.path.abspath('config/config.yml')
+    with open(path, 'r') as f:
+        config = safe_load(f)
+    if data["azan"]:
+        config["playlist"]["fileName"] = data["azan"]
+    with open(path,'w') as f:
+        f.write(safe_dump(config))
+    api_instance: Api = cast(Api, Api.get_instance())
+    assert api_instance is not None
+    api_instance.load_config()
+    return jsonify({"result":config,"success":True,"message":"success"})
+
 def find_mp3_files():
     current_directory = os.path.dirname(os.path.abspath(__file__))
     directory_path = os.path.join(current_directory, 'audio')
@@ -42,7 +65,6 @@ def serve_mp3(path):
         except Exception as e:
             print(e)
             return "File not found", 404
-
 
 @app.route('/timings')
 def get_timings():

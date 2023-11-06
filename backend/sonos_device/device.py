@@ -11,7 +11,9 @@ class SonosDevice:
     sonos: SoCo | None
     config: dict
     sonos_devices_in_network: set[SoCo] | None
-
+    def set_config(self,config):
+        self.config = config
+    
     def __init__(self, ip=None, config=None):
         if not config:
             self.config = {
@@ -25,7 +27,7 @@ class SonosDevice:
                 }
             }
         else:
-            self.config = config
+            self.set_config(config)
         self.sonos = None
         self.port = self.config['port']
         self.host_ip = os.environ.get(
