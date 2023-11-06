@@ -54,6 +54,7 @@ $light-text-color: #ecf0f1;
         align-items: center;
         justify-content: center;
         font-weight: bold;
+        flex-direction: column;
         color: $light-text-color;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         transition: background-color 0.3s ease, transform 0.3s ease;
@@ -81,6 +82,18 @@ $light-text-color: #ecf0f1;
 
         &:nth-last-child(2) {
           margin-right: 10px; // Restore right margin for the fourth item from the end
+        }
+
+        .time,
+        .name {
+          text-align: center;
+          margin-bottom: 5px; // Add margin between .time and .name
+          font-size: 14px;
+        }
+
+        .name {
+          font-weight: bold;
+          font-size: 16px;
         }
       }
     }
@@ -149,12 +162,16 @@ $light-text-color: #ecf0f1;
 
     .device {
       border-radius: 8px;
+      margin-top: 20px;
       cursor: pointer;
       text-align: center;
       padding: 20px;
       background-color: $primary-color;
       color: $light-text-color;
       margin-bottom: 20px;
+      width: 210px;
+
+      transition: background-color 0.3s ease, transform 0.3s ease;
 
       .name {
         font-weight: bold;
@@ -173,6 +190,10 @@ $light-text-color: #ecf0f1;
         height: 120px;
         object-fit: cover;
         margin: 0 auto;
+      }
+      &:hover {
+        background-color: darken($primary-color, 10%);
+        transform: translateY(-2px);
       }
     }
   }
