@@ -109,7 +109,7 @@ function AppComponent_li_8_Template(rf, ctx) {
 }
 function AppComponent_div_9_option_18_Template(rf, ctx) {
   if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "option", 31);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "option", 33);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
   }
@@ -120,9 +120,9 @@ function AppComponent_div_9_option_18_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate"](method_r9.description);
   }
 }
-function AppComponent_div_9_option_29_Template(rf, ctx) {
+function AppComponent_div_9_option_33_Template(rf, ctx) {
   if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "option", 31);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "option", 33);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
   }
@@ -133,17 +133,17 @@ function AppComponent_div_9_option_29_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate"](mp3File_r10);
   }
 }
-function AppComponent_div_9_audio_30_Template(rf, ctx) {
+function AppComponent_div_9_audio_34_Template(rf, ctx) {
   if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "audio", 32, 33);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](2, "source", 34);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "audio", 34, 35);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](2, "source", 36);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](3, " Your browser does not support the audio element. ");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
   }
   if (rf & 2) {
     const ctx_r8 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("src", "/" + ctx_r8.selectedMp3File, _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵsanitizeUrl"]);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("src", "/" + ctx_r8.settings.playlist.fileName, _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵsanitizeUrl"]);
   }
 }
 function AppComponent_div_9_Template(rf, ctx) {
@@ -165,7 +165,7 @@ function AppComponent_div_9_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("ngModelChange", function AppComponent_div_9_Template_input_ngModelChange_7_listener($event) {
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r13);
       const ctx_r14 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵresetView"](ctx_r14.city = $event);
+      return _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵresetView"](ctx_r14.settings.api.city = $event);
     });
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](8, "div", 16)(9, "label", 19);
@@ -175,7 +175,7 @@ function AppComponent_div_9_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("ngModelChange", function AppComponent_div_9_Template_input_ngModelChange_11_listener($event) {
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r13);
       const ctx_r15 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵresetView"](ctx_r15.country = $event);
+      return _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵresetView"](ctx_r15.settings.api.country = $event);
     });
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](12, "div", 16)(13, "label", 21);
@@ -185,7 +185,7 @@ function AppComponent_div_9_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("ngModelChange", function AppComponent_div_9_Template_select_ngModelChange_15_listener($event) {
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r13);
       const ctx_r16 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵresetView"](ctx_r16.calcMethod = $event);
+      return _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵresetView"](ctx_r16.settings.api.selectedMethod = $event);
     });
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](16, "option", 23);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](17, "Select adhan calculation method:");
@@ -193,63 +193,75 @@ function AppComponent_div_9_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](18, AppComponent_div_9_option_18_Template, 2, 2, "option", 24);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](19, "div", 16)(20, "label", 25);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](21, "Volume");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](21, "Force date:");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](22, "input", 26);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("ngModelChange", function AppComponent_div_9_Template_input_ngModelChange_22_listener($event) {
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r13);
       const ctx_r17 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵresetView"](ctx_r17.volume = $event);
+      return _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵresetView"](ctx_r17.settings.api.forceDate = $event);
     });
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](23, "div", 16)(24, "label", 27);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](25, "Adhan:");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](25, "Volume");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](26, "select", 28);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("ngModelChange", function AppComponent_div_9_Template_select_ngModelChange_26_listener($event) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](26, "input", 28);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("ngModelChange", function AppComponent_div_9_Template_input_ngModelChange_26_listener($event) {
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r13);
       const ctx_r18 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵresetView"](ctx_r18.selectedMp3File = $event);
-    })("change", function AppComponent_div_9_Template_select_change_26_listener() {
+      return _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵresetView"](ctx_r18.settings.device.volume = $event);
+    });
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](27, "div", 16)(28, "label", 29);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](29, "Adhan:");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](30, "select", 30);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("ngModelChange", function AppComponent_div_9_Template_select_ngModelChange_30_listener($event) {
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r13);
       const ctx_r19 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵresetView"](ctx_r19.onMp3FileChange());
+      return _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵresetView"](ctx_r19.settings.playlist.fileName = $event);
+    })("change", function AppComponent_div_9_Template_select_change_30_listener() {
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r13);
+      const ctx_r20 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
+      return _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵresetView"](ctx_r20.onMp3FileChange());
     });
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](27, "option", 23);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](28, "Select an Adhan");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](31, "option", 23);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](32, "Select an Adhan");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](29, AppComponent_div_9_option_29_Template, 2, 2, "option", 24);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](33, AppComponent_div_9_option_33_Template, 2, 2, "option", 24);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](30, AppComponent_div_9_audio_30_Template, 4, 1, "audio", 29);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](34, AppComponent_div_9_audio_34_Template, 4, 1, "audio", 31);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](31, "div", 16)(32, "button", 30);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](33, "Save");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](35, "div", 16)(36, "button", 32);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](37, "Save");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()()()();
   }
   if (rf & 2) {
     const ctx_r3 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngModel", ctx_r3.city);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngModel", ctx_r3.settings.api.city)("value", ctx_r3.settings.api.city);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngModel", ctx_r3.country);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngModel", ctx_r3.settings.api.country)("value", ctx_r3.settings.api.country);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngModel", ctx_r3.calcMethod);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngModel", ctx_r3.settings.api.selectedMethod);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](3);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngForOf", ctx_r3.settings.calculationMethods);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngModel", ctx_r3.volume);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngModel", ctx_r3.settings.api.forceDate)("value", ctx_r3.settings.api.forceDate);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngModel", ctx_r3.selectedMp3File);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngModel", ctx_r3.settings.device.volume)("value", ctx_r3.settings.device.volume);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngModel", ctx_r3.settings.playlist.fileName)("value", ctx_r3.settings.playlist.fileName);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](3);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngForOf", ctx_r3.azanList);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngIf", ctx_r3.selectedMp3File);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngIf", ctx_r3.settings.playlist.fileName);
   }
 }
 function AppComponent_div_10_Template(rf, ctx) {
   if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "div", 35);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](1, "img", 36);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "div", 37);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](1, "img", 38);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](2, "div", 11);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](3);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
@@ -258,11 +270,11 @@ function AppComponent_div_10_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()();
   }
   if (rf & 2) {
-    const device_r20 = ctx.$implicit;
+    const device_r21 = ctx.$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate2"](" ", device_r20.getName(), "@", device_r20.getIp(), " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate3"](" ", device_r21.getName(), "", "@", "", device_r21.getIp(), " ");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate1"](" Selected track: ", device_r20.getPlayingTitle().title, " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate1"](" Selected track: ", device_r21.getPlayingTitle().title, " ");
   }
 }
 class AppComponent {
@@ -274,25 +286,44 @@ class AppComponent {
     this.prayers = [];
     this.azanList = [];
     this.currentTime = new Date();
-    this.settings = {};
+    this.settings = {
+      api: {
+        city: '',
+        country: '',
+        selectedMethod: '',
+        forceDate: null // or initialize it with a default date if needed
+      },
+
+      device: {
+        volume: 50 // or initialize with a default volume
+      },
+
+      playlist: {
+        fileName: ''
+      }
+    };
     this.country = "";
     this.city = "";
     this.volume = 25;
-    this.selectedMp3File = '';
     this.calcMethod = '';
     this.version = _env__WEBPACK_IMPORTED_MODULE_1__.VERSION;
-    this.setTimeEverySecond();
-    this.soCoService.getSoCoDevices().then(devices => {
-      this.devices = devices;
-    });
-    this.prayerService.getPrayers().then(prayers => {
-      this.prayers = prayers;
-    });
-    this.prayerService.getAzanList().then(list => {
-      this.azanList = list;
-      console.log(this.azanList);
-    });
-    this.getSettings();
+  }
+  ngOnInit() {
+    var _this = this;
+    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      _this.setTimeEverySecond();
+      yield _this.soCoService.getSoCoDevices().then(devices => {
+        _this.devices = devices;
+      });
+      yield _this.prayerService.getPrayers().then(prayers => {
+        _this.prayers = prayers;
+      });
+      yield _this.prayerService.getAzanList().then(list => {
+        _this.azanList = list;
+        console.log(_this.azanList);
+      });
+      yield _this.getSettings();
+    })();
   }
   onMp3FileChange() {
     const audio = this.audioPlayer?.nativeElement;
@@ -311,21 +342,18 @@ class AppComponent {
     }, 1000);
   }
   saveSettings() {
-    var _this = this;
+    var _this2 = this;
     return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       console.log("Setting saving...");
-      yield _this.prayerService.saveSetting({
-        azan: _this.selectedMp3File
-      });
+      yield _this2.prayerService.saveSetting(_this2.settings);
     })();
   }
   getSettings() {
-    var _this2 = this;
+    var _this3 = this;
     return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       console.log("Setting loading...");
-      _this2.settings = yield _this2.prayerService.getSettings();
-      _this2.selectedMp3File = _this2.settings?.playlist?.fileName;
-      console.log(_this2.settings);
+      _this3.settings = yield _this3.prayerService.getSettings();
+      console.log("Loaded settings", _this3.settings);
     })();
   }
   static #_ = this.ɵfac = function AppComponent_Factory(t) {
@@ -345,7 +373,7 @@ class AppComponent {
     },
     decls: 16,
     vars: 6,
-    consts: [[1, "container"], [1, "app-welcome"], ["id", "sonos-devices"], [4, "ngIf"], [1, "prayers"], ["class", "prayer", 3, "ngClass", 4, "ngFor", "ngForOf"], ["class", "settings", 4, "ngIf"], ["class", "device", 4, "ngFor", "ngForOf"], [1, "copyright"], ["href", "https://github.com/aminekun90"], [1, "prayer", 3, "ngClass"], [1, "name"], [1, "time"], [1, "settings"], [1, "settings-title"], [1, "settings-form", 3, "submit"], [1, "form-group"], ["for", "city"], ["type", "text", "id", "city", "placeholder", "Enter your city", 1, "form-control", 3, "ngModel", "ngModelChange"], ["for", "country"], ["type", "text", "id", "country", "placeholder", "Enter your country", 1, "form-control", 3, "ngModel", "ngModelChange"], ["for", "calcMethod"], ["name", "calcMethod", "id", "calcMethod", 1, "form-control", 3, "ngModel", "ngModelChange"], ["value", "", "disabled", ""], [3, "value", 4, "ngFor", "ngForOf"], ["for", "volume"], ["type", "range", "id", "volume", "min", "0", "max", "100", 1, "form-control", 3, "ngModel", "ngModelChange"], ["for", "adhan"], ["name", "adhan", "id", "adhan", 1, "form-control", 3, "ngModel", "ngModelChange", "change"], ["controls", "", 4, "ngIf"], ["type", "submit", 1, "btn", "btn-primary"], [3, "value"], ["controls", ""], ["audioPlayer", ""], ["type", "audio/mpeg", 3, "src"], [1, "device"], ["src", "assets/img/symfonisk.jpg", "alt", "SONOS-DEVICE", 1, "picture"]],
+    consts: [[1, "container"], [1, "app-welcome"], ["id", "sonos-devices"], [4, "ngIf"], [1, "prayers"], ["class", "prayer", 3, "ngClass", 4, "ngFor", "ngForOf"], ["class", "settings", 4, "ngIf"], ["class", "device", 4, "ngFor", "ngForOf"], [1, "copyright"], ["href", "https://github.com/aminekun90"], [1, "prayer", 3, "ngClass"], [1, "name"], [1, "time"], [1, "settings"], [1, "settings-title"], [1, "settings-form", 3, "submit"], [1, "form-group"], ["for", "city"], ["name", "city", "type", "text", "id", "city", "placeholder", "Enter your city", 1, "form-control", 3, "ngModel", "value", "ngModelChange"], ["for", "country"], ["name", "country", "type", "text", "id", "country", "placeholder", "Enter your country", 1, "form-control", 3, "ngModel", "value", "ngModelChange"], ["for", "calcMethod"], ["name", "calcMethod", "id", "calcMethod", 1, "form-control", 3, "ngModel", "ngModelChange"], ["value", "", "disabled", ""], [3, "value", 4, "ngFor", "ngForOf"], ["for", "selectDate"], ["name", "forceDate", "type", "date", "id", "selectDate", "name", "selectDate", 1, "form-control", 3, "ngModel", "value", "ngModelChange"], ["for", "volume"], ["type", "range", "id", "volume", "name", "volume", "min", "0", "max", "100", 1, "form-control", 3, "ngModel", "value", "ngModelChange"], ["for", "adhan"], ["name", "adhan", "id", "adhan", 1, "form-control", 3, "ngModel", "value", "ngModelChange", "change"], ["controls", "", 4, "ngIf"], ["type", "submit", "name", "save", 1, "btn", "btn-primary"], [3, "value"], ["controls", ""], ["audioPlayer", ""], ["type", "audio/mpeg", 3, "src"], [1, "device"], ["src", "assets/img/symfonisk.jpg", "alt", "SONOS-DEVICE", 1, "picture"]],
     template: function AppComponent_Template(rf, ctx) {
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "div", 0)(1, "div", 1);
@@ -358,8 +386,8 @@ class AppComponent {
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](7, "ul", 4);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](8, AppComponent_li_8_Template, 6, 8, "li", 5);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](9, AppComponent_div_9_Template, 34, 8, "div", 6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](10, AppComponent_div_10_Template, 6, 3, "div", 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](9, AppComponent_div_9_Template, 38, 14, "div", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](10, AppComponent_div_10_Template, 6, 4, "div", 7);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](11, "div", 8);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](12);

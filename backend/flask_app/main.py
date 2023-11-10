@@ -19,31 +19,31 @@ socketio = SocketIO(app)
 def index():
     return render_template('index.html')
 
+
 @app.route('/azanList')
 def get_azan_list():
-    return jsonify({"status":True,"result":find_mp3_files(),"message":"success"})
+    return jsonify({"status": True, "result": find_mp3_files(), "message": "success"})
+
 
 @app.route('/getSettings')
 def get_settings():
     path = os.path.abspath('config/config.yml')
     with open(path, 'r') as f:
         config = safe_load(f)
-    return jsonify({"status":True,"result":config,"message":"success"})
+    return jsonify({"status": True, "result": config, "message": "success"})
 
-@app.route("/saveSettings",methods=['POST'])
+
+@app.route("/saveSettings", methods=['POST'])
 def save_settings():
     data = request.get_json()
     path = os.path.abspath('config/config.yml')
-    with open(path, 'r') as f:
-        config = safe_load(f)
-    if data["azan"]:
-        config["playlist"]["fileName"] = data["azan"]
-    with open(path,'w') as f:
-        f.write(safe_dump(config))
+    with open(path, 'w') as f:
+        f.write(safe_dump(data))
     api_instance: Api = cast(Api, Api.get_instance())
     assert api_instance is not None
     api_instance.load_config()
-    return jsonify({"result":config,"success":True,"message":"success"})
+    return jsonify({"result": data, "success": True, "message": "success"})
+
 
 def find_mp3_files():
     current_directory = os.path.dirname(os.path.abspath(__file__))
@@ -55,6 +55,7 @@ def find_mp3_files():
                 mp3_files.append(os.path.basename(os.path.join(root, file)))
     return mp3_files
 
+
 @app.route('/<path:path>')
 def serve_mp3(path):
     try:
@@ -65,6 +66,7 @@ def serve_mp3(path):
         except Exception as e:
             print(e)
             return "File not found", 404
+
 
 @app.route('/timings')
 def get_timings():
