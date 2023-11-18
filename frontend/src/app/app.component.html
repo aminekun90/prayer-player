@@ -37,6 +37,10 @@
           <input type="range" id="volume" name="volume" [(ngModel)]="settings.device.volume" [value]="settings.device.volume" class="form-control" min="0" max="100">
         </div>
         <div class="form-group">
+          <label for="enableScheduler">Enable scheduler</label>
+          <input type="checkbox" id="enableScheduler" name="enableScheduler" [(ngModel)]="settings.enableScheduler" [value]="settings.enableScheduler" class="form-control">
+        </div>
+        <div class="form-group">
           <label for="adhan">Adhan:</label>
           <select name="adhan" id="adhan" [(ngModel)]="settings.playlist.fileName" [value]="settings.playlist.fileName" class="form-control" (change)="onMp3FileChange()">
             <option value="" disabled>Select an Adhan</option>
@@ -57,7 +61,10 @@
       <img src="assets/img/symfonisk.jpg" alt="SONOS-DEVICE" class="picture">
       <div class="name">
         {{device.getName()}}{{"@"}}{{device.getIp()}}
-        <!-- TODO: Add buttons for controlling playback -->
+        <div class="controls">
+          <div class="action pause">play/pause</div>
+          <div class="action stop">stop</div>
+        </div>
       </div>
       <div>
         Selected track: {{device.getPlayingTitle().title}}

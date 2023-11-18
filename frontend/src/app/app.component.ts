@@ -24,14 +24,13 @@ export class AppComponent implements OnInit {
       selectedMethod: '',
       forceDate: null, // or initialize it with a default date if needed
     },
-
     device: {
       volume: 50 // or initialize with a default volume
     },
     playlist: {
       fileName: ''
-    }
-
+    },
+    enableScheduler:false
   };
   country: string = "";
   city: string = "";
@@ -54,7 +53,6 @@ export class AppComponent implements OnInit {
     });
     await this.prayerService.getAzanList().then(list => {
       this.azanList = list;
-      console.log(this.azanList)
     });
     await this.getSettings();
   }
@@ -78,6 +76,7 @@ export class AppComponent implements OnInit {
 
   async saveSettings() {
     console.log("Setting saving...");
+    this.settings.api.selectedMethod = parseInt(this.settings.api.selectedMethod)
     await this.prayerService.saveSetting(this.settings)
   }
   async getSettings() {

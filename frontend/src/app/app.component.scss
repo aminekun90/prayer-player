@@ -62,6 +62,7 @@ $light-text-color: #ecf0f1;
         &:hover {
           background-color: darken($primary-color, 10%);
           transform: translateY(-2px);
+          cursor: pointer;
         }
 
         &.next {
@@ -190,6 +191,29 @@ $light-text-color: #ecf0f1;
         height: 120px;
         object-fit: cover;
         margin: 0 auto;
+      }
+      .controls{
+        .action{
+          background: black;
+          border-radius: 50%;
+          height: 60px;
+          width:60px;
+          &.play{
+            content: "⏵";
+          }
+          &.pause{
+            &::content{
+              content: "⏸";;
+            }
+          }
+          &.stop{
+            content: "⏹";
+          }
+          &.play-pause{
+            content: "⏯";
+          }
+
+        }
       }
       &:hover {
         background-color: darken($primary-color, 10%);
