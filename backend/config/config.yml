@@ -4,7 +4,7 @@ api:
   city: Nantes
   country: France
   forceDate: '2023-11-10'
-  selectedMethod: '12'
+  selectedMethod: 12
 calculationMethods:
 - description: Muslim World League
   id: 1
@@ -41,8 +41,8 @@ calculationMethods:
 debug: false
 device:
   volume: 25
-enableScheduler: true
+enableScheduler: false
 playlist:
   dirToServe: server/audio
-  fileName: adanmecca.mp3
+  fileName: azan1.mp3
   port: 8000

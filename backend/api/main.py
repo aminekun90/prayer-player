@@ -10,23 +10,21 @@ import sched
 
 class Api:
     instances = []
-    
+
     def __init__(self, logger=None):
+        self.logger = logger
         self.load_config()
-        self.logger = logger or logging.getLogger()
-        level = logging.DEBUG if self.config['debug'] else logging.INFO
-        self.logger.setLevel(level)
-        self.timings = None
+
         self.__class__.instances.append(self)
-        self.last_fetched = date.today() - timedelta(days=1)
-        self.enable_scheduler = self.config['enableScheduler']
-        self.logger.info(self.config)
-        self.scheduler = sched.scheduler(time.time, time.sleep)
-        
+
     def load_config(self):
+        self.timings = None
         config_file_path = os.path.abspath('config/config.yml')
         with open(config_file_path, 'r') as f:
             self.config = safe_load(f)
+        self.logger = self.logger or logging.getLogger()
+        level = logging.DEBUG if self.config['debug'] else logging.INFO
+        self.logger.setLevel(level)
         config = {
             'dirToServe': self.config['playlist']['dirToServe'],
             'port': self.config['playlist']['port'],
@@ -34,6 +32,17 @@ class Api:
             'playlist': self.config['playlist'],
         }
         self.sonos_device = SonosDevice(config=config)
+        self.last_fetched = date.today() - timedelta(days=1)
+        self.enable_scheduler = self.config['enableScheduler']
+        self.logger.info(self.config)
+        self.scheduler = sched.scheduler(time.time, time.sleep)
+        if not self.enable_scheduler:
+            logging.info('Scheduler is disabled')
+            if not self.timings:
+                self.timings = self.get_todays_timings()
+        else:
+            self.get_todays_timings_and_schedule_prayers()
+        self.logger.info(f'Total of scheduled: {len(self.scheduler.queue)}')
 
     @classmethod
     def get_instance(cls):
@@ -76,6 +85,8 @@ class Api:
     def schedule_prayers(self,):
         if not self.enable_scheduler:
             logging.info('Scheduler is disabled')
+            if not self.timings:
+                self.timings = self.get_todays_timings()
             return
         if self.timings:
             for prayer, prayer_time in self.timings.items():
