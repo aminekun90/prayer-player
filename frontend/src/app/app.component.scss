@@ -11,13 +11,19 @@ $light-text-color: #ecf0f1;
 $checkbox-size: 20px;
 $checkbox-border: #cecece;
 
-
-.checkbox{
+.back {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  background-color: #111;
+  color: $light-text-color;
+}
+.checkbox {
   position: absolute;
   opacity: 0;
 
   // Text
-  & + label{
+  & + label {
     display: inline-block;
     position: relative;
     cursor: pointer;
@@ -28,7 +34,7 @@ $checkbox-border: #cecece;
     color: #666; // Label colour
 
     // Checkbox
-    &:before{
+    &:before {
       position: absolute;
       display: block;
       left: 0;
@@ -44,7 +50,7 @@ $checkbox-border: #cecece;
     }
 
     // Tick
-    &:after{
+    &:after {
       position: absolute;
       display: block;
       top: 5px;
@@ -61,56 +67,54 @@ $checkbox-border: #cecece;
   }
 
   // Hover
-  & + label:hover{
+  & + label:hover {
     color: #333;
   }
 
   // Focus
-  & + label:focus{
+  & + label:focus {
     outline: none;
   }
 
   // Checked
-  &:checked{
-    & + label{
-      &:before{
+  &:checked {
+    & + label {
+      &:before {
         background: $primary-color;
         box-shadow: none;
       }
-      &:after{
+      &:after {
         border-color: white;
       }
     }
   }
 
   // Disabled
-  &:disabled{
-    & + label{
-      &:before{
+  &:disabled {
+    & + label {
+      &:before {
         background: #f2f2f2; // Disabled colour
         box-shadow: none;
       }
-      &:after{
+      &:after {
         border-color: transparent;
       }
     }
   }
 
   // Disabled Checked
-  &:checked:disabled{
-    & + label{
-      &:before{
+  &:checked:disabled {
+    & + label {
+      &:before {
         background: #f2f2f2;
         box-shadow: none;
       }
-      &:after{
+      &:after {
         border-color: #cecece;
       }
     }
   }
 }
-
-
 
 .container {
   padding: 20px;
@@ -124,7 +128,7 @@ $checkbox-border: #cecece;
     font-size: 32px;
     text-align: center;
     margin-bottom: 20px;
-    color: $primary-color;
+    color: $light-text-color;
 
     app-clock {
       font-size: 16px;
@@ -134,7 +138,6 @@ $checkbox-border: #cecece;
 
   .copyright {
     font-size: 12px;
-    color: $dark-text-color;
     margin-top: 20px;
   }
 
@@ -206,13 +209,26 @@ $checkbox-border: #cecece;
     }
 
     .settings {
-      margin-top: 20px;
+      margin-top: 0px;
+      top: 60px;
       padding: 20px;
       background-color: $background-color;
       border: 1px solid transparent;
       border-radius: 10px;
-      width: 100%;
-
+      width: 500px;
+      position: absolute;
+      z-index: 10000;
+      .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #777;
+        cursor: pointer;
+        float: right;
+        &:hover{
+          color: black;
+        }
+      }
       .settings-title {
         font-size: 24px;
         color: $primary-color;
@@ -309,19 +325,20 @@ $checkbox-border: #cecece;
         .action {
           background: black;
           border-radius: 50%;
-          height: 60px;
-          width: 60px;
+          height: 50px;
+          padding: 10px;
+          width: 50px;
           margin-right: 5px;
           display: flex;
           justify-content: center;
           align-items: center;
-          font-size: 20px;
+          font-size: 16px;
           color: white;
           cursor: pointer;
-          line-height: 20px;
+          line-height: 16px;
           transition: color 0.3s ease, transform 0.3s ease;
 
-          &:hover{
+          &:hover {
             color: orange;
           }
           &.play::before {

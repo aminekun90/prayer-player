@@ -3,16 +3,21 @@ import { SoCoService } from '@piPlayer/service/soCo/so-co.service';
 import { Device } from '@piPlayer/service/soCo/models/device';
 import { PrayerService } from '@piPlayer/service/prayer/prayer.service';
 import { Prayer } from '@piPlayer/service/prayer/models/prayer';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
+
 import { VERSION } from './env';
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
+
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  faCog = faCog;
   title = 'frontend';
+  modal=false;
   devices: Device[] = [];
   prayers: Prayer[] = [];
   azanList: string[] = [];
@@ -30,7 +35,7 @@ export class AppComponent implements OnInit {
     playlist: {
       fileName: ''
     },
-    enableScheduler:false
+    enableScheduler: false
   };
   country: string = "";
   city: string = "";
@@ -63,6 +68,9 @@ export class AppComponent implements OnInit {
       audio.load();
       audio.play();
     }
+  }
+  modalToggle(){
+    this.modal = !this.modal;
   }
   getCurrentPrayer() {
     return this.prayers.find(p => p.getTime() >= new Date())
