@@ -53,7 +53,7 @@ class Api:
         params = {
             'city': self.config['api']['city'],
             'country': self.config['api']['country'],
-            'method': self.config['calculationMethods'][self.config['api']['selectedMethod']]['id']
+            'method': self.config['api']['selectedMethod']
         }
 
         self.fetch_timings_if_needed(
