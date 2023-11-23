@@ -37,8 +37,8 @@
           <input type="range" id="volume" name="volume" [(ngModel)]="settings.device.volume" [value]="settings.device.volume" class="form-control" min="0" max="100">
         </div>
         <div class="form-group">
+          <input type="checkbox" id="enableScheduler" name="enableScheduler" [(ngModel)]="settings.enableScheduler" [value]="settings.enableScheduler" class="checkbox">
           <label for="enableScheduler">Enable scheduler</label>
-          <input type="checkbox" id="enableScheduler" name="enableScheduler" [(ngModel)]="settings.enableScheduler" [value]="settings.enableScheduler" class="form-control">
         </div>
         <div class="form-group">
           <label for="adhan">Adhan:</label>
@@ -62,8 +62,8 @@
       <div class="name">
         {{device.getName()}}{{"@"}}{{device.getIp()}}
         <div class="controls">
-          <div class="action pause">play/pause</div>
-          <div class="action stop">stop</div>
+          <div class="action pause"></div>
+          <div class="action stop"></div>
         </div>
       </div>
       <div>
