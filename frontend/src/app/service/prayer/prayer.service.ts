@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from '../http/http.service';
-import { CONFIG, Settings } from '@piPlayer/service/types/types';
+import { HttpService } from '@piPlayer/service/http/http.service';
+import { CONFIG } from '@piPlayer/service/types/types';
 import { Prayer } from '@piPlayer/service/prayer/models/prayer';
+import { Settings } from '@piPlayer/types/types';
 
 @Injectable({
   providedIn: 'root'

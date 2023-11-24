@@ -1,0 +1,47 @@
+<div class="settings" *ngIf="devices.length && isVisible">
+  <h2 class="settings-title">Settings</h2>
+  <div class="close" (click)="modalToggle()">close</div>
+  <form class="settings-form" (submit)="saveSettings()">
+    <div class="form-group">
+      <label for="city">City</label>
+      <input name="city" type="text" id="city" [(ngModel)]="settings.api.city" [value]="settings.api.city" class="form-control" placeholder="Enter your city">
+    </div>
+    <div class="form-group">
+      <label for="country">Country</label>
+      <input name="country" type="text" id="country" [(ngModel)]="settings.api.country" [value]="settings.api.country" class="form-control" placeholder="Enter your country">
+    </div>
+    <div class="form-group">
+      <label for="calcMethod">Adhan Calculation Method</label>
+      <select name="calcMethod" id="calcMethod" [(ngModel)]="settings.api.selectedMethod" class="form-control">
+        <option value="" disabled>Select adhan calculation method:</option>
+        <option *ngFor="let method of settings.calculationMethods" [value]="method.id">{{ method.description }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="selectDate">Force date:</label>
+      <input name="forceDate" type="date" id="selectDate" name="selectDate" class="form-control" [(ngModel)]="settings.api.forceDate" [value]="settings.api.forceDate">
+    </div>
+    <div class="form-group">
+      <label for="volume">Volume</label>
+      <input type="range" id="volume" name="volume" [(ngModel)]="settings.device.volume" [value]="settings.device.volume" class="form-control" min="0" max="100">
+    </div>
+    <div class="form-group">
+      <input type="checkbox" id="enableScheduler" name="enableScheduler" [(ngModel)]="settings.enableScheduler" [value]="settings.enableScheduler" class="checkbox">
+      <label for="enableScheduler">Enable scheduler</label>
+    </div>
+    <div class="form-group">
+      <label for="adhan">Adhan:</label>
+      <select name="adhan" id="adhan" [(ngModel)]="settings.playlist.fileName" [value]="settings.playlist.fileName" class="form-control" (change)="onMp3FileChange()">
+        <option value="" disabled>Select an Adhan</option>
+        <option *ngFor="let mp3File of azanList" [value]="mp3File">{{ mp3File }}</option>
+      </select>
+      <audio #audioPlayer controls *ngIf="settings.playlist.fileName">
+        <source [src]="'/' + settings.playlist.fileName" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary" name="save">Save</button>
+    </div>
+  </form>
+</div>

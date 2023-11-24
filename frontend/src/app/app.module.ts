@@ -6,11 +6,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ClockComponent } from './clock/clock.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SettingsModalComponent } from './settings-modal/settings-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ClockComponent
+    ClockComponent,
+    SettingsModalComponent
   ],
   imports: [
     BrowserModule,

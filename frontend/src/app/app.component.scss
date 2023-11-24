@@ -1,15 +1,5 @@
 @use "sass:math";
-$primary-color: #3498db;
-$secondary-color: #2ecc71;
-$background-color: #ecf0f1;
-$border-color: #bdc3c7;
-$accent-color: #e67e22;
-$dark-text-color: #2c3e50;
-$light-text-color: #ecf0f1;
-
-// Variables
-$checkbox-size: 20px;
-$checkbox-border: #cecece;
+@import "shared/styles/variables";
 
 .back {
   width: 100vw;
@@ -139,6 +129,11 @@ $checkbox-border: #cecece;
   .copyright {
     font-size: 12px;
     margin-top: 20px;
+    color: $light-text-color;
+    a {
+      text-decoration: none;
+      color: $light-text-color;
+    }
   }
 
   #sonos-devices {

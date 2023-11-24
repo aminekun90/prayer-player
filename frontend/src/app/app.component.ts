@@ -6,6 +6,7 @@ import { Prayer } from '@piPlayer/service/prayer/models/prayer';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 
 import { VERSION } from './env';
+import { Settings } from './types/types';
 
 
 @Component({
@@ -17,17 +18,17 @@ import { VERSION } from './env';
 export class AppComponent implements OnInit {
   faCog = faCog;
   title = 'frontend';
-  modal=false;
+  isChildVisible = false;
   devices: Device[] = [];
   prayers: Prayer[] = [];
   azanList: string[] = [];
   currentTime: Date = new Date();
-  settings: any = {
+  settings: Settings = {
     api: {
       city: '',
       country: '',
-      selectedMethod: '',
-      forceDate: null, // or initialize it with a default date if needed
+      selectedMethod: 12,
+      forceDate: new Date(), // or initialize it with a default date if needed
     },
     device: {
       volume: 50 // or initialize with a default volume
@@ -35,7 +36,8 @@ export class AppComponent implements OnInit {
     playlist: {
       fileName: ''
     },
-    enableScheduler: false
+    enableScheduler: false,
+    calculationMethods: []
   };
   country: string = "";
   city: string = "";
@@ -44,10 +46,7 @@ export class AppComponent implements OnInit {
   @ViewChild('audioPlayer') audioPlayer!: ElementRef;
   version = VERSION;
 
-  constructor(private soCoService: SoCoService, private prayerService: PrayerService) {
-
-
-  }
+  constructor(private soCoService: SoCoService, private prayerService: PrayerService) { }
   async ngOnInit() {
     this.setTimeEverySecond()
     await this.soCoService.getSoCoDevices().then(devices => {
@@ -69,8 +68,10 @@ export class AppComponent implements OnInit {
       audio.play();
     }
   }
-  modalToggle(){
-    this.modal = !this.modal;
+  modalToggle() {
+    this.isChildVisible = true;
+    console.log("show settings...", this.isChildVisible)
+
   }
   getCurrentPrayer() {
     return this.prayers.find(p => p.getTime() >= new Date())
@@ -82,9 +83,10 @@ export class AppComponent implements OnInit {
     }, 1000);
   }
 
-  async saveSettings() {
-    console.log("Setting saving...");
-    this.settings.api.selectedMethod = parseInt(this.settings.api.selectedMethod)
+  async saveSettings(settings: Settings) {
+    console.log("Setting saving...", settings);
+    this.settings = settings;
+    this.settings.api.selectedMethod = parseInt(this.settings.api.selectedMethod as unknown as string)
     await this.prayerService.saveSetting(this.settings)
   }
   async getSettings() {

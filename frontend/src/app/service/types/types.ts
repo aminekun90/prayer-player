@@ -11,6 +11,3 @@ export interface PrayerTimeObject {
   [prayer: string]: Date;
 }
 
-export interface Settings{
-  azan:string
-}
