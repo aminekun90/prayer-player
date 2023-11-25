@@ -18,8 +18,8 @@
         <div class="name">
           {{device.getName()}}{{"@"}}{{device.getIp()}}
           <div class="controls">
-            <div class="action pause"></div>
-            <div class="action stop"></div>
+            <div class="action"><fa-icon [icon]="faPause"></fa-icon></div>
+            <div class="action"><fa-icon [icon]="faStop"></fa-icon></div>
             <div class="action" (click)="modalToggle()"><fa-icon [icon]="faCog"></fa-icon></div>
           </div>
         </div>

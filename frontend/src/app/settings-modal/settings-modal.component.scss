@@ -74,4 +74,8 @@
       background-color: darken($primary-color, 10%);
     }
   }
+  @media (max-width: 600px) {
+    width: 90%; // Adjust width for smaller screens
+    left:10px;
+  }
 }

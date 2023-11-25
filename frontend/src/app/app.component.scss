@@ -3,7 +3,8 @@
 
 .back {
   width: 100vw;
-  height: 100vh;
+  height: 100%;
+  // overflow: hidden;
   display: block;
   background-color: #111;
   color: $light-text-color;
@@ -113,7 +114,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media (max-width: 768px) {
+    width: 90%; // Adjust width for smaller screens
+  }
 
+  @media (max-width: 480px) {
+    width: 100%; // Make it full width for even smaller screens
+  }
   .app-welcome {
     font-size: 32px;
     text-align: center;
@@ -123,6 +130,14 @@
     app-clock {
       font-size: 16px;
       color: $accent-color;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 24px; // Adjust font size for smaller screens
+    }
+
+    @media (max-width: 480px) {
+      font-size: 20px; // Further adjust font size for even smaller screens
     }
   }
 
@@ -200,81 +215,14 @@
           font-weight: bold;
           font-size: 16px;
         }
-      }
-    }
 
-    .settings {
-      margin-top: 0px;
-      top: 60px;
-      padding: 20px;
-      background-color: $background-color;
-      border: 1px solid transparent;
-      border-radius: 10px;
-      width: 500px;
-      position: absolute;
-      z-index: 10000;
-      .close {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        color: #777;
-        cursor: pointer;
-        float: right;
-        &:hover{
-          color: black;
-        }
-      }
-      .settings-title {
-        font-size: 24px;
-        color: $primary-color;
-        margin-bottom: 15px;
-      }
-
-      .form-group {
-        margin-bottom: 20px;
-
-        label {
-          display: block;
-          font-weight: bold;
-          margin-bottom: 5px;
-          color: $dark-text-color;
+        @media (max-width: 768px) {
+          width: 160px; // Adjust width for smaller screens
         }
 
-        .form-control {
-          width: 100%;
-          padding: 10px;
-          border: 1px solid $border-color;
-          border-radius: 5px;
-          font-size: 16px;
-          color: $dark-text-color;
-
-          &:focus {
-            outline: none;
-            border-color: $primary-color;
-          }
-        }
-
-        select.form-control {
-          height: 40px;
-        }
-
-        input[type="range"].form-control {
-          width: calc(100% - 20px);
-        }
-      }
-
-      .btn {
-        padding: 12px 24px;
-        font-size: 14px;
-        background-color: $primary-color;
-        color: $light-text-color;
-        border: none;
-        border-radius: 980px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-
-        &:hover {
-          background-color: darken($primary-color, 10%);
+        @media (max-width: 480px) {
+          width: 100%; // Make it full width for even smaller screens
+          margin: 10px 0; // Add margin between items
         }
       }
     }
@@ -357,6 +305,9 @@
       &:hover {
         background-color: darken($primary-color, 10%);
         transform: translateY(-2px);
+      }
+      @media (max-width: 600px) {
+        width: 90%; // Adjust width for smaller screens
       }
     }
   }

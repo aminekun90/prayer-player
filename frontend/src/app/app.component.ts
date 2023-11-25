@@ -3,7 +3,8 @@ import { SoCoService } from '@piPlayer/service/soCo/so-co.service';
 import { Device } from '@piPlayer/service/soCo/models/device';
 import { PrayerService } from '@piPlayer/service/prayer/prayer.service';
 import { Prayer } from '@piPlayer/service/prayer/models/prayer';
-import { faCog } from '@fortawesome/free-solid-svg-icons';
+import { faCog,faPlay,faPause,faStop } from '@fortawesome/free-solid-svg-icons';
+
 
 import { VERSION } from './env';
 import { Settings } from './types/types';
@@ -17,6 +18,9 @@ import { Settings } from './types/types';
 })
 export class AppComponent implements OnInit {
   faCog = faCog;
+  faPlay = faPlay;
+  faPause = faPause;
+  faStop = faStop;
   title = 'frontend';
   isChildVisible = false;
   devices: Device[] = [];
