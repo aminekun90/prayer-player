@@ -1,7 +1,7 @@
 "use strict";
 (self["webpackChunkfrontend"] = self["webpackChunkfrontend"] || []).push([["main"],{
 
-/***/ 2899:
+/***/ 3966:
 /*!***************************************!*\
   !*** ./src/app/app-routing.module.ts ***!
   \***************************************/
@@ -39,7 +39,7 @@ class AppRoutingModule {
 
 /***/ }),
 
-/***/ 8641:
+/***/ 6401:
 /*!**********************************!*\
   !*** ./src/app/app.component.ts ***!
   \**********************************/
@@ -51,15 +51,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
 /* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ 9985);
-/* harmony import */ var _env__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./env */ 1128);
+/* harmony import */ var _env__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./env */ 8532);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ 1699);
-/* harmony import */ var _piPlayer_service_soCo_so_co_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @piPlayer/service/soCo/so-co.service */ 8983);
-/* harmony import */ var _piPlayer_service_prayer_prayer_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @piPlayer/service/prayer/prayer.service */ 1353);
+/* harmony import */ var _piPlayer_service_soCo_so_co_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @piPlayer/service/soCo/so-co.service */ 5573);
+/* harmony import */ var _piPlayer_service_prayer_prayer_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @piPlayer/service/prayer/prayer.service */ 5656);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common */ 6575);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/router */ 7947);
 /* harmony import */ var _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @fortawesome/angular-fontawesome */ 683);
-/* harmony import */ var _clock_clock_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./clock/clock.component */ 6884);
-/* harmony import */ var _settings_modal_settings_modal_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./settings-modal/settings-modal.component */ 2474);
+/* harmony import */ var _clock_clock_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./clock/clock.component */ 8275);
+/* harmony import */ var _settings_modal_settings_modal_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./settings-modal/settings-modal.component */ 7737);
 
 
 
@@ -86,11 +86,9 @@ function AppComponent_div_7_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementEnd"]();
   }
 }
-const _c1 = function (a0) {
-  return {
-    "next": a0
-  };
-};
+const _c1 = a0 => ({
+  "next": a0
+});
 function AppComponent_li_9_Template(rf, ctx) {
   if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](0, "li", 11)(1, "div", 12);
@@ -267,8 +265,7 @@ class AppComponent {
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelement"](4, "app-clock");
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](5, "div", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtemplate"](6, AppComponent_div_6_Template, 2, 0, "div", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtemplate"](7, AppComponent_div_7_Template, 2, 0, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtemplate"](6, AppComponent_div_6_Template, 2, 0, "div", 4)(7, AppComponent_div_7_Template, 2, 0, "div", 4);
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](8, "ul", 5);
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtemplate"](9, AppComponent_li_9_Template, 6, 8, "li", 6);
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementEnd"]();
@@ -311,7 +308,7 @@ class AppComponent {
 
 /***/ }),
 
-/***/ 3574:
+/***/ 8629:
 /*!*******************************!*\
   !*** ./src/app/app.module.ts ***!
   \*******************************/
@@ -323,11 +320,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ 8849);
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/platform-browser */ 6480);
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app-routing.module */ 2899);
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app.component */ 8641);
-/* harmony import */ var _clock_clock_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./clock/clock.component */ 6884);
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app-routing.module */ 3966);
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app.component */ 6401);
+/* harmony import */ var _clock_clock_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./clock/clock.component */ 8275);
 /* harmony import */ var _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @fortawesome/angular-fontawesome */ 683);
-/* harmony import */ var _settings_modal_settings_modal_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./settings-modal/settings-modal.component */ 2474);
+/* harmony import */ var _settings_modal_settings_modal_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./settings-modal/settings-modal.component */ 7737);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 1699);
 
 
@@ -358,7 +355,7 @@ class AppModule {
 
 /***/ }),
 
-/***/ 6884:
+/***/ 8275:
 /*!******************************************!*\
   !*** ./src/app/clock/clock.component.ts ***!
   \******************************************/
@@ -401,7 +398,7 @@ class ClockComponent {
 
 /***/ }),
 
-/***/ 1128:
+/***/ 8532:
 /*!************************!*\
   !*** ./src/app/env.ts ***!
   \************************/
@@ -417,7 +414,7 @@ const VERSION = 'Beta Build.1.0.4';
 
 /***/ }),
 
-/***/ 676:
+/***/ 6444:
 /*!**********************************************!*\
   !*** ./src/app/service/http/http.service.ts ***!
   \**********************************************/
@@ -429,7 +426,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ 5486);
-/* harmony import */ var _types_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/types */ 5196);
+/* harmony import */ var _types_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/types */ 5797);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 1699);
 
 
@@ -484,7 +481,7 @@ class HttpService {
 
 /***/ }),
 
-/***/ 1252:
+/***/ 2786:
 /*!*************************************************!*\
   !*** ./src/app/service/prayer/models/prayer.ts ***!
   \*************************************************/
@@ -523,7 +520,7 @@ function parseTime(timeString) {
 
 /***/ }),
 
-/***/ 1353:
+/***/ 5656:
 /*!**************************************************!*\
   !*** ./src/app/service/prayer/prayer.service.ts ***!
   \**************************************************/
@@ -534,10 +531,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PrayerService: () => (/* binding */ PrayerService)
 /* harmony export */ });
 /* harmony import */ var _Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
-/* harmony import */ var _piPlayer_service_types_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @piPlayer/service/types/types */ 5196);
-/* harmony import */ var _piPlayer_service_prayer_models_prayer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @piPlayer/service/prayer/models/prayer */ 1252);
+/* harmony import */ var _piPlayer_service_types_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @piPlayer/service/types/types */ 5797);
+/* harmony import */ var _piPlayer_service_prayer_models_prayer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @piPlayer/service/prayer/models/prayer */ 2786);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 1699);
-/* harmony import */ var _piPlayer_service_http_http_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @piPlayer/service/http/http.service */ 676);
+/* harmony import */ var _piPlayer_service_http_http_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @piPlayer/service/http/http.service */ 6444);
 
 
 
@@ -626,7 +623,7 @@ class PrayerService {
 
 /***/ }),
 
-/***/ 5386:
+/***/ 3480:
 /*!***********************************************!*\
   !*** ./src/app/service/soCo/models/device.ts ***!
   \***********************************************/
@@ -684,7 +681,7 @@ class Device {
 
 /***/ }),
 
-/***/ 8983:
+/***/ 5573:
 /*!***********************************************!*\
   !*** ./src/app/service/soCo/so-co.service.ts ***!
   \***********************************************/
@@ -695,10 +692,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   SoCoService: () => (/* binding */ SoCoService)
 /* harmony export */ });
 /* harmony import */ var _Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
-/* harmony import */ var _piPlayer_service_soCo_models_device__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @piPlayer/service/soCo/models/device */ 5386);
-/* harmony import */ var _piPlayer_service_types_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @piPlayer/service/types/types */ 5196);
+/* harmony import */ var _piPlayer_service_soCo_models_device__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @piPlayer/service/soCo/models/device */ 3480);
+/* harmony import */ var _piPlayer_service_types_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @piPlayer/service/types/types */ 5797);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 1699);
-/* harmony import */ var _piPlayer_service_http_http_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @piPlayer/service/http/http.service */ 676);
+/* harmony import */ var _piPlayer_service_http_http_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @piPlayer/service/http/http.service */ 6444);
 
 
 
@@ -735,7 +732,7 @@ class SoCoService {
 
 /***/ }),
 
-/***/ 5196:
+/***/ 5797:
 /*!****************************************!*\
   !*** ./src/app/service/types/types.ts ***!
   \****************************************/
@@ -756,7 +753,7 @@ const CONFIG = {
 
 /***/ }),
 
-/***/ 2474:
+/***/ 7737:
 /*!************************************************************!*\
   !*** ./src/app/settings-modal/settings-modal.component.ts ***!
   \************************************************************/
@@ -1018,7 +1015,7 @@ class SettingsModalComponent {
 
 /***/ }),
 
-/***/ 6792:
+/***/ 4913:
 /*!*********************!*\
   !*** ./src/main.ts ***!
   \*********************/
@@ -1026,7 +1023,7 @@ class SettingsModalComponent {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ 6480);
-/* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app/app.module */ 3574);
+/* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app/app.module */ 8629);
 
 
 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__.platformBrowser().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_0__.AppModule).catch(err => console.error(err));
@@ -1036,7 +1033,7 @@ _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__.platformBrowser().bootstr
 },
 /******/ __webpack_require__ => { // webpackRuntimeModules
 /******/ var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-/******/ __webpack_require__.O(0, ["vendor"], () => (__webpack_exec__(6792)));
+/******/ __webpack_require__.O(0, ["vendor"], () => (__webpack_exec__(4913)));
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
