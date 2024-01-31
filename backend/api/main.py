@@ -152,9 +152,9 @@ class Api:
                              self.get_todays_timings_and_schedule_prayers)
         logging.info(f"Scheduled API call and prayers for {next_day_1_am}")
 
-    def play_media(self, media_url):
+    def play_media(self, media_url, volume=None):
         # Pass in a URI to a media file to have it streamed through the Sonos speaker
-        self.sonos_device.play(f"/{media_url}")
+        self.sonos_device.play(f"/{media_url}", volume)
         logging.info("Playing...")
 
     def stop_playback(self):

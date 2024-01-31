@@ -25,6 +25,13 @@ def get_azan_list():
     return jsonify({"status": True, "result": find_mp3_files(), "message": "success"})
 
 
+@app.route('/playEsterEgg')
+def play_ester_egg():
+    api_instance: Api = cast(Api, Api.get_instance())
+    api_instance.play_media('discordu-ester-egg.mp3', 10)
+    return jsonify({"status": True, "result": cast(SoCo, api_instance.sonos_device.sonos).get_current_transport_info(), "message": "success"})
+
+
 @app.route('/getSettings')
 def get_settings():
     path = os.path.abspath('config/config.yml')
