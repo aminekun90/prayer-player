@@ -1,9 +1,9 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, HostListener } from '@angular/core';
 import { SoCoService } from '@piPlayer/service/soCo/so-co.service';
 import { Device } from '@piPlayer/service/soCo/models/device';
 import { PrayerService } from '@piPlayer/service/prayer/prayer.service';
 import { Prayer } from '@piPlayer/service/prayer/models/prayer';
-import { faCog,faPlay,faPause,faStop } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faPlay, faPause, faStop } from '@fortawesome/free-solid-svg-icons';
 
 
 import { VERSION } from './env';
@@ -14,7 +14,10 @@ import { Settings } from './types/types';
   selector: 'app-root',
   templateUrl: './app.component.html',
 
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  host: {
+    '(document:keypress)': 'handleKeyboardEvent($event)'
+  }
 })
 export class AppComponent implements OnInit {
   faCog = faCog;
@@ -49,8 +52,44 @@ export class AppComponent implements OnInit {
   calcMethod: string = '';
   @ViewChild('audioPlayer') audioPlayer!: ElementRef;
   version = VERSION;
-
+  keySquence: Array<string> = [];
   constructor(private soCoService: SoCoService, private prayerService: PrayerService) { }
+  areArraysEqual(arr1: any[], arr2: any[]): boolean {
+    if (arr1.length !== arr2.length) {
+      return false;
+    }
+
+    return arr1.every((value, index) => value === arr2[index]);
+  }
+  @HostListener('window:keydown', ['$event'])
+  async handleKeyboardEvent(event: KeyboardEvent) {
+    this.keySquence.push(event.key);
+    // console.log("Key press", this.keySquence);
+    // wow is this an ester egg ;)
+    if (this.areArraysEqual(this.keySquence, [
+      "ArrowUp",
+      "ArrowDown",
+      "ArrowUp",
+      "ArrowDown",
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowLeft",
+      "ArrowRight"])) {
+      console.log("combo correct")
+      this.keySquence = [];
+      await this.soCoService.playEsterEgg();
+      alert("Discordu!!");
+
+    }
+
+    if (this.keySquence.length > 8 || event.key == "Escape") {
+
+      console.log("Re-init key recognition")
+
+      this.keySquence = [];
+    }
+
+  }
   async ngOnInit() {
     this.setTimeEverySecond()
     await this.soCoService.getSoCoDevices().then(devices => {
