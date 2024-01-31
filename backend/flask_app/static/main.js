@@ -138,7 +138,7 @@ function AppComponent_div_11_Template(rf, ctx) {
     const device_r5 = ctx.$implicit;
     const ctx_r3 = _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtextInterpolate3"](" ", device_r5.getName(), "", "@", "", device_r5.getIp(), " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtextInterpolate5"](" ", device_r5.getName(), "", "@", "", device_r5.getIp(), " ", ctx_r3.settings.api.city, " | ", ctx_r3.settings.api.country, " ");
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"](3);
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵproperty"]("icon", ctx_r3.faPause);
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"](2);
@@ -170,11 +170,9 @@ class AppComponent {
         selectedMethod: 12,
         forceDate: new Date() // or initialize it with a default date if needed
       },
-
       device: {
         volume: 50 // or initialize with a default volume
       },
-
       playlist: {
         fileName: ''
       },
@@ -186,21 +184,46 @@ class AppComponent {
     this.volume = 25;
     this.calcMethod = '';
     this.version = _env__WEBPACK_IMPORTED_MODULE_1__.VERSION;
+    this.keySquence = [];
   }
-  ngOnInit() {
+  areArraysEqual(arr1, arr2) {
+    if (arr1.length !== arr2.length) {
+      return false;
+    }
+    return arr1.every((value, index) => value === arr2[index]);
+  }
+  handleKeyboardEvent(event) {
     var _this = this;
     return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      _this.setTimeEverySecond();
-      yield _this.soCoService.getSoCoDevices().then(devices => {
-        _this.devices = devices;
+      _this.keySquence.push(event.key);
+      // console.log("Key press", this.keySquence);
+      // wow is this an ester egg ;)
+      if (_this.areArraysEqual(_this.keySquence, ["ArrowUp", "ArrowDown", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight"])) {
+        console.log("combo correct");
+        _this.keySquence = [];
+        yield _this.soCoService.playEsterEgg();
+        alert("Discordu!!");
+      }
+      if (_this.keySquence.length > 8 || event.key == "Escape") {
+        console.log("Re-init key recognition");
+        _this.keySquence = [];
+      }
+    })();
+  }
+  ngOnInit() {
+    var _this2 = this;
+    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      _this2.setTimeEverySecond();
+      yield _this2.soCoService.getSoCoDevices().then(devices => {
+        _this2.devices = devices;
       });
-      yield _this.prayerService.getPrayers().then(prayers => {
-        _this.prayers = prayers;
+      yield _this2.prayerService.getPrayers().then(prayers => {
+        _this2.prayers = prayers;
       });
-      yield _this.prayerService.getAzanList().then(list => {
-        _this.azanList = list;
+      yield _this2.prayerService.getAzanList().then(list => {
+        _this2.azanList = list;
       });
-      yield _this.getSettings();
+      yield _this2.getSettings();
     })();
   }
   onMp3FileChange() {
@@ -224,20 +247,20 @@ class AppComponent {
     }, 1000);
   }
   saveSettings(settings) {
-    var _this2 = this;
+    var _this3 = this;
     return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       console.log("Setting saving...", settings);
-      _this2.settings = settings;
-      _this2.settings.api.selectedMethod = parseInt(_this2.settings.api.selectedMethod);
-      yield _this2.prayerService.saveSetting(_this2.settings);
+      _this3.settings = settings;
+      _this3.settings.api.selectedMethod = parseInt(_this3.settings.api.selectedMethod);
+      yield _this3.prayerService.saveSetting(_this3.settings);
     })();
   }
   getSettings() {
-    var _this3 = this;
+    var _this4 = this;
     return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       console.log("Setting loading...");
-      _this3.settings = yield _this3.prayerService.getSettings();
-      console.log("Loaded settings", _this3.settings);
+      _this4.settings = yield _this4.prayerService.getSettings();
+      console.log("Loaded settings", _this4.settings);
     })();
   }
   static #_ = this.ɵfac = function AppComponent_Factory(t) {
@@ -253,6 +276,15 @@ class AppComponent {
       if (rf & 2) {
         let _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵloadQuery"]()) && (ctx.audioPlayer = _t.first);
+      }
+    },
+    hostBindings: function AppComponent_HostBindings(rf, ctx) {
+      if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵlistener"]("keypress", function AppComponent_keypress_HostBindingHandler($event) {
+          return ctx.handleKeyboardEvent($event);
+        }, false, _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵresolveDocument"])("keydown", function AppComponent_keydown_HostBindingHandler($event) {
+          return ctx.handleKeyboardEvent($event);
+        }, false, _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵresolveWindow"]);
       }
     },
     decls: 17,
@@ -276,7 +308,7 @@ class AppComponent {
           return ctx.isChildVisible = $event;
         });
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtemplate"](11, AppComponent_div_11_Template, 13, 7, "div", 8);
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtemplate"](11, AppComponent_div_11_Template, 13, 9, "div", 8);
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](12, "div", 9);
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtext"](13);
@@ -289,13 +321,13 @@ class AppComponent {
       if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"](6);
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵproperty"]("ngIf", !ctx.devices.length);
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵproperty"]("ngIf", !ctx.prayers.length);
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵproperty"]("ngForOf", ctx.prayers);
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵproperty"]("settings", ctx.settings)("azanList", ctx.azanList)("isVisible", ctx.isChildVisible)("devices", ctx.devices);
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵproperty"]("ngForOf", ctx.devices);
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtextInterpolate1"]("Sonos player ", ctx.version, " By ");
@@ -410,7 +442,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   VERSION: () => (/* binding */ VERSION)
 /* harmony export */ });
 const API_URL = 'http://localhost:8000';
-const VERSION = 'Beta Build.1.0.4';
+const VERSION = 'Beta Build.1.0.5';
 
 /***/ }),
 
@@ -720,6 +752,20 @@ class SoCoService {
       return [];
     })();
   }
+  playEsterEgg() {
+    var _this2 = this;
+    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const result = yield _this2.httpService.get(`${_piPlayer_service_types_types__WEBPACK_IMPORTED_MODULE_2__.CONFIG.playEsterEgg}`, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      if (result) {
+        return result;
+      }
+      return [];
+    })();
+  }
   static #_ = this.ɵfac = function SoCoService_Factory(t) {
     return new (t || SoCoService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_piPlayer_service_http_http_service__WEBPACK_IMPORTED_MODULE_3__.HttpService));
   };
@@ -748,7 +794,8 @@ const CONFIG = {
   getPrayers: "timings",
   getAzanList: "azanList",
   saveSettings: "saveSettings",
-  getSettings: "getSettings"
+  getSettings: "getSettings",
+  playEsterEgg: "playEsterEgg"
 };
 
 /***/ }),
@@ -782,7 +829,7 @@ function SettingsModalComponent_div_0_option_20_Template(rf, ctx) {
   if (rf & 2) {
     const method_r4 = ctx.$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("value", method_r4.id);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](method_r4.description);
   }
 }
@@ -795,7 +842,7 @@ function SettingsModalComponent_div_0_option_39_Template(rf, ctx) {
   if (rf & 2) {
     const mp3File_r5 = ctx.$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("value", mp3File_r5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](mp3File_r5);
   }
 }
@@ -940,7 +987,7 @@ function SettingsModalComponent_div_0_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngModel", ctx_r0.settings.playlist.fileName)("value", ctx_r0.settings.playlist.fileName);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](3);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r0.azanList);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r0.settings.playlist.fileName);
   }
 }
