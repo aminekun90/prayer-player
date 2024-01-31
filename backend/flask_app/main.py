@@ -89,6 +89,7 @@ def get_timings():
 def get_devices():
     api_instance: Api = cast(Api, Api.get_instance())
     assert api_instance is not None
+    api_instance.sonos_device.scan_for_sonos()
     devices: set[SoCo] | None = api_instance.sonos_device.sonos_devices_in_network
     if devices:
         logging.info(iter(devices))
