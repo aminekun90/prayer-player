@@ -11,9 +11,10 @@ class SonosDevice:
     sonos: SoCo | None
     config: dict
     sonos_devices_in_network: set[SoCo] | None
-    def set_config(self,config):
+
+    def set_config(self, config):
         self.config = config
-    
+
     def __init__(self, ip=None, config=None):
         if not config:
             self.config = {
@@ -104,14 +105,14 @@ class SonosDevice:
 
         return False
 
-    def play(self, uri):
+    def play(self, uri, volume=None):
         if not self.sonos:
             logging.warning(
                 "Cannot play on Sonos device. Reason: Device not found.")
             return
 
         self.sonos.play_uri(f"{self.from_network}{uri}")
-        self.sonos.volume = self.config['device']['volume']
+        self.sonos.volume = self.config['device']['volume'] if not volume else volume
         track = self.sonos.get_current_track_info()
         logging.info(f"Current track on selected Sonos: {track['title']}")
         try:

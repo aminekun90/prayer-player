@@ -5,6 +5,7 @@ export const CONFIG = {
   getAzanList:"azanList",
   saveSettings:"saveSettings",
   getSettings:"getSettings",
+  playEsterEgg:"playEsterEgg",
 }
 
 export interface PrayerTimeObject {

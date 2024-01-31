@@ -17,6 +17,7 @@
         <img src="assets/img/symfonisk.jpg" alt="SONOS-DEVICE" class="picture">
         <div class="name">
           {{device.getName()}}{{"@"}}{{device.getIp()}}
+          {{settings.api.city}} | {{settings.api.country}}
           <div class="controls">
             <div class="action"><fa-icon [icon]="faPause"></fa-icon></div>
             <div class="action"><fa-icon [icon]="faStop"></fa-icon></div>
