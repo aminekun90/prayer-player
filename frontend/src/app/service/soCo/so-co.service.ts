@@ -24,4 +24,15 @@ export class SoCoService {
     }
     return [];
   }
+  async playEsterEgg(){
+    const result = await this.httpService.get(`${CONFIG.playEsterEgg}`, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    if (result) {
+      return result;
+    }
+    return [];
+  }
 }
