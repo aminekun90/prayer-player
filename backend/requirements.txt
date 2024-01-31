@@ -25,7 +25,6 @@ lxml==5.1.0
 MarkupSafe==2.1.4
 mccabe==0.7.0
 netifaces==0.11.0
-numpy==1.26.3
 packaging==23.2
 pip-upgrader==1.4.15
 platformdirs==4.1.0
