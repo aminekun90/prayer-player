@@ -4,8 +4,10 @@ from yaml import safe_load
 import time
 import requests
 from sonos_device.device import SonosDevice
+from ble_module.device import BluetoothDeviceController
 import os
 import sched
+import asyncio
 
 
 class Api:
@@ -13,11 +15,12 @@ class Api:
 
     def __init__(self, logger=None):
         self.logger = logger
-        self.load_config()
-
+        asyncio.run(self.load_config())
         self.__class__.instances.append(self)
 
-    def load_config(self):
+    async def load_config(self):
+        self.bluetooth_controller = BluetoothDeviceController()
+        self.bluetooth_devices = await self.bluetooth_controller.scan()
         self.timings = None
         config_file_path = os.path.abspath('config/config.yml')
         with open(config_file_path, 'r') as f:

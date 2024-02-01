@@ -1,6 +1,7 @@
 appdirs==1.4.4
 astroid==3.0.2
 bidict==0.22.1
+bleak==0.21.1
 blinker==1.7.0
 certifi==2023.11.17
 charset-normalizer==3.3.2
@@ -30,6 +31,10 @@ pip-upgrader==1.4.15
 platformdirs==4.1.0
 pyaml==23.12.0
 pylint==3.0.3
+pyobjc-core==9.2
+pyobjc-framework-Cocoa==9.2
+pyobjc-framework-CoreBluetooth==9.2
+pyobjc-framework-libdispatch==9.2
 python-engineio==4.8.2
 python-socketio==5.11.0
 PyYAML==6.0.1
