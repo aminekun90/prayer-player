@@ -4,6 +4,7 @@ services:
     container_name: prayer_player
     tty: true
     stdin_open: true
+    restart: always
     expose: 
       - 8000
     ports:
@@ -15,6 +16,6 @@ services:
     image: prayer-player
     volumes:
       - /etc/localtime:/etc/localtime
-      - ./backend/logs:/app/logs/
+      - ./backend/:/app/
     environment:
       - FLASK_ENV=development 
