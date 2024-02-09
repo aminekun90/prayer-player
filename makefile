@@ -1,7 +1,9 @@
 #!make
 install:
 	./install.sh
-uninstall:
+runDocker:
+	./runDocker.sh
+downDocker:
 	docker compose down
 IMAGE_ID := ${shell docker images | grep prayer-player | awk '{print $$3}'}
 clean: uninstall

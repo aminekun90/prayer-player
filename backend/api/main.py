@@ -15,12 +15,12 @@ class Api:
 
     def __init__(self, logger=None):
         self.logger = logger
-        asyncio.run(self.load_config())
+        self.loop = asyncio.get_event_loop()
+        self.bluetooth_controller = BluetoothDeviceController(self.loop)
+        self.load_config()
         self.__class__.instances.append(self)
 
-    async def load_config(self):
-        self.bluetooth_controller = BluetoothDeviceController()
-        self.bluetooth_devices = await self.bluetooth_controller.scan()
+    def load_config(self):
         self.timings = None
         config_file_path = os.path.abspath('config/config.yml')
         with open(config_file_path, 'r') as f:
@@ -46,6 +46,7 @@ class Api:
         else:
             self.get_todays_timings_and_schedule_prayers()
         self.logger.info(f'Total of scheduled: {len(self.scheduler.queue)}')
+        return len(self.scheduler.queue)
 
     @classmethod
     def get_instance(cls):

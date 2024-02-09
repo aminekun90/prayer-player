@@ -3,8 +3,11 @@
     <div class="app-welcome">Welcome to Sonos prayer <app-clock></app-clock></div>
 
     <div id="sonos-devices">
-      <div *ngIf="!devices.length">Loading Sonos Players...</div>
-      <div *ngIf="!prayers.length">Loading Prayers...</div>
+      <button type="button" (click)="scanForBle()" [disabled]="bleLoading" class="btn"> scan for BLE <i class='fab fa-bluetooth'></i></button>
+      <button type="button" (click)="scanForSonos()" [disabled]="deviceLoading" class="btn"> Scan for Sonos</button>
+      <div *ngIf="deviceLoading">Loading Sonos Devices...</div>
+      <div *ngIf="bleLoading">Loading bluetooth Devices...</div>
+      <div *ngIf="prayerLoading">Loading Prayers...</div>
       <ul class="prayers">
         <li *ngFor="let prayer of prayers" class="prayer" [ngClass]="{'next':getCurrentPrayer()===prayer}">
           <div class="name">{{prayer.getName()}} </div>
@@ -12,7 +15,15 @@
         </li>
       </ul>
       <app-settings-modal [settings]="settings" (onSave)="saveSettings($event)" [azanList]="azanList" [(isVisible)]="isChildVisible" [devices]="devices"></app-settings-modal>
-
+      <div *ngFor="let object of bluetoothDevices">
+        <div>
+          {{object.device.name}}
+          <br>
+          {{object.device.address}}
+          <br>
+          {{object.device.peripheral.state}}
+        </div>
+      </div>
       <div *ngFor="let device of devices" class="device">
         <img src="assets/img/symfonisk.jpg" alt="SONOS-DEVICE" class="picture">
         <div class="name">

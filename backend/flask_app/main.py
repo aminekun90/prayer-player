@@ -1,4 +1,5 @@
 import logging
+from asyncio import futures
 from yaml import safe_load, safe_dump
 from flask import Flask, render_template, send_from_directory, jsonify, request
 from flask_socketio import SocketIO, emit
@@ -85,6 +86,17 @@ def get_timings():
     return {'status': False, 'message': 'failed', 'result': {'Error': "Internal error"}}
 
 
+@app.route('/bluetoothScan')
+async def bluetooth_scan():
+    api_instance: Api = cast(Api, Api.get_instance())
+    assert api_instance is not None
+    devices = await api_instance.bluetooth_controller.scan()
+    return jsonify({
+        "success": True,
+        "devices": devices
+    })
+
+
 @app.route('/devices')
 def get_devices():
     api_instance: Api = cast(Api, Api.get_instance())
@@ -135,10 +147,14 @@ def get_devices():
                      "voice_service_configured": device.voice_service_configured,
                      "mic_enabled": device.mic_enabled,
                      })
-        return jsonify(
-            json.dumps(l)
+        return jsonify({
+            "devices": json.dumps(l),
+            "success": True,
+            "data": api_instance.sonos_device.host_ip
+        }
         ) or jsonify(None)
     return jsonify({
+        "devices": json.dumps([]),
         "success": False,
         "data": api_instance.sonos_device.host_ip
     })

@@ -3,8 +3,7 @@ import { SoCoService } from '@piPlayer/service/soCo/so-co.service';
 import { Device } from '@piPlayer/service/soCo/models/device';
 import { PrayerService } from '@piPlayer/service/prayer/prayer.service';
 import { Prayer } from '@piPlayer/service/prayer/models/prayer';
-import { faCog, faPlay, faPause, faStop } from '@fortawesome/free-solid-svg-icons';
-
+import { faCog, faPlay, faPause, faStop, } from '@fortawesome/free-solid-svg-icons';
 
 import { VERSION } from './env';
 import { Settings } from './types/types';
@@ -26,7 +25,11 @@ export class AppComponent implements OnInit {
   faStop = faStop;
   title = 'frontend';
   isChildVisible = false;
+  deviceLoading = false;
+  bleLoading = false;
+  prayerLoading = false;
   devices: Device[] = [];
+  bluetoothDevices: any[] = [];
   prayers: Prayer[] = [];
   azanList: string[] = [];
   currentTime: Date = new Date();
@@ -92,12 +95,12 @@ export class AppComponent implements OnInit {
   }
   async ngOnInit() {
     this.setTimeEverySecond()
-    await this.soCoService.getSoCoDevices().then(devices => {
-      this.devices = devices;
-    });
+    this.prayerLoading = true;
+
     await this.prayerService.getPrayers().then(prayers => {
       this.prayers = prayers;
     });
+    this.prayerLoading = false;
     await this.prayerService.getAzanList().then(list => {
       this.azanList = list;
     });
@@ -136,5 +139,19 @@ export class AppComponent implements OnInit {
     console.log("Setting loading...");
     this.settings = await this.prayerService.getSettings()
     console.log("Loaded settings", this.settings);
+  }
+  async scanForBle() {
+    this.bleLoading = true;
+    await this.soCoService.getBleDevices().then(devices => {
+      this.bluetoothDevices = devices;
+    });
+    this.bleLoading = false;
+  }
+  async scanForSonos() {
+    this.deviceLoading = true;
+    await this.soCoService.getSoCoDevices().then(devices => {
+      this.devices = devices;
+    });
+    this.deviceLoading = false;
   }
 }
