@@ -1,9 +1,20 @@
-#!/bin/bash
 
-if [[ -n "$(docker info --format '{{.OperatingSystem}}' | grep 'Docker Desktop')" ]]; then
-    echo "Docker Desktop found."
-    docker compose up -d
+# Check if the virtual environment is activated
+if [ -z "$VIRTUAL_ENV" ]; then
+    # Virtual environment is not activated
+
+    # Check if the virtual environment directory exists
+    if [ ! -d "backend/venv" ]; then
+        # Virtual environment is not created, create it
+        python3 -m venv backend/venv
+    fi
+
+    # Activate the virtual environment
+    source backend/venv/bin/activate
+
+    # Deactivate the virtual environment when done
+    deactivate
 else
-    echo "WARNING! Docker Desktop not installed:"
-    echo "  * Install docker desktop from <https://www.docker.com/get-started/>"
+    # Virtual environment is already activated
+    echo "Virtual environment is already activated."
 fi
