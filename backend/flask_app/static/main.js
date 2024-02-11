@@ -72,21 +72,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const _c0 = ["audioPlayer"];
-function AppComponent_div_11_Template(rf, ctx) {
+function AppComponent_div_13_Template(rf, ctx) {
   if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](0, "div");
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtext"](1, "Loading Sonos Devices...");
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementEnd"]();
   }
 }
-function AppComponent_div_12_Template(rf, ctx) {
+function AppComponent_div_14_Template(rf, ctx) {
   if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](0, "div");
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtext"](1, "Loading bluetooth Devices...");
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementEnd"]();
   }
 }
-function AppComponent_div_13_Template(rf, ctx) {
+function AppComponent_div_15_Template(rf, ctx) {
   if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](0, "div");
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtext"](1, "Loading Prayers...");
@@ -96,7 +96,7 @@ function AppComponent_div_13_Template(rf, ctx) {
 const _c1 = a0 => ({
   "next": a0
 });
-function AppComponent_li_15_Template(rf, ctx) {
+function AppComponent_li_17_Template(rf, ctx) {
   if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](0, "li", 14)(1, "div", 15);
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtext"](2);
@@ -116,7 +116,7 @@ function AppComponent_li_15_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵpipeBind2"](5, 3, prayer_r6.getTime(), "H:mm"));
   }
 }
-function AppComponent_div_17_Template(rf, ctx) {
+function AppComponent_div_19_Template(rf, ctx) {
   if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](0, "div")(1, "div");
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtext"](2);
@@ -136,7 +136,7 @@ function AppComponent_div_17_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtextInterpolate1"](" ", object_r7.device.peripheral.state, " ");
   }
 }
-function AppComponent_div_18_Template(rf, ctx) {
+function AppComponent_div_20_Template(rf, ctx) {
   if (rf & 1) {
     const _r10 = _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](0, "div", 17);
@@ -150,7 +150,7 @@ function AppComponent_div_18_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelement"](8, "fa-icon", 21);
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](9, "div", 22);
-    _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵlistener"]("click", function AppComponent_div_18_Template_div_click_9_listener() {
+    _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵlistener"]("click", function AppComponent_div_20_Template_div_click_9_listener() {
       _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵrestoreView"](_r10);
       const ctx_r9 = _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵnextContext"]();
       return _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵresetView"](ctx_r9.modalToggle());
@@ -254,6 +254,7 @@ class AppComponent {
         _this2.azanList = list;
       });
       yield _this2.getSettings();
+      yield _this2.scanForSonos();
     })();
   }
   onMp3FileChange() {
@@ -266,7 +267,6 @@ class AppComponent {
   }
   modalToggle() {
     this.isChildVisible = true;
-    console.log("show settings...", this.isChildVisible);
   }
   getCurrentPrayer() {
     return this.prayers.find(p => p.getTime() >= new Date());
@@ -283,6 +283,7 @@ class AppComponent {
       _this3.settings = settings;
       _this3.settings.api.selectedMethod = parseInt(_this3.settings.api.selectedMethod);
       yield _this3.prayerService.saveSetting(_this3.settings);
+      _this3.isChildVisible = false;
     })();
   }
   getSettings() {
@@ -337,8 +338,8 @@ class AppComponent {
         }, false, _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵresolveWindow"]);
       }
     },
-    decls: 24,
-    vars: 13,
+    decls: 26,
+    vars: 15,
     consts: [[1, "back"], [1, "container"], [1, "app-welcome"], ["id", "sonos-devices"], ["type", "button", 1, "btn", 3, "disabled", "click"], [1, "fab", "fa-bluetooth"], [4, "ngIf"], [1, "prayers"], ["class", "prayer", 3, "ngClass", 4, "ngFor", "ngForOf"], [3, "settings", "azanList", "isVisible", "devices", "onSave", "isVisibleChange"], [4, "ngFor", "ngForOf"], ["class", "device", 4, "ngFor", "ngForOf"], [1, "copyright"], ["href", "https://github.com/aminekun90"], [1, "prayer", 3, "ngClass"], [1, "name"], [1, "time"], [1, "device"], ["src", "assets/img/symfonisk.jpg", "alt", "SONOS-DEVICE", 1, "picture"], [1, "controls"], [1, "action"], [3, "icon"], [1, "action", 3, "click"]],
     template: function AppComponent_Template(rf, ctx) {
       if (rf & 1) {
@@ -346,42 +347,47 @@ class AppComponent {
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtext"](3, "Welcome to Sonos prayer ");
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelement"](4, "app-clock");
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](5, "div", 3)(6, "button", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵlistener"]("click", function AppComponent_Template_button_click_6_listener() {
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](5, "div");
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtext"](6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](7, "div", 3)(8, "button", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵlistener"]("click", function AppComponent_Template_button_click_8_listener() {
           return ctx.scanForBle();
         });
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtext"](7, " scan for BLE ");
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelement"](8, "i", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtext"](9, " scan for BLE ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelement"](10, "i", 5);
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](9, "button", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵlistener"]("click", function AppComponent_Template_button_click_9_listener() {
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](11, "button", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵlistener"]("click", function AppComponent_Template_button_click_11_listener() {
           return ctx.scanForSonos();
         });
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtext"](10, " Scan for Sonos");
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtext"](12, " Scan for Sonos");
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtemplate"](11, AppComponent_div_11_Template, 2, 0, "div", 6)(12, AppComponent_div_12_Template, 2, 0, "div", 6)(13, AppComponent_div_13_Template, 2, 0, "div", 6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](14, "ul", 7);
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtemplate"](15, AppComponent_li_15_Template, 6, 8, "li", 8);
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtemplate"](13, AppComponent_div_13_Template, 2, 0, "div", 6)(14, AppComponent_div_14_Template, 2, 0, "div", 6)(15, AppComponent_div_15_Template, 2, 0, "div", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](16, "ul", 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtemplate"](17, AppComponent_li_17_Template, 6, 8, "li", 8);
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](16, "app-settings-modal", 9);
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵlistener"]("onSave", function AppComponent_Template_app_settings_modal_onSave_16_listener($event) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](18, "app-settings-modal", 9);
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵlistener"]("onSave", function AppComponent_Template_app_settings_modal_onSave_18_listener($event) {
           return ctx.saveSettings($event);
-        })("isVisibleChange", function AppComponent_Template_app_settings_modal_isVisibleChange_16_listener($event) {
+        })("isVisibleChange", function AppComponent_Template_app_settings_modal_isVisibleChange_18_listener($event) {
           return ctx.isChildVisible = $event;
         });
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtemplate"](17, AppComponent_div_17_Template, 7, 3, "div", 10)(18, AppComponent_div_18_Template, 13, 9, "div", 11);
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtemplate"](19, AppComponent_div_19_Template, 7, 3, "div", 10)(20, AppComponent_div_20_Template, 13, 9, "div", 11);
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](19, "div", 12);
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtext"](20);
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](21, "a", 13);
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtext"](22, "@aminekun90");
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](21, "div", 12);
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtext"](22);
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](23, "a", 13);
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtext"](24, "@aminekun90");
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementEnd"]()()();
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelement"](23, "router-outlet");
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelement"](25, "router-outlet");
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementEnd"]();
       }
       if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"](6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtextInterpolate2"]("", ctx.settings.api.city, " | ", ctx.settings.api.country, "");
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵproperty"]("disabled", ctx.bleLoading);
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵproperty"]("disabled", ctx.deviceLoading);
@@ -511,8 +517,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   API_URL: () => (/* binding */ API_URL),
 /* harmony export */   VERSION: () => (/* binding */ VERSION)
 /* harmony export */ });
+/* harmony import */ var _package_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../package.json */ 4147);
+
 const API_URL = 'http://localhost:8000';
-const VERSION = 'Beta Build.1.0.5';
+const VERSION = 'Beta Build' + _package_json__WEBPACK_IMPORTED_MODULE_0__.version;
 
 /***/ }),
 
@@ -1171,6 +1179,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__.platformBrowser().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_0__.AppModule).catch(err => console.error(err));
+
+/***/ }),
+
+/***/ 4147:
+/*!**********************!*\
+  !*** ./package.json ***!
+  \**********************/
+/***/ ((module) => {
+
+module.exports = JSON.parse('{"name":"frontend","version":"1.0.6","scripts":{"ng":"ng","start":"ng serve","build":"ng build","watch":"ng build --watch --configuration development","test":"ng test"},"private":true,"dependencies":{"@angular/animations":"^17.0.5","@angular/common":"^17.0.5","@angular/compiler":"^17.0.5","@angular/core":"^17.0.5","@angular/forms":"^17.0.5","@angular/platform-browser":"^17.0.5","@angular/platform-browser-dynamic":"^17.0.5","@angular/router":"^17.0.5","@fortawesome/angular-fontawesome":"^0.14.0","@fortawesome/fontawesome-svg-core":"^6.4.2","@fortawesome/free-solid-svg-icons":"^6.4.2","axios":"^1.6.4","rxjs":"~7.8.0","tslib":"^2.6.2","zone.js":"~0.14.2"},"devDependencies":{"@angular-devkit/build-angular":"^17.0.3","@angular/cli":"~17.1.0","@angular/compiler-cli":"^17.0.4","@types/jasmine":"~4.3.0","jasmine-core":"~4.6.0","karma":"~6.4.0","karma-chrome-launcher":"~3.2.0","karma-coverage":"~2.2.0","karma-jasmine":"~5.1.0","karma-jasmine-html-reporter":"~2.0.0","typescript":"~5.2.2"}}');
 
 /***/ })
 

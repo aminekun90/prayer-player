@@ -1,6 +1,7 @@
 api:
   byCalendarByAdressURL: http://api.aladhan.com/v1/calendarByAddress
   byCityByDate: http://api.aladhan.com/v1/timingsByCity
+  byDate:  http://api.aladhan.com/v1/timings
   city: Nantes
   country: France
   forceDate: '2023-11-10'

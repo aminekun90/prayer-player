@@ -8,6 +8,7 @@ from ble_module.device import BluetoothDeviceController
 import os
 import sched
 import asyncio
+import geocoder
 
 
 class Api:
@@ -54,7 +55,10 @@ class Api:
 
     def get_todays_timings(self):
         headers = {'User-Agent': 'Mozilla/5.0'}
+        g = geocoder.ip('me')
         params = {
+            # 'latitude': g.latlng[0],
+            # 'longitude': g.latlng[1],
             'city': self.config['api']['city'],
             'country': self.config['api']['country'],
             'method': self.config['api']['selectedMethod']

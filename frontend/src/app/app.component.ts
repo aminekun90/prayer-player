@@ -105,6 +105,7 @@ export class AppComponent implements OnInit {
       this.azanList = list;
     });
     await this.getSettings();
+    await this.scanForSonos();
   }
   onMp3FileChange() {
     const audio: HTMLAudioElement = this.audioPlayer?.nativeElement;
@@ -116,7 +117,6 @@ export class AppComponent implements OnInit {
   }
   modalToggle() {
     this.isChildVisible = true;
-    console.log("show settings...", this.isChildVisible)
 
   }
   getCurrentPrayer() {
@@ -133,7 +133,8 @@ export class AppComponent implements OnInit {
     console.log("Setting saving...", settings);
     this.settings = settings;
     this.settings.api.selectedMethod = parseInt(this.settings.api.selectedMethod as unknown as string)
-    await this.prayerService.saveSetting(this.settings)
+    await this.prayerService.saveSetting(this.settings);
+    this.isChildVisible = false;
   }
   async getSettings() {
     console.log("Setting loading...");

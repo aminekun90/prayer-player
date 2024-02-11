@@ -14,7 +14,6 @@ export class SettingsModalComponent  implements OnInit {
   @Input() isVisible?:boolean;
   @Output() isVisibleChange: EventEmitter<any> = new EventEmitter<any>();
   @Input() devices: Array<any> = [];
-  constructor(){}
   async ngOnInit() {
     console.log("setting loaded")
   }
