@@ -11,6 +11,7 @@ if [ -z "$VIRTUAL_ENV" ]; then
 
     # Activate the virtual environment
     source backend/venv/bin/activate
+    pip install -r backend/requirements.txt
 
     # Deactivate the virtual environment when done
     deactivate

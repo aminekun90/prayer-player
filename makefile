@@ -6,7 +6,7 @@ runDocker:
 downDocker:
 	docker compose down
 IMAGE_ID := ${shell docker images | grep prayer-player | awk '{print $$3}'}
-clean: uninstall
+clean: downDocker
 ifneq ($(strip $(IMAGE_ID)),)
 	docker rmi $(IMAGE_ID)
 else
