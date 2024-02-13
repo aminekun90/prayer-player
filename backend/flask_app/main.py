@@ -12,7 +12,6 @@ import os
 from typing import cast
 app = Flask(__name__, static_folder='static', template_folder='templates')
 CORS(app)
-app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
 
 
