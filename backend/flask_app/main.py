@@ -52,7 +52,47 @@ def save_settings():
     api_instance.load_config()
     return jsonify({"result": data, "success": True, "message": "success"})
 
-
+def device_to_dict(device):
+    return {
+                     "name": device.player_name,
+                     "track_info": device.get_current_track_info(),
+                     "current_transport_state": device.get_current_transport_info().get('current_transport_state', ''),
+                     "ip_adress": device.ip_address,
+                     "volume": device.volume,
+                     "uid": device.uid,
+                     "household_id": device.household_id,
+                     "is_visible": device.is_visible,
+                     "is_bridge": device.is_bridge,
+                     "is_coordinator": device.is_bridge,
+                     "is_soundbar": device.is_soundbar,
+                     "is_satellite": device.is_satellite,
+                     "has_satellites": device.has_satellites,
+                     "sub_enabled": device.sub_enabled,
+                     "sub_gain": device.sub_gain,
+                     "is_subwoofer": device.is_subwoofer,
+                     "has_subwoofer": device.has_subwoofer,
+                     "channel": device.channel,
+                     "bass": device.bass,
+                     "treble": device.treble,
+                     "loudness": device.loudness,
+                     "balance": device.balance,
+                     "audio_delay": device.audio_delay,
+                     "night_mode": device.night_mode,
+                     "dialog_mode": device.dialog_mode,
+                     "surround_enabled": device.surround_enabled,
+                     "surround_full_volume_enabled": device.surround_full_volume_enabled,
+                     "surround_volume_tv": device.surround_volume_tv,
+                     "surround_volume_music": device.surround_volume_music,
+                     "supports_fixed_volume": device.supports_fixed_volume,
+                     "fixed_volume": device.fixed_volume,
+                     "soundbar_audio_input_format": device.soundbar_audio_input_format,
+                     "soundbar_audio_input_format_code": device.soundbar_audio_input_format_code,
+                     "trueplay": device.trueplay,
+                     "status_light": device.status_light,
+                     "buttons_enabled": device.buttons_enabled,
+                     "voice_service_configured": device.voice_service_configured,
+                     "mic_enabled": device.mic_enabled,
+                     }
 def find_mp3_files():
     current_directory = os.path.dirname(os.path.abspath(__file__))
     directory_path = os.path.join(current_directory, 'audio')
@@ -107,48 +147,9 @@ def get_devices():
         logging.info(iter(devices))
         l = []
         for device in iter(devices):
-            l.append({
-                     "name": device.player_name,
-                     "track_info": device.get_current_track_info(),
-                     "current_transport_state": device.get_current_transport_info().get('current_transport_state', ''),
-                     "ip_adress": device.ip_address,
-                     "volume": device.volume,
-                     "uid": device.uid,
-                     "household_id": device.household_id,
-                     "is_visible": device.is_visible,
-                     "is_bridge": device.is_bridge,
-                     "is_coordinator": device.is_bridge,
-                     "is_soundbar": device.is_soundbar,
-                     "is_satellite": device.is_satellite,
-                     "has_satellites": device.has_satellites,
-                     "sub_enabled": device.sub_enabled,
-                     "sub_gain": device.sub_gain,
-                     "is_subwoofer": device.is_subwoofer,
-                     "has_subwoofer": device.has_subwoofer,
-                     "channel": device.channel,
-                     "bass": device.bass,
-                     "treble": device.treble,
-                     "loudness": device.loudness,
-                     "balance": device.balance,
-                     "audio_delay": device.audio_delay,
-                     "night_mode": device.night_mode,
-                     "dialog_mode": device.dialog_mode,
-                     "surround_enabled": device.surround_enabled,
-                     "surround_full_volume_enabled": device.surround_full_volume_enabled,
-                     "surround_volume_tv": device.surround_volume_tv,
-                     "surround_volume_music": device.surround_volume_music,
-                     "supports_fixed_volume": device.supports_fixed_volume,
-                     "fixed_volume": device.fixed_volume,
-                     "soundbar_audio_input_format": device.soundbar_audio_input_format,
-                     "soundbar_audio_input_format_code": device.soundbar_audio_input_format_code,
-                     "trueplay": device.trueplay,
-                     "status_light": device.status_light,
-                     "buttons_enabled": device.buttons_enabled,
-                     "voice_service_configured": device.voice_service_configured,
-                     "mic_enabled": device.mic_enabled,
-                     })
+            l.append(device_to_dict(device))
         return jsonify({
-            "devices": json.dumps(l),
+            "devices": l,
             "success": True,
             "data": api_instance.sonos_device.host_ip
         }

@@ -41,7 +41,7 @@ export class SoCoService {
 
     if (result.success && result.devices) {
       const devices = result.devices;
-      return (JSON.parse(devices) as Array<any>).map(device => Device.fromJson(device));
+      return (this.parseJsonStr(devices) as Array<any>).map(device => Device.fromJson(device));
     } else { return []; }
   }
   async playEsterEgg() {

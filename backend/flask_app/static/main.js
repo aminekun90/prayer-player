@@ -850,7 +850,7 @@ class SoCoService {
       });
       if (result.success && result.devices) {
         const devices = result.devices;
-        return JSON.parse(devices).map(device => _piPlayer_service_soCo_models_device__WEBPACK_IMPORTED_MODULE_1__.Device.fromJson(device));
+        return _this2.parseJsonStr(devices).map(device => _piPlayer_service_soCo_models_device__WEBPACK_IMPORTED_MODULE_1__.Device.fromJson(device));
       } else {
         return [];
       }
