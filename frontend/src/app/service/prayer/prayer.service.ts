@@ -3,6 +3,7 @@ import { HttpService } from '@piPlayer/service/http/http.service';
 import { CONFIG } from '@piPlayer/service/types/types';
 import { Prayer } from '@piPlayer/service/prayer/models/prayer';
 import { Settings } from '@piPlayer/types/types';
+import { Timing } from '@piPlayer/service/prayer/models/Timing';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class PrayerService {
   constructor(private httpService: HttpService) {
     console.log("Prayer service initialized");
   }
+
   async getAzanList(){
     const azanList = await this.httpService.get(`${CONFIG.getAzanList}`, {
       headers: {
@@ -22,6 +24,7 @@ export class PrayerService {
       return azanList.result;
     }
   }
+
   async getPrayers() {
     const prayers = await this.httpService.get(`${CONFIG.getPrayers}`, {
       headers: {
@@ -42,6 +45,7 @@ export class PrayerService {
     }
     return [];
   }
+
   async getSettings(){
     const settingsResp = await this.httpService.get(`${CONFIG.getSettings}`, {
       headers: {
@@ -52,6 +56,7 @@ export class PrayerService {
       return settingsResp.result;
     }
   }
+
   async saveSetting(settings: Settings) {
     const response = await this.httpService.post(CONFIG.saveSettings, settings, {
       headers: {
@@ -61,5 +66,15 @@ export class PrayerService {
     if (response) {
       console.log("settings saved", response);
     }
+  }
+
+  async allTimings():Promise<Timing[]>{
+    const response = await this.httpService.get(CONFIG.allTimings, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    console.log(response)
+    return response.result.timings as Timing[];
   }
 }

@@ -1,5 +1,5 @@
 import logging
-from asyncio import futures
+from datetime import datetime
 from yaml import safe_load, safe_dump
 from flask import Flask, render_template, send_from_directory, jsonify, request
 from flask_socketio import SocketIO, emit
@@ -114,6 +114,15 @@ def serve_mp3(path):
             print(e)
             return "File not found", 404
 
+@app.route('/allTimings')
+def get_all_timings():
+    api_instance: Api = cast(Api, Api.get_instance())
+    assert api_instance is not None
+    now = datetime.now()
+    timings = api_instance.fetch_timings_by_year_month(month=now.strftime("%m"),year=now.strftime("%Y"),).json()
+    if timings:
+        return jsonify({'status': True, 'message': 'success', 'result': {'timings': timings['data']}})
+    return {'status': False, 'message': 'failed', 'result': {'Error': "Internal error"}}
 
 @app.route('/timings')
 def get_timings():

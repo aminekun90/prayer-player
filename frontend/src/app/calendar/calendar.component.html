@@ -1,0 +1,15 @@
+<div class="calendar">
+  <div class="header">
+    <button (click)="prevMonth(currentDate)">&lt;</button>
+    <h2>{{ currentMonth }}</h2>
+    <button (click)="nextMonth(currentDate)">&gt;</button>
+  </div>
+  <div class="days">
+    <div *ngFor="let day of days" class="day">
+      <span class="date">{{ day.date.getDate() }}</span>
+      <div *ngFor="let event of day.events" class="event">
+        {{ event.timings.Fajr }}
+      </div>
+    </div>
+  </div>
+</div>

@@ -7,6 +7,7 @@ export const CONFIG = {
   saveSettings:"saveSettings",
   getSettings:"getSettings",
   playEsterEgg:"playEsterEgg",
+  allTimings: "allTimings",
 }
 
 export interface PrayerTimeObject {
