@@ -1,17 +1,19 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PrayerService } from '@piPlayer/service/prayer/prayer.service';
 import { Timing } from '@piPlayer/service/prayer/models/Timing';
-
+import { faXmark, } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit {
+   daysOfweek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  faXmark = faXmark;
   events: Timing[] = [];
   currentMonth: string = new Date().toLocaleString('default', { month: 'long' });
   currentDate: Date = new Date()
-  days: {date:Date,events:Timing[]}[] = [];
+  days: { date: Date, events: Timing[], showEvents: boolean }[] = [];
   selectedDay: number | null = null;
   daysInMonth: number = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 0).getDate();
 
@@ -33,7 +35,9 @@ export class CalendarComponent implements OnInit {
     currentDate.setMonth(currentDate.getMonth() + 1);
     this.renderCalendar();
   }
-
+  toggleEvents(day: any) {
+    this.days.forEach(d => d.showEvents = (d === day) ? !day.showEvents : false);
+  }
   renderCalendar(): void {
     this.days = [];
     for (let i = 1; i <= this.daysInMonth; i++) {
@@ -47,9 +51,9 @@ export class CalendarComponent implements OnInit {
 
         return eventDate.toDateString() === date.toDateString();
       });
-      this.days.push({ date: date, events: eventsForDay });
+      this.days.push({ date: date, events: eventsForDay, showEvents: false });
     }
-    console.log("Days:",this.days)
+    console.log("Days:", this.days)
   }
   selectDay(day: number): void {
     if (this.selectedDay === day) {

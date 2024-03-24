@@ -1,8 +1,9 @@
+@import "../shared/styles/variables";
 .calendar {
   font-family: Arial, sans-serif;
-  border: 1px solid #ccc;
+  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 8px;
-  width: 300px;
+  width: 100%;
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
@@ -28,6 +29,7 @@
     gap: 5px;
 
     .day {
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -37,7 +39,9 @@
       color: darkgray;
       cursor: pointer;
       transition: background-color 0.3s ease;
-
+      &.selected{
+        background-color: $accent-color;
+      }
       &:hover {
         background-color: #ddd;
       }
@@ -48,11 +52,38 @@
       }
 
       .event {
+        .date{
+          text-align: center;
+          color: black;
+          padding: 10px;
+        }
+        position: absolute;
+        width: 200px;
+        left: 50px;
+        bottom:50%;
+        z-index: 9000;
+        border-radius: 10px;
         margin-top: 5px;
+        padding: 10px;
+        background: white;
         font-size: 14px;
-
+        &.hidden {
+          display: none;
+        }
         span {
           display: block;
+        }
+        ul.prayers {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          li {
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            background-color: $primary-color;
+            color: white;
+          }
         }
       }
     }
