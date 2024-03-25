@@ -62,27 +62,21 @@ class Api:
         return timings
 
     def fetch_timings_by_year_month(self,year,month):
-            # headers = {'User-Agent': 'Mozilla/5.0'}
-            g = geocoder.ip('me')
-            # params = {
-            #     'latitude': g.latlng[0],
-            #     'longitude': g.latlng[1],
-            #     # 'city': self.config['api']['city'],
-            #     # 'country': self.config['api']['country'],
-            #     'method': self.config['api']['selectedMethod']
-            # }
-            longitude = 47.239735143069396
-            latitude = -1.5302388943046124
-            url = f"{self.config['api']['byCalendarYearMonth'].replace(':month',month).replace(':year',year)}?latitude={latitude}&longitude={longitude}&method={self.config['api']['selectedMethod']}"
-            print(url)
-            # url = f"https://api.aladhan.com/v1/calendar/2024/03?latitude=51.508515&longitude=-0.1254872&method=2"
-            return requests.get(url)
+            headers = {'User-Agent': 'Mozilla/5.0'}
+           
+            params = {
+             
+                'city': self.config['api']['city'],
+                'country': self.config['api']['country'],
+                'method': self.config['api']['selectedMethod']
+            }
+         
+            url = f"{self.config['api']['byCalendarYearMonth'].replace(':month',month).replace(':year',year)}"
+            
+            return requests.get(url=url,params=params,headers=headers)
     def fetch_timings(self):
         headers = {'User-Agent': 'Mozilla/5.0'}
-        # g = geocoder.ip('me')
         params = {
-            # 'latitude': g.latlng[0],
-            # 'longitude': g.latlng[1],
             'city': self.config['api']['city'],
             'country': self.config['api']['country'],
             'method': self.config['api']['selectedMethod']
