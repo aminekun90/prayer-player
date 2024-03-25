@@ -1,6 +1,6 @@
 api:
-  byCalendarYearMonth: https://api.aladhan.com/v1/calendar/:year/:month
   byCalendarByAdressURL: https://api.aladhan.com/v1/calendarByAddress
+  byCalendarYearMonth: https://api.aladhan.com/v1/calendarByCity/:year/:month
   byCityByDate: https://api.aladhan.com/v1/timingsByCity
   byDate: https://api.aladhan.com/v1/timings
   city: Nantes
@@ -43,7 +43,7 @@ calculationMethods:
 debug: false
 device:
   volume: 25
-enableScheduler: false
+enableScheduler: true
 playlist:
   dirToServe: server/audio
   fileName: azan1.mp3

@@ -4,7 +4,7 @@
     <h2>{{ currentMonth }}</h2>
     <button (click)="nextMonth(currentDate)">&gt;</button>
   </div>
-  <div class="days">
+  <div class="days" *ngIf="days.length">
     <div class="day-label">{{daysOfweek[days[0].date.getDay()]}}</div>
     <div class="day-label">{{daysOfweek[days[1].date.getDay()]}}</div>
     <div class="day-label">{{daysOfweek[days[2].date.getDay()]}}</div>
