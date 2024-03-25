@@ -1,0 +1,91 @@
+@import "../shared/styles/variables";
+.calendar {
+  font-family: Arial, sans-serif;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  width: 100%;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      padding: 5px;
+      color: #333;
+    }
+  }
+
+  .days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+
+    .day {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      border-radius: 8px;
+      background-color: #f0f0f0;
+      color: darkgray;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      &.selected{
+        background-color: $accent-color;
+      }
+      &:hover {
+        background-color: #ddd;
+      }
+
+      &.selected {
+        background-color: #007bff;
+        color: #fff;
+      }
+
+      .event {
+        .date{
+          text-align: center;
+          color: black;
+          padding: 10px;
+        }
+        position: absolute;
+        width: 200px;
+        left: 50px;
+        bottom:50%;
+        z-index: 9000;
+        border-radius: 10px;
+        margin-top: 5px;
+        padding: 10px;
+        background: white;
+        font-size: 14px;
+        &.hidden {
+          display: none;
+        }
+        span {
+          display: block;
+        }
+        ul.prayers {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          li {
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            background-color: $primary-color;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}

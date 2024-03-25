@@ -1,0 +1,34 @@
+<div class="calendar">
+  <div class="header">
+    <button (click)="prevMonth(currentDate)">&lt;</button>
+    <h2>{{ currentMonth }}</h2>
+    <button (click)="nextMonth(currentDate)">&gt;</button>
+  </div>
+  <div class="days">
+    <div class="day-label">{{daysOfweek[days[0].date.getDay()]}}</div>
+    <div class="day-label">{{daysOfweek[days[1].date.getDay()]}}</div>
+    <div class="day-label">{{daysOfweek[days[2].date.getDay()]}}</div>
+    <div class="day-label">{{daysOfweek[days[3].date.getDay()]}}</div>
+    <div class="day-label">{{daysOfweek[days[4].date.getDay()]}}</div>
+    <div class="day-label">{{daysOfweek[days[5].date.getDay()]}}</div>
+    <div class="day-label">{{daysOfweek[days[7].date.getDay()]}}</div>
+    <div *ngFor="let day of days" [ngClass]="{'day': true, 'selected':day.date.getDate()==currentDate.getDate()}" (click)="toggleEvents(day)">
+        <div class="date-wrapper">
+            <span class="date">{{ day.date.getDate() }}</span>
+
+            <div *ngFor="let event of day.events" [ngClass]="{'event': true, 'hidden': !day.showEvents}">
+
+                <div class="date">{{event.date.hijri.month.ar}} {{event.date.hijri.day}} {{event.date.hijri.year}}</div>
+                <ul class="prayers">
+                  <li class="prayer">Imsak : {{ event.timings.Imsak }}</li>
+                    <li class="prayer">Fajr : {{ event.timings.Fajr }}</li>
+                    <li class="prayer">Dhuhr : {{ event.timings.Dhuhr }}</li>
+                    <li class="prayer">Asr : {{ event.timings.Asr }}</li>
+                    <li class="prayer">Maghrib : {{ event.timings.Maghrib }}</li>
+                    <li class="prayer">Isha : {{ event.timings.Isha }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

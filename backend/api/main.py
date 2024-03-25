@@ -54,8 +54,32 @@ class Api:
         return cls.instances[0] if cls.instances else None
 
     def get_todays_timings(self):
+
+        self.fetch_timings_if_needed()
+
+        data = self.response.json()
+        timings = self.extract_timings(data)
+        return timings
+
+    def fetch_timings_by_year_month(self,year,month):
+            # headers = {'User-Agent': 'Mozilla/5.0'}
+            g = geocoder.ip('me')
+            # params = {
+            #     'latitude': g.latlng[0],
+            #     'longitude': g.latlng[1],
+            #     # 'city': self.config['api']['city'],
+            #     # 'country': self.config['api']['country'],
+            #     'method': self.config['api']['selectedMethod']
+            # }
+            longitude = 47.239735143069396
+            latitude = -1.5302388943046124
+            url = f"{self.config['api']['byCalendarYearMonth'].replace(':month',month).replace(':year',year)}?latitude={latitude}&longitude={longitude}&method={self.config['api']['selectedMethod']}"
+            print(url)
+            # url = f"https://api.aladhan.com/v1/calendar/2024/03?latitude=51.508515&longitude=-0.1254872&method=2"
+            return requests.get(url)
+    def fetch_timings(self):
         headers = {'User-Agent': 'Mozilla/5.0'}
-        g = geocoder.ip('me')
+        # g = geocoder.ip('me')
         params = {
             # 'latitude': g.latlng[0],
             # 'longitude': g.latlng[1],
@@ -63,18 +87,11 @@ class Api:
             'country': self.config['api']['country'],
             'method': self.config['api']['selectedMethod']
         }
-
-        self.fetch_timings_if_needed(
-            headers, params)
-
-        data = self.response.json()
-        timings = self.extract_timings(data)
-        return timings
-
-    def fetch_timings_if_needed(self, headers, params):
-        if self.last_fetched < date.today():
-            self.response = requests.get(
+        return requests.get(
                 f"{self.config['api']['byCityByDate']}", headers=headers, params=params)
+    def fetch_timings_if_needed(self):
+        if self.last_fetched < date.today():
+            self.response = self.fetch_timings()
             logging.info(
                 f'Day changed from {self.last_fetched} to {date.today()} calling api')
             self.last_fetched = date.today()

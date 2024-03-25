@@ -1,7 +1,7 @@
 "use strict";
 (self["webpackChunkfrontend"] = self["webpackChunkfrontend"] || []).push([["polyfills"],{
 
-/***/ 6657:
+/***/ 4124:
 /*!***********************************************!*\
   !*** ./node_modules/zone.js/fesm2015/zone.js ***!
   \***********************************************/
@@ -14,6 +14,7 @@
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
+// Initialize global `Zone` constant.
 (function (global) {
   const performance = global['performance'];
   function mark(name) {
@@ -2407,7 +2408,8 @@ function patchCustomElements(_global, api) {
   if (!isBrowser && !isMix || !_global['customElements'] || !('customElements' in _global)) {
     return;
   }
-  const callbacks = ['connectedCallback', 'disconnectedCallback', 'adoptedCallback', 'attributeChangedCallback'];
+  // https://html.spec.whatwg.org/multipage/custom-elements.html#concept-custom-element-definition-lifecycle-callbacks
+  const callbacks = ['connectedCallback', 'disconnectedCallback', 'adoptedCallback', 'attributeChangedCallback', 'formAssociatedCallback', 'formDisabledCallback', 'formResetCallback', 'formStateRestoreCallback'];
   api.patchCallbacks(api, _global.customElements, 'customElements', 'define', callbacks);
 }
 function eventTargetPatch(_global, api) {
@@ -2697,7 +2699,7 @@ Zone.__load_patch('queueMicrotask', (global, Zone, api) => {
 },
 /******/ __webpack_require__ => { // webpackRuntimeModules
 /******/ var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-/******/ var __webpack_exports__ = (__webpack_exec__(6657));
+/******/ var __webpack_exports__ = (__webpack_exec__(4124));
 /******/ }
 ]);
 //# sourceMappingURL=polyfills.js.map
