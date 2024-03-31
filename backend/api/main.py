@@ -8,8 +8,6 @@ from ble_module.device import BluetoothDeviceController
 import os
 import sched
 import asyncio
-import geocoder
-
 
 class Api:
     instances = []
@@ -40,12 +38,7 @@ class Api:
         self.enable_scheduler = self.config['enableScheduler']
         self.logger.info(self.config)
         self.scheduler = sched.scheduler(time.time, time.sleep)
-        if not self.enable_scheduler:
-            logging.info('Scheduler is disabled')
-            if not self.timings:
-                self.timings = self.get_todays_timings()
-        else:
-            self.get_todays_timings_and_schedule_prayers()
+        self.schedule_prayers()
         self.logger.info(f'Total of scheduled: {len(self.scheduler.queue)}')
         return len(self.scheduler.queue)
 
@@ -61,19 +54,21 @@ class Api:
         timings = self.extract_timings(data)
         return timings
 
-    def fetch_timings_by_year_month(self,year,month):
-            headers = {'User-Agent': 'Mozilla/5.0'}
-           
-            params = {
-             
-                'city': self.config['api']['city'],
-                'country': self.config['api']['country'],
-                'method': self.config['api']['selectedMethod']
-            }
-         
-            url = f"{self.config['api']['byCalendarYearMonth'].replace(':month',month).replace(':year',year)}"
-            
-            return requests.get(url=url,params=params,headers=headers)
+    def fetch_timings_by_year_month(self, year, month):
+        headers = {'User-Agent': 'Mozilla/5.0'}
+
+        params = {
+
+            'city': self.config['api']['city'],
+            'country': self.config['api']['country'],
+            'method': self.config['api']['selectedMethod']
+        }
+
+        url = f"{self.config['api']['byCalendarYearMonth'].replace(
+            ':month', month).replace(':year', year)}"
+
+        return requests.get(url=url, params=params, headers=headers)
+
     def fetch_timings(self):
         headers = {'User-Agent': 'Mozilla/5.0'}
         params = {
@@ -82,7 +77,8 @@ class Api:
             'method': self.config['api']['selectedMethod']
         }
         return requests.get(
-                f"{self.config['api']['byCityByDate']}", headers=headers, params=params)
+            f"{self.config['api']['byCityByDate']}", headers=headers, params=params)
+
     def fetch_timings_if_needed(self):
         if self.last_fetched < date.today():
             self.response = self.fetch_timings()
@@ -101,7 +97,20 @@ class Api:
                 valid_timings[key] = time_obj.strftime('%H:%M:%S')
         return valid_timings
 
-    def schedule_prayers(self,):
+    def schedule_prayers(self):
+        self.timings = self.get_todays_timings()
+        # Empty the scheduler
+        self.scheduler = sched.scheduler()
+        # Schedule the next API call and prayers for the next day at 1 am
+        now = datetime.now()
+        next_day = now + timedelta(days=1)
+        next_day_1_am = datetime.combine(
+            next_day, datetime.min.time()) + timedelta(hours=1)
+        time_diff = next_day_1_am - now
+
+        self.scheduler.enter(time_diff.total_seconds(), 1,
+                             self.schedule_prayers)
+        logging.info(f"Scheduled API call and prayers for {next_day_1_am}")
         if not self.enable_scheduler:
             logging.info('Scheduler is disabled')
             if not self.timings:
@@ -113,9 +122,12 @@ class Api:
                 current_time = now.strftime("%H:%M:%S")
                 time_diff = datetime.strptime(
                     prayer_time, "%H:%M:%S") - datetime.strptime(current_time, "%H:%M:%S")
+
                 if time_diff.total_seconds() > 0:
-                    self.scheduler.enter(time_diff.total_seconds(
-                    ), 1, self.play_media, (self.config['playlist']['fileName'], ))
+                    self.scheduler.enter(time_diff.total_seconds(),
+                                         1,
+                                         self.play_media,
+                                         (self.config['playlist']['fileName'], ))
                     logging.info(f"Scheduled {prayer} at {prayer_time}")
         else:
             logging.info('No timings found!!!')
@@ -137,7 +149,7 @@ class Api:
 
         # Schedule the API call and prayers at 1 am of the next day
         self.scheduler.enter(time_diff.total_seconds(), 1,
-                             self.get_todays_timings_and_schedule_prayers)
+                             self.schedule_prayers)
         if not self.timings:
             self.timings = self.get_todays_timings()
         if len(self.scheduler.queue) == 1:
@@ -154,22 +166,7 @@ class Api:
 
             except Exception as e:
                 logging.error(f'Exception occurred: {e}. Retrying...')
-
-    def get_todays_timings_and_schedule_prayers(self):
-        # Get today's timings
-        self.timings = self.get_todays_timings()
-        self.schedule_prayers()
-
-        # Schedule the next API call and prayers for the next day at 1 am
-        now = datetime.now()
-        next_day = now + timedelta(days=1)
-        next_day_1_am = datetime.combine(
-            next_day, datetime.min.time()) + timedelta(hours=1)
-        time_diff = next_day_1_am - now
-
-        self.scheduler.enter(time_diff.total_seconds(), 1,
-                             self.get_todays_timings_and_schedule_prayers)
-        logging.info(f"Scheduled API call and prayers for {next_day_1_am}")
+        
 
     def play_media(self, media_url, volume=None):
         # Pass in a URI to a media file to have it streamed through the Sonos speaker
