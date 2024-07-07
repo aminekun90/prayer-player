@@ -4,7 +4,7 @@ astroid==3.2.0
 bidict==0.23.1
 bleak==0.22.1
 blinker==1.8.2
-certifi==2024.2.2
+certifi==2024.7.4
 charset-normalizer==3.3.2
 click==8.1.7
 colorclass==2.2.2
