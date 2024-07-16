@@ -45,7 +45,7 @@ PyYAML==6.0.1
 ratelim==0.1.6
 requests==2.31.0
 schedule==1.2.1
-setuptools==69.5.1
+setuptools==70.0.0
 simple-websocket==1.0.0
 six==1.16.0
 soco==0.30.4
