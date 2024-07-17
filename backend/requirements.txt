@@ -51,7 +51,7 @@ six==1.16.0
 soco==0.30.4
 terminaltables==3.1.10
 tomlkit==0.12.5
-urllib3==2.2.1
+urllib3==2.2.2
 uWSGI==2.0.25.1
 Werkzeug==3.0.3
 wrapt==1.16.0
