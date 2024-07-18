@@ -1,4 +1,4 @@
-FROM python:latest as builder
+FROM python:3.12 as builder
 # Run a shell command to extract the current IP address and set it as an environment variable
 RUN export CURRENT_IP=$(sh -c "ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'")
 # Set the environment variable for the application to use

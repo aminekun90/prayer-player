@@ -92,10 +92,7 @@ pip-upgrader==1.4.15
 platformdirs==4.2.2
 pyaml==24.4.0
 pylint==3.2.5
-pyobjc-core==10.3.1
-pyobjc-framework-Cocoa==10.3.1
-pyobjc-framework-CoreBluetooth==10.3.1
-pyobjc-framework-libdispatch==10.3.1
+
 python-engineio==4.9.1
 python-socketio==5.11.3
 PyYAML==6.0.1
