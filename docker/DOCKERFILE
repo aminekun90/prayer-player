@@ -6,7 +6,7 @@ ENV CURRENT_IP=${CURRENT_IP}
 WORKDIR /app
 COPY ./backend/requirements.txt /app/
 RUN python3 -m pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -q -U -r requirements.txt
 
 FROM builder
 WORKDIR /app

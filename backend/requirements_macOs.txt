@@ -1,0 +1,4 @@
+pyobjc-core==10.2
+pyobjc-framework-Cocoa==10.2
+pyobjc-framework-CoreBluetooth==10.2
+pyobjc-framework-libdispatch==10.2

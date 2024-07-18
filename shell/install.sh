@@ -18,4 +18,7 @@ if [ -z "$VIRTUAL_ENV" ]; then
 else
     # Virtual environment is already activated
     echo "Virtual environment is already activated."
+    pip install -r backend/requirements.txt
+    # Deactivate the virtual environment when done
+    deactivate
 fi

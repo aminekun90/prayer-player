@@ -1,14 +1,18 @@
-#!make
 install:
-	./install.sh
+	./shell/install.sh
+
 runDocker:
-	./runDocker.sh
+	./shell/runDocker.sh
+
 downDocker:
 	docker compose down
-IMAGE_ID := ${shell docker images | grep prayer-player | awk '{print $$3}'}
-clean: downDocker
-ifneq ($(strip $(IMAGE_ID)),)
-	docker rmi $(IMAGE_ID)
-else
-	@echo 'Clean already done'
-endif
+
+clean:
+	@docker images | grep prayer-player | awk '{print $$3}' | xargs -r docker rmi -f
+	@echo 'Clean done'
+
+updateDockerDNS:
+	./shell/updateDockerDNS.sh
+
+cleanDockerDNS:
+	./shell/cleanDockerDNS.sh
