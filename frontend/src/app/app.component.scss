@@ -145,7 +145,10 @@
 
 .container {
   max-width: 600px;
-  padding-top: 20px;
+  background: url("/assets/img/bg-islamic.jpg") no-repeat center fixed;
+  background-color: rgba(128, 128, 128, 0.523);
+  border-radius: 50px;
+  padding-bottom: 20px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -166,10 +169,16 @@
   }
   .app-welcome {
     font-size: 32px;
-    text-align: center;
-    margin-bottom: 20px;
-    color: $light-text-color;
+    padding: 30px;
 
+    text-align: center;
+    color: $light-text-color;
+    border-radius: 50px 50px 0 0;
+    min-height: 300px;
+    width: 100%;
+    .local{
+      font-size: 18px;
+    }
     app-clock {
       font-size: 2.5em;
       color: $accent-color;
@@ -202,8 +211,16 @@
   }
 
   #sonos-devices {
-    padding: 10px;
 
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50px 50px 0 0;
+    padding: 20px;
+    .device-search{
+      margin: 0 auto;
+      width: 100%;
+      text-align: center;
+    }
     .prayers {
       margin: 0;
       padding: 0;
@@ -212,12 +229,12 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-
+      width: 100%;
       .prayer {
         background-color: $primary-color;
         border-radius: 980px;
         height: 80px;
-        width: 120px;
+        width: 100%;
         margin: 10px;
         display: flex;
         align-items: center;
@@ -278,6 +295,7 @@
     }
 
     .device {
+      width: 100%;
       border-radius: 8px;
       margin-top: 20px;
       cursor: pointer;
@@ -286,7 +304,6 @@
       background-color: $primary-color;
       color: $light-text-color;
       margin-bottom: 20px;
-      width: 210px;
 
       transition: background-color 0.3s ease, transform 0.3s ease;
 

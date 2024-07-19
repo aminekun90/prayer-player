@@ -1,11 +1,10 @@
 @import "../shared/styles/variables";
 .calendar {
   font-family: Arial, sans-serif;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 8px;
+
+  border-radius: 0;
   width: 100%;
   padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   .header {
     display: flex;
@@ -19,7 +18,7 @@
       cursor: pointer;
       font-size: 20px;
       padding: 5px;
-      color: #333;
+      color: #f6f6f6;
     }
   }
 

@@ -1,10 +1,15 @@
 <div class="back">
   <div class="container">
-    <div class="app-welcome">Welcome to Sonos prayer <app-clock></app-clock></div>
-    <div>{{settings.api.city}} | {{settings.api.country}}</div>
+    <div class="app-welcome">Welcome to Sonos prayer <app-clock></app-clock>
+      <div class="local">{{settings.api.city}} | {{settings.api.country}}</div>
+    </div>
     <div id="sonos-devices">
-      <button type="button" (click)="scanForBle()" [disabled]="bleLoading" class="btn"> scan for BLE <i class='fab fa-bluetooth'></i></button>
+      <div class="device-search">
+        <button type="button" (click)="scanForBle()" [disabled]="bleLoading" class="btn"> scan for BLE <i
+          class='fab fa-bluetooth'></i></button>
       <button type="button" (click)="scanForSonos()" [disabled]="deviceLoading" class="btn"> Scan for Sonos</button>
+      </div>
+
       <div *ngIf="deviceLoading">Loading Sonos Devices...</div>
       <div *ngIf="bleLoading">Loading bluetooth Devices...</div>
       <div *ngIf="prayerLoading">Loading Prayers...</div>
@@ -14,7 +19,8 @@
           <div class="time">{{prayer.getTime() | date :'H:mm'}}</div>
         </li>
       </ul>
-      <app-settings-modal [settings]="settings" (onSave)="saveSettings($event)" [azanList]="azanList" [(isVisible)]="isChildVisible" [devices]="devices"></app-settings-modal>
+      <app-settings-modal [settings]="settings" (onSave)="saveSettings($event)" [azanList]="azanList"
+        [(isVisible)]="isChildVisible" [devices]="devices"></app-settings-modal>
       <div *ngFor="let object of bluetoothDevices">
         <div>
           {{object.device.name}}
