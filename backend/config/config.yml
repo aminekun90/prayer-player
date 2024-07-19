@@ -43,7 +43,7 @@ calculationMethods:
 debug: false
 device:
   volume: 25
-enableScheduler: false
+enableScheduler: true
 playlist:
   dirToServe: server/audio
   fileName: azan1.mp3
