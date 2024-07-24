@@ -140,27 +140,34 @@ function initZone() {
       if (task.zone != this) {
         throw new Error('A task can only be run in the zone of creation! (Creation: ' + (task.zone || NO_ZONE).name + '; Execution: ' + this.name + ')');
       }
+      const zoneTask = task;
       // https://github.com/angular/zone.js/issues/778, sometimes eventTask
       // will run in notScheduled(canceled) state, we should not try to
       // run such kind of task but just return
-      if (task.state === notScheduled && (task.type === eventTask || task.type === macroTask)) {
+      const {
+        type,
+        data: {
+          isPeriodic = false,
+          isRefreshable = false
+        } = {}
+      } = task;
+      if (task.state === notScheduled && (type === eventTask || type === macroTask)) {
         return;
       }
       const reEntryGuard = task.state != running;
-      reEntryGuard && task._transitionTo(running, scheduled);
-      task.runCount++;
+      reEntryGuard && zoneTask._transitionTo(running, scheduled);
       const previousTask = _currentTask;
-      _currentTask = task;
+      _currentTask = zoneTask;
       _currentZoneFrame = {
         parent: _currentZoneFrame,
         zone: this
       };
       try {
-        if (task.type == macroTask && task.data && !task.data.isPeriodic) {
+        if (type == macroTask && task.data && !isPeriodic && !isRefreshable) {
           task.cancelFn = undefined;
         }
         try {
-          return this._zoneDelegate.invokeTask(this, task, applyThis, applyArgs);
+          return this._zoneDelegate.invokeTask(this, zoneTask, applyThis, applyArgs);
         } catch (error) {
           if (this._zoneDelegate.handleError(this, error)) {
             throw error;
@@ -169,13 +176,17 @@ function initZone() {
       } finally {
         // if the task's state is notScheduled or unknown, then it has already been cancelled
         // we should not reset the state to scheduled
-        if (task.state !== notScheduled && task.state !== unknown) {
-          if (task.type == eventTask || task.data && task.data.isPeriodic) {
-            reEntryGuard && task._transitionTo(scheduled, running);
+        const state = task.state;
+        if (state !== notScheduled && state !== unknown) {
+          if (type == eventTask || isPeriodic || isRefreshable && state === scheduling) {
+            reEntryGuard && zoneTask._transitionTo(scheduled, running, scheduling);
           } else {
-            task.runCount = 0;
-            this._updateTaskCount(task, -1);
-            reEntryGuard && task._transitionTo(notScheduled, running, notScheduled);
+            const zoneDelegates = zoneTask._zoneDelegates;
+            this._updateTaskCount(zoneTask, -1);
+            reEntryGuard && zoneTask._transitionTo(notScheduled, running, notScheduled);
+            if (isRefreshable) {
+              zoneTask._zoneDelegates = zoneDelegates;
+            }
           }
         }
         _currentZoneFrame = _currentZoneFrame.parent;
@@ -242,7 +253,7 @@ function initZone() {
       }
       this._updateTaskCount(task, -1);
       task._transitionTo(notScheduled, canceling);
-      task.runCount = 0;
+      task.runCount = -1;
       return task;
     }
     _updateTaskCount(task, count) {
@@ -702,6 +713,7 @@ const isBrowser = !isNode && !isWebWorker && !!(isWindowExists && internalWindow
 // this code.
 const isMix = typeof _global.process !== 'undefined' && _global.process.toString() === '[object process]' && !isWebWorker && !!(isWindowExists && internalWindow['HTMLElement']);
 const zoneSymbolEventNames$1 = {};
+const enableBeforeunloadSymbol = zoneSymbol('enable_beforeunload');
 const wrapFn = function (event) {
   // https://github.com/angular/zone.js/issues/911, in IE, sometimes
   // event will be undefined, so we need to use window.event
@@ -727,7 +739,24 @@ const wrapFn = function (event) {
     }
   } else {
     result = listener && listener.apply(this, arguments);
-    if (result != undefined && !result) {
+    if (
+    // https://github.com/angular/angular/issues/47579
+    // https://www.w3.org/TR/2011/WD-html5-20110525/history.html#beforeunloadevent
+    // This is the only specific case we should check for. The spec defines that the
+    // `returnValue` attribute represents the message to show the user. When the event
+    // is created, this attribute must be set to the empty string.
+    event.type === 'beforeunload' &&
+    // To prevent any breaking changes resulting from this change, given that
+    // it was already causing a significant number of failures in G3, we have hidden
+    // that behavior behind a global configuration flag. Consumers can enable this
+    // flag explicitly if they want the `beforeunload` event to be handled as defined
+    // in the specification.
+    _global[enableBeforeunloadSymbol] &&
+    // The IDL event definition is `attribute DOMString returnValue`, so we check whether
+    // `typeof result` is a string.
+    typeof result === 'string') {
+      event.returnValue = result;
+    } else if (result != undefined && !result) {
       event.preventDefault();
     }
   }
@@ -984,6 +1013,12 @@ function isIEOrEdge() {
     }
   } catch (error) {}
   return ieOrEdge;
+}
+function isFunction(value) {
+  return typeof value === 'function';
+}
+function isNumber(value) {
+  return typeof value === 'number';
 }
 
 /**
@@ -1690,15 +1725,30 @@ function patchTimer(window, setName, cancelName, nameSuffix) {
     data.args[0] = function () {
       return task.invoke.apply(this, arguments);
     };
-    data.handleId = setNative.apply(window, data.args);
+    const handleOrId = setNative.apply(window, data.args);
+    // Whlist on Node.js when get can the ID by using `[Symbol.toPrimitive]()` we do
+    // to this so that we do not cause potentally leaks when using `setTimeout`
+    // since this can be periodic when using `.refresh`.
+    if (isNumber(handleOrId)) {
+      data.handleId = handleOrId;
+    } else {
+      data.handle = handleOrId;
+      // On Node.js a timeout and interval can be restarted over and over again by using the `.refresh` method.
+      data.isRefreshable = isFunction(handleOrId.refresh);
+    }
     return task;
   }
   function clearTask(task) {
-    return clearNative.call(window, task.data.handleId);
+    const {
+      handle,
+      handleId
+    } = task.data;
+    return clearNative.call(window, handle ?? handleId);
   }
   setNative = patchMethod(window, setName, delegate => function (self, args) {
-    if (typeof args[0] === 'function') {
+    if (isFunction(args[0])) {
       const options = {
+        isRefreshable: false,
         isPeriodic: nameSuffix === 'Interval',
         delay: nameSuffix === 'Timeout' || nameSuffix === 'Interval' ? args[1] || 0 : undefined,
         args: args
@@ -1715,15 +1765,21 @@ function patchTimer(window, setName, cancelName, nameSuffix) {
           // Cleanup tasksByHandleId should be handled before scheduleTask
           // Since some zoneSpec may intercept and doesn't trigger
           // scheduleFn(scheduleTask) provided here.
-          if (!options.isPeriodic) {
-            if (typeof options.handleId === 'number') {
+          const {
+            handle,
+            handleId,
+            isPeriodic,
+            isRefreshable
+          } = options;
+          if (!isPeriodic && !isRefreshable) {
+            if (handleId) {
               // in non-nodejs env, we remove timerId
               // from local cache
-              delete tasksByHandleId[options.handleId];
-            } else if (options.handleId) {
+              delete tasksByHandleId[handleId];
+            } else if (handle) {
               // Node returns complex objects as handleIds
               // we remove task reference from timer object
-              options.handleId[taskSymbol] = null;
+              handle[taskSymbol] = null;
             }
           }
         }
@@ -1733,26 +1789,38 @@ function patchTimer(window, setName, cancelName, nameSuffix) {
         return task;
       }
       // Node.js must additionally support the ref and unref functions.
-      const handle = task.data.handleId;
-      if (typeof handle === 'number') {
+      const {
+        handleId,
+        handle,
+        isRefreshable,
+        isPeriodic
+      } = task.data;
+      if (handleId) {
         // for non nodejs env, we save handleId: task
         // mapping in local cache for clearTimeout
-        tasksByHandleId[handle] = task;
+        tasksByHandleId[handleId] = task;
       } else if (handle) {
         // for nodejs env, we save task
         // reference in timerId Object for clearTimeout
         handle[taskSymbol] = task;
+        if (isRefreshable && !isPeriodic) {
+          const originalRefresh = handle.refresh;
+          handle.refresh = function () {
+            const {
+              zone,
+              state
+            } = task;
+            if (state === 'notScheduled') {
+              task._state = 'scheduled';
+              zone._updateTaskCount(task, 1);
+            } else if (state === 'running') {
+              task._state = 'scheduling';
+            }
+            return originalRefresh.call(this);
+          };
+        }
       }
-      // check whether handle is null, because some polyfill or browser
-      // may return undefined from setTimeout/setInterval/setImmediate/requestAnimationFrame
-      if (handle && handle.ref && handle.unref && typeof handle.ref === 'function' && typeof handle.unref === 'function') {
-        task.ref = handle.ref.bind(handle);
-        task.unref = handle.unref.bind(handle);
-      }
-      if (typeof handle === 'number' || handle) {
-        return handle;
-      }
-      return task;
+      return handle ?? handleId ?? task;
     } else {
       // cause an error by calling it directly.
       return delegate.apply(window, args);
@@ -1761,24 +1829,21 @@ function patchTimer(window, setName, cancelName, nameSuffix) {
   clearNative = patchMethod(window, cancelName, delegate => function (self, args) {
     const id = args[0];
     let task;
-    if (typeof id === 'number') {
+    if (isNumber(id)) {
       // non nodejs env.
       task = tasksByHandleId[id];
+      delete tasksByHandleId[id];
     } else {
-      // nodejs env.
-      task = id && id[taskSymbol];
-      // other environments.
-      if (!task) {
+      // nodejs env ?? other environments.
+      task = id?.[taskSymbol];
+      if (task) {
+        id[taskSymbol] = null;
+      } else {
         task = id;
       }
     }
-    if (task && typeof task.type === 'string') {
-      if (task.state !== 'notScheduled' && (task.cancelFn && task.data.isPeriodic || task.runCount === 0)) {
-        if (typeof id === 'number') {
-          delete tasksByHandleId[id];
-        } else if (id) {
-          id[taskSymbol] = null;
-        }
+    if (task?.type) {
+      if (task.cancelFn) {
         // Do not cancel already canceled functions
         task.zone.cancelTask(task);
       }
