@@ -1,12 +1,11 @@
 <div class="back">
   <div class="container">
-    <div class="app-welcome">Welcome to Sonos prayer <app-clock></app-clock>
+    <div *ngIf="!printMode" class="app-welcome">Welcome to Sonos prayer <app-clock></app-clock>
       <div class="local">{{settings.api.city}} | {{settings.api.country}}</div>
     </div>
-    <div id="sonos-devices">
+    <div *ngIf="!printMode" id="sonos-devices">
       <div class="device-search">
-        <button type="button" (click)="scanForBle()" [disabled]="bleLoading" class="btn"> scan for BLE <i
-          class='fab fa-bluetooth'></i></button>
+        <button type="button" (click)="scanForBle()" [disabled]="bleLoading" class="btn"> scan for BLE <fa-icon [icon]="faBluetooth"></fa-icon></button>
       <button type="button" (click)="scanForSonos()" [disabled]="deviceLoading" class="btn"> Scan for Sonos</button>
       </div>
 
@@ -38,7 +37,7 @@
           <div class="controls">
             <div class="action"><fa-icon [icon]="faPause"></fa-icon></div>
             <div class="action"><fa-icon [icon]="faStop"></fa-icon></div>
-            <div class="action" (click)="modalToggle()"><fa-icon [icon]="faCog"></fa-icon></div>
+            <div class="action" (click)="modalToggle()" onkeypress=""><fa-icon [icon]="faCog"></fa-icon></div>
           </div>
         </div>
         <div>
@@ -48,7 +47,7 @@
       </div>
     </div>
     <app-calendar></app-calendar>
-    <div class="copyright">Sonos player {{version}} By <a href="https://github.com/aminekun90">&#64;aminekun90</a></div>
+    <div *ngIf="!printMode" class="copyright">Sonos player {{version}} By <a href="https://github.com/aminekun90">&#64;aminekun90</a></div>
   </div>
 
   <router-outlet></router-outlet>

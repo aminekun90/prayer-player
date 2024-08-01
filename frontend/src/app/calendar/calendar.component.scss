@@ -90,3 +90,97 @@
     }
   }
 }
+.printable-modal {
+  top: 0px;
+  left: 0px;
+  z-index: 1000;
+  position: fixed;
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+  overflow: scroll;
+  .month{
+    padding: 10px;
+    color: #000;
+    text-align: center;
+  }
+  .table-container {
+    width: 100%;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    font-size: 8pt;
+    color: #333;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    color: #333;
+
+    thead {
+      background-color: #f4f4f4;
+      text-align: left;
+
+      th {
+        padding: 8px;
+        border-bottom: 2px solid #ddd;
+        font-weight: bold;
+      }
+    }
+
+    tbody {
+      tr {
+        &:nth-child(even) {
+          background-color: #f9f9f9;
+        }
+
+        td {
+          padding: 8px;
+          border-bottom: 1px solid #ddd;
+        }
+      }
+    }
+  }
+
+  @media print {
+    body, .table-container, table {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+
+    th, td {
+      padding: 5px;
+      font-size: 7pt;
+    }
+
+    th {
+      background-color: #eee !important;
+      -webkit-print-color-adjust: exact;
+    }
+
+    tr {
+      page-break-inside: avoid;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    @page {
+      size: A4;
+      margin: 1cm;
+    }
+  }
+
+
+  button.close{
+    float: right;
+  }
+  &.hidden{
+    display: none;
+  }
+
+}
