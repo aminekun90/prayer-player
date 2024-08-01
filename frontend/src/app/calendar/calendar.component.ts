@@ -2,14 +2,21 @@ import { Component, OnInit, Input } from '@angular/core';
 import { PrayerService } from '@piPlayer/service/prayer/prayer.service';
 import { Timing } from '@piPlayer/service/prayer/models/Timing';
 import { faXmark, } from '@fortawesome/free-solid-svg-icons';
+import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
+import { Subscription } from 'rxjs';
+import { PrintService } from '../service/printState/print-state.service';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit {
-   daysOfweek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  daysOfweek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   faXmark = faXmark;
+  private subscription!: Subscription;
+  printMode: boolean = false;
+  faPdf = faFilePdf;
+  showPdf = false;
   events: Timing[] = [];
   currentMonth: string = new Date().toLocaleString('default', { month: 'long' });
   currentDate: Date = new Date()
@@ -17,26 +24,68 @@ export class CalendarComponent implements OnInit {
   selectedDay: number | null = null;
   daysInMonth: number = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 0).getDate();
 
-  constructor(private prayerService: PrayerService) { }
+  constructor(private prayerService: PrayerService,
+    private printService: PrintService) { }
 
   async ngOnInit(): Promise<void> {
+    this.subscription = this.printService.printMode$.subscribe(mode => {
+      this.printMode = mode;
+    });
     this.events = await this.prayerService.allTimings();
     console.log(this.events);
     this.currentDate = new Date();
     this.renderCalendar();
   }
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 
-  prevMonth(currentDate: Date): void {
-    currentDate.setMonth(currentDate.getMonth() - 1);
+
+  prevMonth(): void {
+    this.currentDate.setMonth(this.currentDate.getMonth() - 1);
+    this.currentMonth = this.currentDate.toLocaleString('default', { month: 'long' });
     this.renderCalendar();
   }
 
-  nextMonth(currentDate: Date): void {
-    currentDate.setMonth(currentDate.getMonth() + 1);
+  nextMonth(): void {
+    this.currentDate.setMonth(this.currentDate.getMonth() + 1);
+    this.currentMonth = this.currentDate.toLocaleString('default', { month: 'long' });
     this.renderCalendar();
   }
   toggleEvents(day: any) {
     this.days.forEach(d => d.showEvents = (d === day) ? !day.showEvents : false);
+  }
+  togglePdf() {
+    this.showPdf = !this.showPdf;
+    if (this.showPdf) {
+      document.body.style.overflow = "hidden";
+      this.togglePrintMode();
+      this.togglePrintMode();
+    } else {
+      document.body.style.overflow = "scroll";
+      this.printService.setPrintMode(false);
+    }
+  }
+  isSimilarDates(day1: Date) {
+    const today = new Date();
+    const condition = day1.getMonth() === today.getMonth()
+      && day1.getFullYear() === today.getFullYear()
+      && day1.getDate() === today.getDate();
+    return condition;
+  }
+
+  togglePrintMode() {
+    this.printService.setPrintMode(!this.printMode);
+  }
+
+  printContent() {
+    this.printService.setPrintMode(true);
+    setTimeout(() => {
+      window.print();
+      this.printService.setPrintMode(false);
+    }, 100);
   }
   renderCalendar(): void {
     this.days = [];
@@ -55,6 +104,7 @@ export class CalendarComponent implements OnInit {
     }
     console.log("Days:", this.days)
   }
+
   selectDay(day: number): void {
     if (this.selectedDay === day) {
       this.selectedDay = null; // Deselect if already selected

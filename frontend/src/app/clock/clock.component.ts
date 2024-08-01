@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { PrintService } from '../service/printState/print-state.service';
 
 @Component({
   selector: 'app-clock',
-  template: '{{ currentTime }}',
+  templateUrl: './clock.component.html',
 })
 export class ClockComponent implements OnInit {
   currentTime: string = '';

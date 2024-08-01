@@ -4,9 +4,12 @@ import { Device } from '@piPlayer/service/soCo/models/device';
 import { PrayerService } from '@piPlayer/service/prayer/prayer.service';
 import { Prayer } from '@piPlayer/service/prayer/models/prayer';
 import { faCog, faPlay, faPause, faStop, } from '@fortawesome/free-solid-svg-icons';
+import { faBluetooth } from '@fortawesome/free-brands-svg-icons';
 
 import { VERSION } from './env';
 import { Settings } from './types/types';
+import { Subscription } from 'rxjs';
+import { PrintService } from './service/printState/print-state.service';
 
 
 @Component({
@@ -23,6 +26,7 @@ export class AppComponent implements OnInit {
   faPlay = faPlay;
   faPause = faPause;
   faStop = faStop;
+  faBluetooth = faBluetooth;
   title = 'frontend';
   isChildVisible = false;
   deviceLoading = false;
@@ -56,7 +60,12 @@ export class AppComponent implements OnInit {
   @ViewChild('audioPlayer') audioPlayer!: ElementRef;
   version = VERSION;
   keySquence: Array<string> = [];
-  constructor(private soCoService: SoCoService, private prayerService: PrayerService) { }
+  printMode: boolean = false;
+  private subscription!: Subscription;
+
+  constructor(private soCoService: SoCoService,
+     private prayerService: PrayerService,
+     private printService: PrintService) { }
   areArraysEqual(arr1: any[], arr2: any[]): boolean {
     if (arr1.length !== arr2.length) {
       return false;
@@ -94,6 +103,9 @@ export class AppComponent implements OnInit {
 
   }
   async ngOnInit() {
+    this.subscription = this.printService.printMode$.subscribe(mode => {
+      this.printMode = mode;
+    });
     this.setTimeEverySecond()
     this.prayerLoading = true;
 
@@ -107,6 +119,14 @@ export class AppComponent implements OnInit {
     await this.getSettings();
     await this.scanForSonos();
   }
+
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
   onMp3FileChange() {
     const audio: HTMLAudioElement = this.audioPlayer?.nativeElement;
     if (audio) {

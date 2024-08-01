@@ -1,9 +1,14 @@
-<div class="calendar">
+<div *ngIf="!printMode" class="calendar">
+  <button class="btn" type="button" title="Generate pdf" (click)="togglePdf()">
+    Generate <fa-icon [icon]="faPdf"></fa-icon>
+  </button>
+
   <div class="header">
-    <button (click)="prevMonth(currentDate)">&lt;</button>
+    <button (click)="prevMonth()">&lt;</button>
     <h2>{{ currentMonth }}</h2>
-    <button (click)="nextMonth(currentDate)">&gt;</button>
+    <button (click)="nextMonth()">&gt;</button>
   </div>
+
   <div class="days" *ngIf="days.length">
     <div class="day-label">{{daysOfweek[days[0].date.getDay()]}}</div>
     <div class="day-label">{{daysOfweek[days[1].date.getDay()]}}</div>
@@ -12,23 +17,76 @@
     <div class="day-label">{{daysOfweek[days[4].date.getDay()]}}</div>
     <div class="day-label">{{daysOfweek[days[5].date.getDay()]}}</div>
     <div class="day-label">{{daysOfweek[days[7].date.getDay()]}}</div>
-    <div *ngFor="let day of days" [ngClass]="{'day': true, 'selected':day.date.getDate()==currentDate.getDate()}" (click)="toggleEvents(day)">
-        <div class="date-wrapper">
-            <span class="date">{{ day.date.getDate() }}</span>
+    <div *ngFor="let day of days" [ngClass]="{'day': true, 'selected':isSimilarDates(day.date)}"
+      (click)="toggleEvents(day)" onKeyPress="">
+      <div class="date-wrapper">
+        <span class="date">{{ day.date.getDate() }}</span>
 
-            <div *ngFor="let event of day.events" [ngClass]="{'event': true, 'hidden': !day.showEvents}">
+        <div *ngFor="let event of day.events" [ngClass]="{'event': true, 'hidden': !day.showEvents}">
 
-                <div class="date">{{event.date.hijri.month.ar}} {{event.date.hijri.day}} {{event.date.hijri.year}}</div>
-                <ul class="prayers">
-                  <li class="prayer">Imsak : {{ event.timings.Imsak }}</li>
-                    <li class="prayer">Fajr : {{ event.timings.Fajr }}</li>
-                    <li class="prayer">Dhuhr : {{ event.timings.Dhuhr }}</li>
-                    <li class="prayer">Asr : {{ event.timings.Asr }}</li>
-                    <li class="prayer">Maghrib : {{ event.timings.Maghrib }}</li>
-                    <li class="prayer">Isha : {{ event.timings.Isha }}</li>
-                </ul>
-            </div>
+          <div class="date">{{event.date.hijri.month.ar}} {{event.date.hijri.day}} {{event.date.hijri.year}}</div>
+          <ul class="prayers">
+            <li class="prayer">Imsak : {{ event.timings.Imsak }}</li>
+            <li class="prayer">Fajr : {{ event.timings.Fajr }}</li>
+            <li class="prayer">Dhuhr : {{ event.timings.Dhuhr }}</li>
+            <li class="prayer">Asr : {{ event.timings.Asr }}</li>
+            <li class="prayer">Maghrib : {{ event.timings.Maghrib }}</li>
+            <li class="prayer">Isha : {{ event.timings.Isha }}</li>
+          </ul>
         </div>
+      </div>
     </div>
+  </div>
+
+
 </div>
-</div>
+<div [ngClass]="{'printable-modal': true, 'hidden':!showPdf }">
+  <div >
+    <button class="btn" type="button" title="Generate pdf" (click)="printContent()">
+      Print <fa-icon [icon]="faPdf"></fa-icon>
+    </button>
+    <button class="btn close" title="Close modal" (click)="togglePdf()">
+      Close<fa-icon [icon]="faXmark"></fa-icon>
+    </button>
+  </div>
+    <div class="days-modal">
+      <table>
+        <thead>
+          <tr>
+            <th colspan="8" scope="header"><div class="month">
+              <h2>{{ currentMonth }}</h2>
+            </div></th>
+          </tr>
+        </thead>
+        <thead>
+          <tr>
+            <th>Gregorian Date</th>
+            <th>Hijri Date</th>
+            <th>Imsak</th>
+            <th>Fajr</th>
+            <th>Dhuhr</th>
+            <th>Asr</th>
+            <th>Maghrib</th>
+            <th>Isha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let day of days">
+            <td *ngFor="let event of day.events">
+              <div class="date">{{ event.date.readable }}</div>
+            </td>
+            <td *ngFor="let event of day.events">
+              <div class="date">{{ event.date.hijri.month.ar }} {{ event.date.hijri.day }} {{ event.date.hijri.year }}</div>
+            </td>
+            <td *ngFor="let event of day.events">{{ event.timings.Imsak }}</td>
+            <td *ngFor="let event of day.events">{{ event.timings.Fajr }}</td>
+            <td *ngFor="let event of day.events">{{ event.timings.Dhuhr }}</td>
+            <td *ngFor="let event of day.events">{{ event.timings.Asr }}</td>
+            <td *ngFor="let event of day.events">{{ event.timings.Maghrib }}</td>
+            <td *ngFor="let event of day.events">{{ event.timings.Isha }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
