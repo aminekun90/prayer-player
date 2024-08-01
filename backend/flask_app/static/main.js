@@ -18,8 +18,8 @@ __webpack_require__.r(__webpack_exports__);
 
 const routes = [];
 class AppRoutingModule {
-  static #_ = this.ɵfac = function AppRoutingModule_Factory(t) {
-    return new (t || AppRoutingModule)();
+  static #_ = this.ɵfac = function AppRoutingModule_Factory(ɵt) {
+    return new (ɵt || AppRoutingModule)();
   };
   static #_2 = this.ɵmod = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({
     type: AppRoutingModule
@@ -426,8 +426,8 @@ class AppComponent {
       _this6.deviceLoading = false;
     })();
   }
-  static #_ = this.ɵfac = function AppComponent_Factory(t) {
-    return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵdirectiveInject"](_piPlayer_service_soCo_so_co_service__WEBPACK_IMPORTED_MODULE_2__.SoCoService), _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵdirectiveInject"](_piPlayer_service_prayer_prayer_service__WEBPACK_IMPORTED_MODULE_3__.PrayerService), _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵdirectiveInject"](_service_printState_print_state_service__WEBPACK_IMPORTED_MODULE_4__.PrintService));
+  static #_ = this.ɵfac = function AppComponent_Factory(ɵt) {
+    return new (ɵt || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵdirectiveInject"](_piPlayer_service_soCo_so_co_service__WEBPACK_IMPORTED_MODULE_2__.SoCoService), _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵdirectiveInject"](_piPlayer_service_prayer_prayer_service__WEBPACK_IMPORTED_MODULE_3__.PrayerService), _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵdirectiveInject"](_service_printState_print_state_service__WEBPACK_IMPORTED_MODULE_4__.PrintService));
   };
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵdefineComponent"]({
     type: AppComponent,
@@ -508,8 +508,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class AppModule {
-  static #_ = this.ɵfac = function AppModule_Factory(t) {
-    return new (t || AppModule)();
+  static #_ = this.ɵfac = function AppModule_Factory(ɵt) {
+    return new (ɵt || AppModule)();
   };
   static #_2 = this.ɵmod = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineNgModule"]({
     type: AppModule,
@@ -957,8 +957,8 @@ class CalendarComponent {
     // You can replace this with your actual logic to fetch events
     return ['Event 1', 'Event 2']; // Example events for demonstration
   }
-  static #_ = this.ɵfac = function CalendarComponent_Factory(t) {
-    return new (t || CalendarComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_piPlayer_service_prayer_prayer_service__WEBPACK_IMPORTED_MODULE_1__.PrayerService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_service_printState_print_state_service__WEBPACK_IMPORTED_MODULE_2__.PrintService));
+  static #_ = this.ɵfac = function CalendarComponent_Factory(ɵt) {
+    return new (ɵt || CalendarComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_piPlayer_service_prayer_prayer_service__WEBPACK_IMPORTED_MODULE_1__.PrayerService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_service_printState_print_state_service__WEBPACK_IMPORTED_MODULE_2__.PrintService));
   };
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineComponent"]({
     type: CalendarComponent,
@@ -1056,8 +1056,8 @@ class ClockComponent {
       this.currentTime = new Date().toLocaleTimeString();
     }, 1000);
   }
-  static #_ = this.ɵfac = function ClockComponent_Factory(t) {
-    return new (t || ClockComponent)();
+  static #_ = this.ɵfac = function ClockComponent_Factory(ɵt) {
+    return new (ɵt || ClockComponent)();
   };
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
     type: ClockComponent,
@@ -1154,8 +1154,8 @@ class HttpService {
       }
     })();
   }
-  static #_ = this.ɵfac = function HttpService_Factory(t) {
-    return new (t || HttpService)();
+  static #_ = this.ɵfac = function HttpService_Factory(ɵt) {
+    return new (ɵt || HttpService)();
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({
     token: HttpService,
@@ -1308,8 +1308,8 @@ class PrayerService {
       return response.result.timings;
     })();
   }
-  static #_ = this.ɵfac = function PrayerService_Factory(t) {
-    return new (t || PrayerService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_piPlayer_service_http_http_service__WEBPACK_IMPORTED_MODULE_3__.HttpService));
+  static #_ = this.ɵfac = function PrayerService_Factory(ɵt) {
+    return new (ɵt || PrayerService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_piPlayer_service_http_http_service__WEBPACK_IMPORTED_MODULE_3__.HttpService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjectable"]({
     token: PrayerService,
@@ -1345,8 +1345,8 @@ class PrintService {
   getPrintMode() {
     return this.printModeSubject.value;
   }
-  static #_ = this.ɵfac = function PrintService_Factory(t) {
-    return new (t || PrintService)();
+  static #_ = this.ɵfac = function PrintService_Factory(ɵt) {
+    return new (ɵt || PrintService)();
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({
     token: PrintService,
@@ -1494,8 +1494,8 @@ class SoCoService {
       return [];
     })();
   }
-  static #_ = this.ɵfac = function SoCoService_Factory(t) {
-    return new (t || SoCoService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_piPlayer_service_http_http_service__WEBPACK_IMPORTED_MODULE_3__.HttpService));
+  static #_ = this.ɵfac = function SoCoService_Factory(ɵt) {
+    return new (ɵt || SoCoService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_piPlayer_service_http_http_service__WEBPACK_IMPORTED_MODULE_3__.HttpService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjectable"]({
     token: SoCoService,
@@ -1763,8 +1763,8 @@ class SettingsModalComponent {
       audio.play();
     }
   }
-  static #_ = this.ɵfac = function SettingsModalComponent_Factory(t) {
-    return new (t || SettingsModalComponent)();
+  static #_ = this.ɵfac = function SettingsModalComponent_Factory(ɵt) {
+    return new (ɵt || SettingsModalComponent)();
   };
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({
     type: SettingsModalComponent,
@@ -1827,7 +1827,7 @@ _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__.platformBrowser().bootstr
   \**********************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"name":"frontend","version":"1.1.0","scripts":{"ng":"ng","start":"ng serve","build":"ng build","watch":"ng build --watch --configuration development","test":"ng test"},"private":true,"dependencies":{"@angular/animations":"^18.1.1","@angular/common":"^18.1.1","@angular/compiler":"^18.1.1","@angular/core":"^18.1.1","@angular/forms":"^18.1.1","@angular/platform-browser":"^18.1.1","@angular/platform-browser-dynamic":"^18.1.1","@angular/router":"^18.1.1","@fortawesome/angular-fontawesome":"^0.15.0","@fortawesome/fontawesome-svg-core":"^6.5.2","@fortawesome/free-brands-svg-icons":"^6.6.0","@fortawesome/free-regular-svg-icons":"^6.6.0","@fortawesome/free-solid-svg-icons":"^6.5.2","axios":"^1.6.6","rxjs":"~7.8.0","tslib":"^2.6.2","zone.js":"~0.14.4"},"devDependencies":{"@angular-devkit/build-angular":"^18.1.1","@angular/cli":"~18.1.1","@angular/compiler-cli":"^18.1.1","@types/jasmine":"^5.1.4","jasmine-core":"^5.2.0","karma":"~6.4.0","karma-chrome-launcher":"~3.2.0","karma-coverage":"~2.2.0","karma-jasmine":"~5.1.0","karma-jasmine-html-reporter":"^2.1.0","typescript":"~5.5.3"}}');
+module.exports = /*#__PURE__*/JSON.parse('{"name":"frontend","version":"1.1.1","scripts":{"ng":"ng","start":"ng serve","build":"ng build","watch":"ng build --watch --configuration development","test":"ng test"},"private":true,"dependencies":{"@angular/animations":"^18.1.1","@angular/common":"^18.1.1","@angular/compiler":"^18.1.1","@angular/core":"^18.1.1","@angular/forms":"^18.1.1","@angular/platform-browser":"^18.1.1","@angular/platform-browser-dynamic":"^18.1.1","@angular/router":"^18.1.1","@fortawesome/angular-fontawesome":"^0.15.0","@fortawesome/fontawesome-svg-core":"^6.5.2","@fortawesome/free-brands-svg-icons":"^6.6.0","@fortawesome/free-regular-svg-icons":"^6.6.0","@fortawesome/free-solid-svg-icons":"^6.5.2","axios":"^1.6.6","rxjs":"~7.8.0","tslib":"^2.6.2","zone.js":"~0.14.4"},"devDependencies":{"@angular-devkit/build-angular":"^18.1.1","@angular/cli":"~18.1.1","@angular/compiler-cli":"^18.1.1","@types/jasmine":"^5.1.4","jasmine-core":"^5.2.0","karma":"~6.4.0","karma-chrome-launcher":"~3.2.0","karma-coverage":"~2.2.0","karma-jasmine":"~5.1.0","karma-jasmine-html-reporter":"^2.1.0","typescript":"~5.5.3"}}');
 
 /***/ })
 
