@@ -123,7 +123,6 @@ def serve_mp3(path):
 @app.route('/allTimings/<month>/<year>')
 def get_all_timings(month=datetime.now().strftime("%m"), year=datetime.now().strftime("%Y")):
     api_instance: Api = cast(Api, Api.get_instance())
-    print(month, year)
     assert api_instance is not None
     timings = api_instance.fetch_timings_by_year_month(
         month=month, year=year,).json()
