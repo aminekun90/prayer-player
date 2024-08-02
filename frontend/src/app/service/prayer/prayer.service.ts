@@ -68,13 +68,26 @@ export class PrayerService {
     }
   }
 
-  async allTimings():Promise<Timing[]>{
-    const response = await this.httpService.get(CONFIG.allTimings, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    console.log(response)
-    return response.result.timings as Timing[];
+  async allTimings(month?: number, year?: number): Promise<Timing[]> {
+
+    const currentDate = new Date();
+    const finalMonth = month || (currentDate.getMonth() + 1).toString();
+    const finalYear = year || currentDate.getFullYear().toString();
+
+    const finalUrl = `${CONFIG.allTimings}/${finalMonth}/${finalYear}`;
+
+      const response = await this.httpService.get(finalUrl, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      // Log the response (for debugging purposes)
+      console.log(response);
+
+      // Return the timings from the response
+      return response.result.timings as Timing[];
+
   }
+
 }

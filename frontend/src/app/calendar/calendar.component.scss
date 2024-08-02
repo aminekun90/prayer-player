@@ -117,6 +117,7 @@
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
+    margin-top: 0;
     color: #333;
 
     thead {
@@ -158,6 +159,7 @@
 
     th {
       background-color: #eee !important;
+      print-color-adjust:"exact";
       -webkit-print-color-adjust: exact;
     }
 

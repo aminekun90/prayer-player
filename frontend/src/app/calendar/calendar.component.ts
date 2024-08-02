@@ -31,10 +31,10 @@ export class CalendarComponent implements OnInit {
     this.subscription = this.printService.printMode$.subscribe(mode => {
       this.printMode = mode;
     });
-    this.events = await this.prayerService.allTimings();
+
     console.log(this.events);
     this.currentDate = new Date();
-    this.renderCalendar();
+    await this.renderCalendar();
   }
   ngOnDestroy() {
     if (this.subscription) {
@@ -43,16 +43,16 @@ export class CalendarComponent implements OnInit {
   }
 
 
-  prevMonth(): void {
+  async prevMonth(): Promise<void> {
     this.currentDate.setMonth(this.currentDate.getMonth() - 1);
     this.currentMonth = this.currentDate.toLocaleString('default', { month: 'long' });
-    this.renderCalendar();
+    await this.renderCalendar();
   }
 
-  nextMonth(): void {
+  async nextMonth(): Promise<void> {
     this.currentDate.setMonth(this.currentDate.getMonth() + 1);
     this.currentMonth = this.currentDate.toLocaleString('default', { month: 'long' });
-    this.renderCalendar();
+    await this.renderCalendar();
   }
   toggleEvents(day: any) {
     this.days.forEach(d => d.showEvents = (d === day) ? !day.showEvents : false);
@@ -87,23 +87,34 @@ export class CalendarComponent implements OnInit {
       this.printService.setPrintMode(false);
     }, 100);
   }
-  renderCalendar(): void {
+  async renderCalendar(): Promise<void> {
+    // Retrieve all event timings for the current month and year
+    this.events = await this.prayerService.allTimings(this.currentDate.getMonth()+1, this.currentDate.getFullYear());
     this.days = [];
-    for (let i = 1; i <= this.daysInMonth; i++) {
-      const date = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), i);
-      const eventsForDay = this.events.filter(event => {
-        const eventDateParts = event.date.gregorian.date.split('-');
-        const eventYear = parseInt(eventDateParts[2], 10);
-        const eventMonth = parseInt(eventDateParts[1], 10) - 1; // Months are zero-based in JavaScript
-        const eventDay = parseInt(eventDateParts[0], 10);
-        const eventDate = new Date(eventYear, eventMonth, eventDay);
 
-        return eventDate.toDateString() === date.toDateString();
-      });
-      this.days.push({ date: date, events: eventsForDay, showEvents: false });
+    // Iterate through all days in the month
+    for (let i = 1; i <= this.daysInMonth; i++) {
+        const date = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), i);
+
+        // Filter events for the current day
+        const eventsForDay = this.events.filter(event => {
+            const eventDateParts = event.date.gregorian.date.split('-');
+            const eventDay = parseInt(eventDateParts[0], 10);
+            const eventMonth = parseInt(eventDateParts[1], 10) - 1; // Months are zero-based in JavaScript
+            const eventYear = parseInt(eventDateParts[2], 10);
+            const eventDate = new Date(eventYear, eventMonth, eventDay);
+
+            return eventDate.toDateString() === date.toDateString();
+        });
+
+        // Add the day and its events to the calendar
+        this.days.push({ date: date, events: eventsForDay, showEvents: false });
     }
-    console.log("Days:", this.days)
-  }
+
+    // Log the calendar days and events for debugging
+    console.log("Days:", JSON.stringify(this.days), "Events:", JSON.stringify(this.events));
+}
+
 
   selectDay(day: number): void {
     if (this.selectedDay === day) {
