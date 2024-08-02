@@ -41,33 +41,37 @@
 
 </div>
 <div [ngClass]="{'printable-modal': true, 'hidden':!showPdf }">
-  <div >
-    <button class="btn" type="button" title="Generate pdf" (click)="printContent()">
-      Print <fa-icon [icon]="faPdf"></fa-icon>
-    </button>
-    <button class="btn close" title="Close modal" (click)="togglePdf()">
-      Close<fa-icon [icon]="faXmark"></fa-icon>
-    </button>
-  </div>
+
     <div class="days-modal">
       <table>
         <thead>
           <tr>
-            <th colspan="8" scope="header"><div class="month">
+
+            <th colspan="8" scope="header">
+              <div>
+                <button class="btn" type="button" title="Generate pdf" (click)="printContent()">
+                  Print <fa-icon [icon]="faPdf"></fa-icon>
+                </button>
+                <button class="btn close" title="Close modal" (click)="togglePdf()">
+                  Close<fa-icon [icon]="faXmark"></fa-icon>
+                </button>
+              </div>
+              <div class="month">
               <h2>{{ currentMonth }}</h2>
-            </div></th>
+            </div>
+          </th>
           </tr>
         </thead>
         <thead>
           <tr>
-            <th>Gregorian Date</th>
-            <th>Hijri Date</th>
-            <th>Imsak</th>
-            <th>Fajr</th>
-            <th>Dhuhr</th>
-            <th>Asr</th>
-            <th>Maghrib</th>
-            <th>Isha</th>
+            <th id="gdate">Gregorian Date</th>
+            <th id="hdate">Hijri Date</th>
+            <th id="imsak">Imsak</th>
+            <th id="fajr">Fajr</th>
+            <th id="dhuhr">Dhuhr</th>
+            <th id="asr">Asr</th>
+            <th id="maghrib">Maghrib</th>
+            <th id="isha">Isha</th>
           </tr>
         </thead>
         <tbody>
