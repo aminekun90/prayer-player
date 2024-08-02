@@ -871,10 +871,9 @@ class CalendarComponent {
       _this.subscription = _this.printService.printMode$.subscribe(mode => {
         _this.printMode = mode;
       });
-      _this.events = yield _this.prayerService.allTimings();
       console.log(_this.events);
       _this.currentDate = new Date();
-      _this.renderCalendar();
+      yield _this.renderCalendar();
     })();
   }
   ngOnDestroy() {
@@ -883,18 +882,24 @@ class CalendarComponent {
     }
   }
   prevMonth() {
-    this.currentDate.setMonth(this.currentDate.getMonth() - 1);
-    this.currentMonth = this.currentDate.toLocaleString('default', {
-      month: 'long'
-    });
-    this.renderCalendar();
+    var _this2 = this;
+    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      _this2.currentDate.setMonth(_this2.currentDate.getMonth() - 1);
+      _this2.currentMonth = _this2.currentDate.toLocaleString('default', {
+        month: 'long'
+      });
+      yield _this2.renderCalendar();
+    })();
   }
   nextMonth() {
-    this.currentDate.setMonth(this.currentDate.getMonth() + 1);
-    this.currentMonth = this.currentDate.toLocaleString('default', {
-      month: 'long'
-    });
-    this.renderCalendar();
+    var _this3 = this;
+    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      _this3.currentDate.setMonth(_this3.currentDate.getMonth() + 1);
+      _this3.currentMonth = _this3.currentDate.toLocaleString('default', {
+        month: 'long'
+      });
+      yield _this3.renderCalendar();
+    })();
   }
   toggleEvents(day) {
     this.days.forEach(d => d.showEvents = d === day ? !day.showEvents : false);
@@ -926,24 +931,33 @@ class CalendarComponent {
     }, 100);
   }
   renderCalendar() {
-    this.days = [];
-    for (let i = 1; i <= this.daysInMonth; i++) {
-      const date = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), i);
-      const eventsForDay = this.events.filter(event => {
-        const eventDateParts = event.date.gregorian.date.split('-');
-        const eventYear = parseInt(eventDateParts[2], 10);
-        const eventMonth = parseInt(eventDateParts[1], 10) - 1; // Months are zero-based in JavaScript
-        const eventDay = parseInt(eventDateParts[0], 10);
-        const eventDate = new Date(eventYear, eventMonth, eventDay);
-        return eventDate.toDateString() === date.toDateString();
-      });
-      this.days.push({
-        date: date,
-        events: eventsForDay,
-        showEvents: false
-      });
-    }
-    console.log("Days:", this.days);
+    var _this4 = this;
+    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      // Retrieve all event timings for the current month and year
+      _this4.events = yield _this4.prayerService.allTimings(_this4.currentDate.getMonth() + 1, _this4.currentDate.getFullYear());
+      _this4.days = [];
+      // Iterate through all days in the month
+      for (let i = 1; i <= _this4.daysInMonth; i++) {
+        const date = new Date(_this4.currentDate.getFullYear(), _this4.currentDate.getMonth(), i);
+        // Filter events for the current day
+        const eventsForDay = _this4.events.filter(event => {
+          const eventDateParts = event.date.gregorian.date.split('-');
+          const eventDay = parseInt(eventDateParts[0], 10);
+          const eventMonth = parseInt(eventDateParts[1], 10) - 1; // Months are zero-based in JavaScript
+          const eventYear = parseInt(eventDateParts[2], 10);
+          const eventDate = new Date(eventYear, eventMonth, eventDay);
+          return eventDate.toDateString() === date.toDateString();
+        });
+        // Add the day and its events to the calendar
+        _this4.days.push({
+          date: date,
+          events: eventsForDay,
+          showEvents: false
+        });
+      }
+      // Log the calendar days and events for debugging
+      console.log("Days:", JSON.stringify(_this4.days), "Events:", JSON.stringify(_this4.events));
+    })();
   }
   selectDay(day) {
     if (this.selectedDay === day) {
@@ -1296,15 +1310,21 @@ class PrayerService {
       }
     })();
   }
-  allTimings() {
+  allTimings(month, year) {
     var _this5 = this;
     return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      const response = yield _this5.httpService.get(_piPlayer_service_types_types__WEBPACK_IMPORTED_MODULE_1__.CONFIG.allTimings, {
+      const currentDate = new Date();
+      const finalMonth = month || (currentDate.getMonth() + 1).toString();
+      const finalYear = year || currentDate.getFullYear().toString();
+      const finalUrl = `${_piPlayer_service_types_types__WEBPACK_IMPORTED_MODULE_1__.CONFIG.allTimings}/${finalMonth}/${finalYear}`;
+      const response = yield _this5.httpService.get(finalUrl, {
         headers: {
           'Content-Type': 'application/json'
         }
       });
+      // Log the response (for debugging purposes)
       console.log(response);
+      // Return the timings from the response
       return response.result.timings;
     })();
   }
