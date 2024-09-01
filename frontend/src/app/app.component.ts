@@ -10,6 +10,8 @@ import { VERSION } from './env';
 import { Settings } from './types/types';
 import { Subscription } from 'rxjs';
 import { PrintService } from './service/printState/print-state.service';
+import { NotificationService } from './shared/notification/service/notification.service';
+import { NotificationType } from './shared/notification/types';
 
 
 @Component({
@@ -64,8 +66,10 @@ export class AppComponent implements OnInit {
   private subscription!: Subscription;
 
   constructor(private soCoService: SoCoService,
-     private prayerService: PrayerService,
-     private printService: PrintService) { }
+    private prayerService: PrayerService,
+    private printService: PrintService,
+     private notificationService: NotificationService
+  ) { }
   areArraysEqual(arr1: any[], arr2: any[]): boolean {
     if (arr1.length !== arr2.length) {
       return false;
@@ -155,6 +159,8 @@ export class AppComponent implements OnInit {
     this.settings.api.selectedMethod = parseInt(this.settings.api.selectedMethod as unknown as string)
     await this.prayerService.saveSetting(this.settings);
     this.isChildVisible = false;
+    this.notificationService.sendNotification('Success!', 'Your operation was successful.', NotificationType.success);
+
   }
   async getSettings() {
     console.log("Setting loading...");
@@ -165,6 +171,7 @@ export class AppComponent implements OnInit {
     this.bleLoading = true;
     await this.soCoService.getBleDevices().then(devices => {
       this.bluetoothDevices = devices;
+      this.notificationService.sendNotification('Success!', `Your operation was successful. ${devices.length} device found`, NotificationType.success);
     });
     this.bleLoading = false;
   }
@@ -172,6 +179,7 @@ export class AppComponent implements OnInit {
     this.deviceLoading = true;
     await this.soCoService.getSoCoDevices().then(devices => {
       this.devices = devices;
+      this.notificationService.sendNotification('Sonos devices', `${devices.length} device${devices.length>1?'s':''} found`, NotificationType.info,2000);
     });
     this.deviceLoading = false;
   }
