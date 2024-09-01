@@ -18,7 +18,11 @@ export class CalendarComponent implements OnInit {
   faPdf = faFilePdf;
   showPdf = false;
   events: Timing[] = [];
-  currentMonth: string = new Date().toLocaleString('default', { month: 'long' });
+
+
+  currentMonth: string = new Date().toLocaleString('fr-FR', { month: 'long' });
+
+
   currentDate: Date = new Date()
   days: { date: Date, events: Timing[], showEvents: boolean }[] = [];
   selectedDay: number | null = null;
@@ -28,6 +32,7 @@ export class CalendarComponent implements OnInit {
     private printService: PrintService) { }
 
   async ngOnInit(): Promise<void> {
+    this.currentMonth=this.currentMonth.charAt(0).toUpperCase() + this.currentMonth.slice(1);
     this.subscription = this.printService.printMode$.subscribe(mode => {
       this.printMode = mode;
     });
@@ -45,13 +50,15 @@ export class CalendarComponent implements OnInit {
 
   async prevMonth(): Promise<void> {
     this.currentDate.setMonth(this.currentDate.getMonth() - 1);
-    this.currentMonth = this.currentDate.toLocaleString('default', { month: 'long' });
+    this.currentMonth = this.currentDate.toLocaleString('fr-FR', { month: 'long' });
+    this.currentMonth=this.currentMonth.charAt(0).toUpperCase() + this.currentMonth.slice(1);
     await this.renderCalendar();
   }
 
   async nextMonth(): Promise<void> {
     this.currentDate.setMonth(this.currentDate.getMonth() + 1);
-    this.currentMonth = this.currentDate.toLocaleString('default', { month: 'long' });
+    this.currentMonth = this.currentDate.toLocaleString('fr-FR', { month: 'long' });
+    this.currentMonth=this.currentMonth.charAt(0).toUpperCase() + this.currentMonth.slice(1);
     await this.renderCalendar();
   }
   toggleEvents(day: any) {
@@ -75,6 +82,18 @@ export class CalendarComponent implements OnInit {
       && day1.getDate() === today.getDate();
     return condition;
   }
+
+  toReadable(readable:string, lang = "fr-FR") {
+    // Convert the string to an integer, then multiply by 1000 to get milliseconds
+    const timestamp = parseInt(readable, 10) * 1000;
+    const formattedDate = new Date(timestamp).toLocaleString(lang, {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+    return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+}
 
   togglePrintMode() {
     this.printService.setPrintMode(!this.printMode);

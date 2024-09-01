@@ -58,6 +58,7 @@
               </div>
               <div class="month">
               <h2>{{ currentMonth }}</h2>
+
             </div>
           </th>
           </tr>
@@ -77,7 +78,7 @@
         <tbody>
           <tr *ngFor="let day of days">
             <td *ngFor="let event of day.events">
-              <div class="date">{{ event.date.readable }}</div>
+              <div class="date">{{  toReadable(event.date.timestamp) }}</div>
             </td>
             <td *ngFor="let event of day.events">
               <div class="date">{{ event.date.hijri.month.ar }} {{ event.date.hijri.day }} {{ event.date.hijri.year }}</div>
