@@ -1,0 +1,11 @@
+<div *ngIf="display" class="notification {{notification?.type}} {{display?'show':'hide'}}">
+  <button class="btn-close" (click)="close()">
+    <fa-icon [icon]="faXmark"></fa-icon>
+  </button>
+  <div class="title">
+    {{notification?.title}}
+  </div>
+  <div class="text">
+    {{notification?.text}}
+  </div>
+</div>

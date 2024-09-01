@@ -8,7 +8,7 @@ import { ClockComponent } from './clock/clock.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SettingsModalComponent } from './settings-modal/settings-modal.component';
 import { CalendarComponent } from './calendar/calendar.component';
-
+import {SharedModule} from './shared/shared.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +20,8 @@ import { CalendarComponent } from './calendar/calendar.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
