@@ -49,7 +49,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   AppComponent: () => (/* binding */ AppComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 9204);
+/* harmony import */ var _Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 9204);
 /* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ 9634);
 /* harmony import */ var _fortawesome_free_brands_svg_icons__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @fortawesome/free-brands-svg-icons */ 3997);
 /* harmony import */ var _env__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./env */ 3493);
@@ -329,7 +329,7 @@ class AppComponent {
   }
   handleKeyboardEvent(event) {
     var _this = this;
-    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this.keySquence.push(event.key);
       // console.log("Key press", this.keySquence);
       // wow is this an ester egg ;)
@@ -347,7 +347,7 @@ class AppComponent {
   }
   ngOnInit() {
     var _this2 = this;
-    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this2.subscription = _this2.printService.printMode$.subscribe(mode => {
         _this2.printMode = mode;
       });
@@ -390,7 +390,7 @@ class AppComponent {
   }
   saveSettings(settings) {
     var _this3 = this;
-    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       console.log("Setting saving...", settings);
       _this3.settings = settings;
       _this3.settings.api.selectedMethod = parseInt(_this3.settings.api.selectedMethod);
@@ -400,7 +400,7 @@ class AppComponent {
   }
   getSettings() {
     var _this4 = this;
-    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       console.log("Setting loading...");
       _this4.settings = yield _this4.prayerService.getSettings();
       console.log("Loaded settings", _this4.settings);
@@ -408,7 +408,7 @@ class AppComponent {
   }
   scanForBle() {
     var _this5 = this;
-    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this5.bleLoading = true;
       yield _this5.soCoService.getBleDevices().then(devices => {
         _this5.bluetoothDevices = devices;
@@ -418,7 +418,7 @@ class AppComponent {
   }
   scanForSonos() {
     var _this6 = this;
-    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this6.deviceLoading = true;
       yield _this6.soCoService.getSoCoDevices().then(devices => {
         _this6.devices = devices;
@@ -538,7 +538,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   CalendarComponent: () => (/* binding */ CalendarComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 9204);
+/* harmony import */ var _Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 9204);
 /* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ 9634);
 /* harmony import */ var _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fortawesome/free-regular-svg-icons */ 6403);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 7580);
@@ -733,8 +733,9 @@ function CalendarComponent_tr_36_td_1_Template(rf, ctx) {
   }
   if (rf & 2) {
     const event_r6 = ctx.$implicit;
+    const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"](event_r6.date.readable);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"](ctx_r1.toReadable(event_r6.date.timestamp));
   }
 }
 function CalendarComponent_tr_36_td_2_Template(rf, ctx) {
@@ -857,7 +858,7 @@ class CalendarComponent {
     this.faPdf = _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_5__.faFilePdf;
     this.showPdf = false;
     this.events = [];
-    this.currentMonth = new Date().toLocaleString('default', {
+    this.currentMonth = new Date().toLocaleString('fr-FR', {
       month: 'long'
     });
     this.currentDate = new Date();
@@ -867,7 +868,8 @@ class CalendarComponent {
   }
   ngOnInit() {
     var _this = this;
-    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      _this.currentMonth = _this.currentMonth.charAt(0).toUpperCase() + _this.currentMonth.slice(1);
       _this.subscription = _this.printService.printMode$.subscribe(mode => {
         _this.printMode = mode;
       });
@@ -883,21 +885,23 @@ class CalendarComponent {
   }
   prevMonth() {
     var _this2 = this;
-    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this2.currentDate.setMonth(_this2.currentDate.getMonth() - 1);
-      _this2.currentMonth = _this2.currentDate.toLocaleString('default', {
+      _this2.currentMonth = _this2.currentDate.toLocaleString('fr-FR', {
         month: 'long'
       });
+      _this2.currentMonth = _this2.currentMonth.charAt(0).toUpperCase() + _this2.currentMonth.slice(1);
       yield _this2.renderCalendar();
     })();
   }
   nextMonth() {
     var _this3 = this;
-    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this3.currentDate.setMonth(_this3.currentDate.getMonth() + 1);
-      _this3.currentMonth = _this3.currentDate.toLocaleString('default', {
+      _this3.currentMonth = _this3.currentDate.toLocaleString('fr-FR', {
         month: 'long'
       });
+      _this3.currentMonth = _this3.currentMonth.charAt(0).toUpperCase() + _this3.currentMonth.slice(1);
       yield _this3.renderCalendar();
     })();
   }
@@ -920,6 +924,17 @@ class CalendarComponent {
     const condition = day1.getMonth() === today.getMonth() && day1.getFullYear() === today.getFullYear() && day1.getDate() === today.getDate();
     return condition;
   }
+  toReadable(readable, lang = "fr-FR") {
+    // Convert the string to an integer, then multiply by 1000 to get milliseconds
+    const timestamp = parseInt(readable, 10) * 1000;
+    const formattedDate = new Date(timestamp).toLocaleString(lang, {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+  }
   togglePrintMode() {
     this.printService.setPrintMode(!this.printMode);
   }
@@ -932,7 +947,7 @@ class CalendarComponent {
   }
   renderCalendar() {
     var _this4 = this;
-    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       // Retrieve all event timings for the current month and year
       _this4.events = yield _this4.prayerService.allTimings(_this4.currentDate.getMonth() + 1, _this4.currentDate.getFullYear());
       _this4.days = [];
@@ -1123,7 +1138,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   HttpService: () => (/* binding */ HttpService)
 /* harmony export */ });
-/* harmony import */ var _Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 9204);
+/* harmony import */ var _Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 9204);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ 4374);
 /* harmony import */ var _types_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/types */ 6793);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 7580);
@@ -1133,7 +1148,7 @@ __webpack_require__.r(__webpack_exports__);
 
 class HttpService {
   get(url, axiosOption) {
-    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       try {
         const {
           protocol,
@@ -1151,7 +1166,7 @@ class HttpService {
     })();
   }
   post(url, data, axiosOption) {
-    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       try {
         const {
           protocol,
@@ -1229,7 +1244,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PrayerService: () => (/* binding */ PrayerService)
 /* harmony export */ });
-/* harmony import */ var _Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 9204);
+/* harmony import */ var _Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 9204);
 /* harmony import */ var _piPlayer_service_types_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @piPlayer/service/types/types */ 6793);
 /* harmony import */ var _piPlayer_service_prayer_models_prayer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @piPlayer/service/prayer/models/prayer */ 8388);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 7580);
@@ -1246,7 +1261,7 @@ class PrayerService {
   }
   getAzanList() {
     var _this = this;
-    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const azanList = yield _this.httpService.get(`${_piPlayer_service_types_types__WEBPACK_IMPORTED_MODULE_1__.CONFIG.getAzanList}`, {
         headers: {
           'Content-Type': 'application/json'
@@ -1259,7 +1274,7 @@ class PrayerService {
   }
   getPrayers() {
     var _this2 = this;
-    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const prayers = yield _this2.httpService.get(`${_piPlayer_service_types_types__WEBPACK_IMPORTED_MODULE_1__.CONFIG.getPrayers}`, {
         headers: {
           'Content-Type': 'application/json'
@@ -1286,7 +1301,7 @@ class PrayerService {
   }
   getSettings() {
     var _this3 = this;
-    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const settingsResp = yield _this3.httpService.get(`${_piPlayer_service_types_types__WEBPACK_IMPORTED_MODULE_1__.CONFIG.getSettings}`, {
         headers: {
           'Content-Type': 'application/json'
@@ -1299,7 +1314,7 @@ class PrayerService {
   }
   saveSetting(settings) {
     var _this4 = this;
-    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const response = yield _this4.httpService.post(_piPlayer_service_types_types__WEBPACK_IMPORTED_MODULE_1__.CONFIG.saveSettings, settings, {
         headers: {
           'Content-Type': 'application/json'
@@ -1312,7 +1327,7 @@ class PrayerService {
   }
   allTimings(month, year) {
     var _this5 = this;
-    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const currentDate = new Date();
       const finalMonth = month || (currentDate.getMonth() + 1).toString();
       const finalYear = year || currentDate.getFullYear().toString();
@@ -1445,7 +1460,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   SoCoService: () => (/* binding */ SoCoService)
 /* harmony export */ });
-/* harmony import */ var _Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 9204);
+/* harmony import */ var _Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 9204);
 /* harmony import */ var _piPlayer_service_soCo_models_device__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @piPlayer/service/soCo/models/device */ 2938);
 /* harmony import */ var _piPlayer_service_types_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @piPlayer/service/types/types */ 6793);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 7580);
@@ -1469,7 +1484,7 @@ class SoCoService {
   }
   getBleDevices() {
     var _this = this;
-    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const result = yield _this.httpService.get(`${_piPlayer_service_types_types__WEBPACK_IMPORTED_MODULE_2__.CONFIG.getBleDevices}`, {
         headers: {
           'Content-Type': 'application/json'
@@ -1486,7 +1501,7 @@ class SoCoService {
   }
   getSoCoDevices() {
     var _this2 = this;
-    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const result = yield _this2.httpService.get(`${_piPlayer_service_types_types__WEBPACK_IMPORTED_MODULE_2__.CONFIG.getSoCoDevice}`, {
         headers: {
           'Content-Type': 'application/json'
@@ -1502,7 +1517,7 @@ class SoCoService {
   }
   playEsterEgg() {
     var _this3 = this;
-    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const result = yield _this3.httpService.get(`${_piPlayer_service_types_types__WEBPACK_IMPORTED_MODULE_2__.CONFIG.playEsterEgg}`, {
         headers: {
           'Content-Type': 'application/json'
@@ -1560,7 +1575,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   SettingsModalComponent: () => (/* binding */ SettingsModalComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 9204);
+/* harmony import */ var _Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 9204);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 7580);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ 316);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ 4456);
@@ -1762,7 +1777,7 @@ class SettingsModalComponent {
     this.devices = [];
   }
   ngOnInit() {
-    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       console.log("setting loaded");
     })();
   }
@@ -1771,7 +1786,7 @@ class SettingsModalComponent {
   }
   saveSettings() {
     var _this = this;
-    return (0,_Users_aminebouzahar_Projects_bluetooth_pi_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_aminebouzahar_Projects_prayer_player_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this.onSave.emit(_this.settings);
     })();
   }
